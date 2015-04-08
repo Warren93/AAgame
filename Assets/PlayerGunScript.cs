@@ -28,7 +28,7 @@ public class PlayerGunScript : MonoBehaviour {
 		if (Input.GetMouseButton (0) && canShootThisFrame) {
 			float overallBulletSpeed = playerInfo.forwardSpeed + bulletSpeed;
 			GameObject bullet = (GameObject) Instantiate(bulletPrefab,
-			                                             transform.position + transform.forward * gunLength * (playerInfo.forwardSpeed / playerInfo.defaultForwardSpeed),
+			                                             transform.position + transform.forward * (gunLength + 3) * (playerInfo.forwardSpeed / playerInfo.defaultForwardSpeed),
 			                                             Quaternion.LookRotation(target - transform.position,
 			                        											player.transform.up));
 			PlayerBulletScript bulletInfo = bullet.GetComponent<PlayerBulletScript>();

@@ -14,24 +14,24 @@ public class EnemyScript : MonoBehaviour {
 
 	float searchTime = 8;
 
-	public float defaultSpeed = 130.0f; // was 65 in thesis
+	public float defaultSpeed;
 	//float defaultSpeed = 20.0f;
 	float maxSpeed;
 	public Vector3 destination;
 	public Vector3 direction;
 	Vector3 facingDirection;
-	float speedScaleFac = 0.25f;
+	float speedScaleFac = 0.1f; // was 0.25
 	//float speedScaleFac = 0.15f;
 	float energyLevel = 100;
 	float energyRegenRate = 2.5f; // was 5, then 20
-	float exhaustionTurnPenaltyCutoff = 50;
+	float exhaustionTurnPenaltyCutoff = 100;
 
 	float sightRange = 100.0f;
 	//float sightRange = 150.0f;
 	float fov = 45.0f; // half of FOV, actually
 	float smellRange;
 
-	public float currentWeaponRange = 75;
+	public float currentWeaponRange;
 
 	float obstacleAvoidanceRange; // range at which obstacles and other agents are detected and avoided
 	float agentAvoidanceRange;
@@ -83,9 +83,9 @@ public class EnemyScript : MonoBehaviour {
 	public bool flockingEnabled = true;
 	public bool encirclingBehaviorEnabled = true;
 	public bool searchStateEnabled = true;
-	public bool energyConsumptionEnabled = true;
+	public bool energyConsumptionEnabled = false;
 	public bool rammingEnabled = false;
-	GameObject player;
+	public GameObject player;
 
 	public Vector3 obstacleVec;
 	public Vector3 agentVec;
@@ -100,12 +100,14 @@ public class EnemyScript : MonoBehaviour {
 	Vector3 directionLastTurnCheck;
 	bool tempPreventEnergyDrain = false;
 
-	TrailRenderer trail;
 
 	public Vector3 newPos = Vector3.zero;
 
 	// Use this for initialization
 	void Start () {
+
+		defaultSpeed = 65.0f; // was 65 in thesis, then 130
+		currentWeaponRange = 500;
 
 		//GetComponent<SphereCollider> ().enabled = false;
 		//GetComponent<CapsuleCollider> ().enabled = false;
@@ -115,7 +117,7 @@ public class EnemyScript : MonoBehaviour {
 
 		setDefaultWeights ();
 
-		smellRange = sightRange * 2.5f;
+		smellRange = sightRange * 0.8f; // was * 2.5
 
 		obstacleVec = agentVec = cohesionVec = alignmentVec = Vector3.zero;
 
@@ -129,8 +131,6 @@ public class EnemyScript : MonoBehaviour {
 
 		player = GameObject.FindGameObjectWithTag ("Player");
 		omniscient = false;
-
-		trail = GetComponent<TrailRenderer> ();
 
 		//avoidanceRange = gameObject.GetComponent<SphereCollider>().bounds.extents.magnitude * 3;
 		//closeInDist = obstacleAvoidanceRange * 8;
@@ -170,7 +170,7 @@ public class EnemyScript : MonoBehaviour {
 	}
 
 	void longAssBoidFunction() {
-		maxSpeed = defaultSpeed * 1.3f;
+		maxSpeed = defaultSpeed * 1.7f; // was * 1.3
 		
 		// RECOVER FROM ANY COLLISION(S)
 		dampenRigidbodyForces ();
@@ -264,12 +264,14 @@ public class EnemyScript : MonoBehaviour {
 		// EXHAUSTION PENALTY FOR TURNING
 		if (energyLevel < exhaustionTurnPenaltyCutoff) {
 			float originalMag = newDirection.magnitude;
-			newDirection = Vector3.Slerp(direction, newDirection, energyLevel / exhaustionTurnPenaltyCutoff).normalized * originalMag;
+			newDirection = Vector3.Slerp(direction, newDirection, (energyLevel) / exhaustionTurnPenaltyCutoff).normalized * originalMag;
 		}
 		
 		if (checkTurnAngleThisFrame)
 			turnAngle = Vector3.Angle(directionLastTurnCheck, newDirection);
-		
+
+		getRollRot (newDirection);
+
 		direction += newDirection * speedScaleFac;
 		
 		if (checkTurnAngleThisFrame)
@@ -301,8 +303,7 @@ public class EnemyScript : MonoBehaviour {
 		//	newPos = Vector3.ClampMagnitude(newPos, lastKnownPlayerVelocity.magnitude * 1.2f);
 		
 		//rigidbody.MovePosition (transform.position + (newPos * Time.deltaTime));
-		
-		
+
 		if (state == WANDER) {
 			facingDirection = direction;
 		}
@@ -316,7 +317,7 @@ public class EnemyScript : MonoBehaviour {
 				facingDirection = Vector3.Slerp(direction, wanted, energyLevel / exhaustionTurnPenaltyCutoff);
 			}
 		}
-		
+
 		/*
 		if (state == PURSUE || (state == SEARCH && Vector3.Distance (transform.position, destination) <= sightRange * 0.5f)) {
 			facingDirection = destination - transform.position;
@@ -345,6 +346,17 @@ public class EnemyScript : MonoBehaviour {
 		}
 		*/
 		//Debug.Log ("turn angle is " + turnAngle);
+	}
+
+	void getRollRot(Vector3 newDirec) {
+		float scale = 1;
+		float angleFromRight = Vector3.Angle (transform.right, newDirec);
+		float angleFromLeft = Vector3.Angle (transform.right * -1, newDirec);
+		if (angleFromRight < 90)
+			transform.RotateAround(transform.position, transform.forward, -scale * (90 - angleFromRight));
+		else if (angleFromLeft < 90)
+			transform.RotateAround(transform.position, transform.forward, scale * (90 - angleFromLeft));
+		//Debug.DrawRay (transform.position, transform.up * 20, Color.magenta);
 	}
 
 	void updateFlightParams() {
@@ -813,7 +825,6 @@ public class EnemyScript : MonoBehaviour {
 			Debug.LogWarning("problem");
 		}
 
-		trail.material.color = renderer.material.color;
 	}
 
 	void allowCheckTurnAngle() {

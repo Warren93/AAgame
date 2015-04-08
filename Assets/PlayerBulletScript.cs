@@ -44,7 +44,7 @@ public class PlayerBulletScript : MonoBehaviour {
 		HPScript otherHP = col.gameObject.GetComponent<HPScript> ();
 		if (col.gameObject.tag != "Player") {
 			if (otherHP != null) {
-				otherHP.hitpoints -= 10;
+				otherHP.hitpoints -= 34;
 			}
 			Instantiate(HitEffectPrefab, transform.position, Quaternion.identity);
 			Destroy (gameObject);

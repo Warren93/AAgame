@@ -19,7 +19,7 @@ public class PlayerScript : MonoBehaviour {
 	float mouseLookSensitivity;
 	int mlb = 1; // mouse look button index
 
-	public float defaultForwardSpeed = 80.0f; // was 40 in thesis
+	public float defaultForwardSpeed;
 	public float forwardSpeed;
 	public float sidewaysSpeed;
 
@@ -59,10 +59,13 @@ public class PlayerScript : MonoBehaviour {
 
 		vecToMainCam = mainCam.transform.position - transform.position;
 
-		sidewaysSpeed = defaultForwardSpeed * 0.7f;
+		defaultForwardSpeed = 80.0f; // was 40 in thesis, then 80
+
+		//sidewaysSpeed = defaultForwardSpeed * 0.7f;
+		sidewaysSpeed = defaultForwardSpeed * 2.0f;
 		mouseY_AxisSensitivity = 100.0f;
 		mouseX_AxisSensitivity = mouseY_AxisSensitivity * 0.35f;
-		rollRate = 75.0f;
+		rollRate = 90.0f; // was 75
 	}
 	
 	// Update is called once per frame
@@ -132,21 +135,25 @@ public class PlayerScript : MonoBehaviour {
 		}
 		// decelerate
 		if (Input.GetKey (KeyCode.Space))
-			forwardSpeed = 0; /*forwardSpeed = defaultForwardSpeed * 0.5f;*/
+			forwardSpeed = defaultForwardSpeed * 0.5f;
 
 		// forward movement
-		Vector3 newPos = transform.position + (transform.TransformDirection (Vector3.forward) * forwardSpeed * Time.deltaTime);
-		rigidbody.MovePosition (newPos);
+		Vector3 newPos = (transform.TransformDirection (Vector3.forward) * forwardSpeed * Time.deltaTime);
 
 		// sideways strafing
 		if (Input.GetKey(KeyCode.A))
-			rigidbody.MovePosition (newPos + (transform.TransformDirection(Vector3.left) * sidewaysSpeed * Time.deltaTime));
+			newPos += (transform.TransformDirection(Vector3.left) * sidewaysSpeed * Time.deltaTime);
 		if (Input.GetKey(KeyCode.D))
-			rigidbody.MovePosition (newPos + (transform.TransformDirection(Vector3.right) * sidewaysSpeed * Time.deltaTime));
+			newPos += (transform.TransformDirection(Vector3.right) * sidewaysSpeed * Time.deltaTime);
 		if (Input.GetKey(KeyCode.W))
-			rigidbody.MovePosition (newPos + (transform.TransformDirection(Vector3.up) * sidewaysSpeed * Time.deltaTime));
+			newPos += (transform.TransformDirection(Vector3.up) * sidewaysSpeed * Time.deltaTime);
 		if (Input.GetKey(KeyCode.S))
-			rigidbody.MovePosition (newPos + (transform.TransformDirection(Vector3.down) * sidewaysSpeed * Time.deltaTime));
+			newPos += (transform.TransformDirection(Vector3.down) * sidewaysSpeed * Time.deltaTime);
+
+		if (newPos.magnitude > forwardSpeed * Time.deltaTime)
+			newPos = Vector3.ClampMagnitude(newPos, forwardSpeed * Time.deltaTime);
+		//Debug.Log ("newPos mag is " + newPos.magnitude);
+		rigidbody.MovePosition (transform.position + newPos);
 
 		// rolling
 		Quaternion leftRotation = Quaternion.AngleAxis(rollRate * Time.deltaTime, Vector3.forward);

@@ -116,8 +116,6 @@ public class GameManagerScript : MonoBehaviour {
 			spawnEnemyAt (spawnPos);
 		}
 
-		Screen.showCursor = false;
-
 		createUniqueAsteroids (); // the asteroids from which all others will be duplicated
 		createAsteroids (numObstacles, Random.Range(1.0f, 1.2f));
 		createAsteroids (numLargeObstacles, Random.Range(3.0f, 5.0f));
@@ -133,6 +131,9 @@ public class GameManagerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		Screen.lockCursor = true;
+		Screen.showCursor = false;
 
 		foreach (Camera cam in Camera.allCameras) {
 			cam.backgroundColor = backgroundColor;
