@@ -108,6 +108,9 @@ public class PlayerScript : MonoBehaviour {
 			Invoke("allowTargetCam", 0.1f);
 		}
 
+		if (Input.GetKey (KeyCode.F) && currentSelectedTarget == null && !Input.GetMouseButton (mlb) && mouseLookCam.enabled)
+			switchToMainCam();
+
 		if (Input.GetMouseButton (mlb) || (Input.GetKey(KeyCode.F) && currentSelectedTarget != null) && allowSwitchToTargetCam) {
 			switchToMouseLookCam();
 		}

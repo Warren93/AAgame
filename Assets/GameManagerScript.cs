@@ -291,7 +291,7 @@ public class GameManagerScript : MonoBehaviour {
 			Vector3 crosshairsWorldPt = Player.transform.position + (Player.transform.forward * playerInfo.currentWeaponRange);
 			if (currentCam
 			    && Vector3.Angle(currentCam.transform.forward, crosshairsWorldPt - currentCam.transform.position) <= currentCam.fieldOfView * 0.5f) {
-				Vector3 crosshairsPt = mainCam.WorldToScreenPoint(crosshairsWorldPt);
+				Vector3 crosshairsPt = currentCam.WorldToScreenPoint(crosshairsWorldPt);
 				crosshairsPt.y = Screen.height - crosshairsPt.y;
 				float s = 9;
 				GUI.Label(new Rect(crosshairsPt.x - (0.5f * s), crosshairsPt.y - (0.5f * s), s, s), "+", guiStyle);
