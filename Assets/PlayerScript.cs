@@ -39,6 +39,14 @@ public class PlayerScript : MonoBehaviour {
 
 	GameObject gameManagerRef;
 
+	public Vector3 newPos;
+
+	bool initialSetup = true;
+
+	public GameObject currentSelectedTarget = null;
+
+	bool allowSwitchToTargetCam = false;
+
 	// Use this for initialization
 	void Start () {
 
@@ -66,26 +74,51 @@ public class PlayerScript : MonoBehaviour {
 		mouseY_AxisSensitivity = 100.0f;
 		mouseX_AxisSensitivity = mouseY_AxisSensitivity * 0.35f;
 		rollRate = 90.0f; // was 75
+
+		transform.rotation = Quaternion.identity;
+		//Debug.Log ("ORIGINAL rotation is " + transform.rotation.eulerAngles);
+
+		Invoke ("turnOffInitialFreeze", 0.5f);
 	}
-	
+
+	void turnOffInitialFreeze() {
+		initialSetup = false;
+	}
+
+	void allowTargetCam() {
+		if (Input.GetKey(KeyCode.F))
+			allowSwitchToTargetCam = true;
+	}
+
 	// Update is called once per frame
 	void Update () {
+
+		//Debug.Log ("rotation is " + transform.rotation.eulerAngles);
+
+		Debug.DrawRay(transform.position, Vector3.up * 50, Color.cyan);
 
 		dampenRigidbodyForces ();
 		//Debug.Log ("mouse look cam is at " + mouseLookCam.transform.position);
 
-		Vector3 nearestEnemyPos = getNearestEnemyPos();
+		if (Input.GetKeyDown(KeyCode.F)) {
+			GameObject potentialNewTarget = getTarget();
+			if (potentialNewTarget != null)
+				currentSelectedTarget = potentialNewTarget;
+			CancelInvoke("allowTargetCam");
+			Invoke("allowTargetCam", 0.1f);
+		}
 
-		if (Input.GetMouseButtonDown (mlb) || (Input.GetKeyDown(KeyCode.F) && nearestEnemyPos != transform.position)) {
+		if (Input.GetMouseButton (mlb) || (Input.GetKey(KeyCode.F) && currentSelectedTarget != null) && allowSwitchToTargetCam) {
 			switchToMouseLookCam();
 		}
-		else if (Input.GetMouseButtonUp (mlb) || Input.GetKeyUp(KeyCode.F)
-		         || (!Input.GetMouseButton(mlb) && nearestEnemyPos == transform.position)) {
+		else if (Input.GetMouseButtonUp (mlb) || Input.GetKeyUp(KeyCode.F)) {
 			switchToMainCam();
 			// reset mouselook camera position
 			resetMouseLookCamPosition();
 			mouseLookY_Rotation = 0;
 			mouseLookX_Rotation = 0;
+			if (Input.GetKeyUp(KeyCode.F))
+				allowSwitchToTargetCam = false;
 		}
 		// get direction based on mouse movement direction
 		float deltaMouseX, deltaMouseY;
@@ -106,11 +139,14 @@ public class PlayerScript : MonoBehaviour {
 			mouseLookCam.transform.RotateAround(transform.position, transform.right, mouseLookX_Rotation);
 			mouseLookCam.transform.RotateAround(transform.position, transform.up, mouseLookY_Rotation);
 		}
-		else if (Input.GetKey (KeyCode.F) && nearestEnemyPos != transform.position) {
-			Debug.DrawLine(transform.position, nearestEnemyPos, Color.cyan);
-			Vector3 vecFromEnemy = transform.position - nearestEnemyPos;
+		else if (Input.GetKey (KeyCode.F)) {
+			Vector3 enemyToLookAt = getSelectedEnemyPos();
+			//mouseLookCam.transform.position = transform.position + transform.forward * 10;
+			//mouseLookCam.transform.LookAt(transform.position, transform.up);
+			Vector3 vecFromEnemy = transform.position - enemyToLookAt;
 			mouseLookCam.transform.position = transform.position + vecFromEnemy.normalized * vecToMainCam.magnitude; //Vector3.Distance(transform.position, mainCam.transform.position);
-			mouseLookCam.transform.LookAt(nearestEnemyPos);
+			mouseLookCam.transform.position += transform.up * 2;
+			mouseLookCam.transform.LookAt(enemyToLookAt);
 		}
 		// movement stuff
 		if((deltaMouseX != 0 || deltaMouseY != 0) && !Input.GetMouseButton(mlb)){
@@ -138,7 +174,7 @@ public class PlayerScript : MonoBehaviour {
 			forwardSpeed = defaultForwardSpeed * 0.5f;
 
 		// forward movement
-		Vector3 newPos = (transform.TransformDirection (Vector3.forward) * forwardSpeed * Time.deltaTime);
+		newPos = (transform.TransformDirection (Vector3.forward) * forwardSpeed * Time.deltaTime);
 
 		// sideways strafing
 		if (Input.GetKey(KeyCode.A))
@@ -173,6 +209,16 @@ public class PlayerScript : MonoBehaviour {
 
 		checkDead ();
 
+		if (initialSetup)
+			transform.rotation = Quaternion.identity;
+
+		/*
+		string tgName = "NULL";
+		if (currentSelectedTarget != null)
+			tgName = currentSelectedTarget.name;
+		*/
+		//Debug.Log ("current target is " + tgName + ", at " + getSelectedEnemyPos () + ", and player is at " + transform.position);
+		//Debug.Log ("allowSwitchToTargetCam is set to " + allowSwitchToTargetCam + ", and current target is " + tgName);
 	}
 
 	void resetMouseLookCamPosition() {
@@ -194,6 +240,8 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	void switchToMouseLookCam() {
+		if (mouseLookCam.enabled)
+			return;
 		mainCam.GetComponent<CameraScript>().enabled = false;
 		mainCam.enabled = false;
 		mainCam.GetComponent<AudioListener>().enabled = false;
@@ -230,12 +278,40 @@ public class PlayerScript : MonoBehaviour {
 		return nearest;
 	}
 
+	GameObject getTarget() {
+		RaycastHit[] hits;
+		hits = Physics.SphereCastAll(transform.position, 20, transform.forward, currentWeaponRange);
+		List<GameObject> relevantObjs = new List<GameObject> ();
+		foreach (RaycastHit hit in hits)
+			if (hit.collider.gameObject.tag == "Enemy")
+				relevantObjs.Add(hit.collider.gameObject);
+		if (relevantObjs.Count <= 0)
+			return null;
+		GameObject closest = relevantObjs[0];
+		float distToClosest = Vector3.Distance(transform.position, closest.transform.position);
+		foreach (GameObject obj in relevantObjs) {
+			float distToCurrent = Vector3.Distance(transform.position, obj.transform.position);
+			if (distToCurrent < distToClosest) {
+				closest = obj;
+				distToClosest = distToCurrent;
+			}
+		}
+		return closest;
+	}
+
+	Vector3 getSelectedEnemyPos() {
+		if (currentSelectedTarget)
+			return currentSelectedTarget.transform.position;
+		else
+			return transform.position;
+	}
+
 	void OnCollisionEnter(Collision collision) {
 		if (nocollide)
 			return;
 		//Debug.Log ("in collsion function");
 		if (!invincible) {
-			if (collision.collider.tag == "Obstacle")
+			if (collision.collider.tag == "Obstacle" || collision.collider.tag == "Ground")
 				hitpoints -= obstacleDamage;
 			if (collision.collider.tag == "Enemy")
 				hitpoints -= enemyDamage;

@@ -59,6 +59,7 @@
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
      <None Include="Assets\Materials\shader sources\CGIncludes\UnityShaderVariables.cginc" />
      <None Include="Assets\Materials\shader sources\CGIncludes\AutoLight.cginc" />
+     <None Include="Assets\Standard Assets\Toon Shading\Ligher-Toony-Lighted.shader" />
      <None Include="Assets\Materials\shader sources\CGIncludes\HLSLSupport.cginc" />
      <None Include="Assets\Materials\shader sources\CGIncludes\UnityCG.cginc" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />

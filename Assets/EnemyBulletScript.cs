@@ -17,6 +17,7 @@ public class EnemyBulletScript : MonoBehaviour {
 	void Update () {
 		if (distanceTraveled >= maxRange)
 			Destroy(gameObject);
+		//Debug.DrawRay(transform.position, transform.forward * 50, Color.cyan);
 	}
 
 	void FixedUpdate() {

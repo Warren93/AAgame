@@ -30,16 +30,17 @@ inline half4 LightingToonRamp (SurfaceOutput s, half3 lightDir, half atten)
 	s_initial.rgb = (s.Albedo + s.Normal + s.Emission).rgb;
 	float n = (s_initial.r + s_initial.g + s_initial.b) / 3;
 	s_initial = (n, n, n);
+
 	half4 c;
 	//c.rgb = s.Albedo * _LightColor0.rgb * ramp * (atten * 2);
 	c.rgb = s_initial * _LightColor0.rgb * d * (atten * 2);
 	c.a = 0;
 	if ((c.r + c.g + c.b) / 3 > 0.66)
-		c.rgb = (1, 1, 1);
+		c.rgb = (1.0, 1.0, 1.0);
 	else if ((c.r + c.g + c.b) / 3 > 0.33)
 		c.rgb = (0.5, 0.5, 0.5);
 	else if ((c.r + c.g + c.b) / 3 > 0)
-		c.rgb = (0, 0, 0);
+		c.rgb = (0.0, 0.0, 0.0);
 	return c;
 }
 

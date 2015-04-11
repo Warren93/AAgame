@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerGunScript : MonoBehaviour {
 
 	float gunLength;
-	float rateOfFire = 0.1f;
+	float rateOfFire = 0.05f;
 	bool canShootThisFrame = true;
 	public GameObject bulletPrefab;
 	float bulletSpeed = 800;

@@ -7,6 +7,8 @@ public class GameManagerScript : MonoBehaviour {
 	public Color backgroundColor;
 	Color[]  backgroundCols = {Color.red, Color.yellow, Color.blue, Color.green, Color.magenta};
 
+	public GameObject ground;
+
 	public GameObject Enemy;
 	GameObject Player;
 	PlayerScript playerInfo;
@@ -27,6 +29,8 @@ public class GameManagerScript : MonoBehaviour {
 	public static bool showWelcomeMsg = true;
 
 	public static float creationRadius;
+	public static float creationHeight;
+	public static float creationAlt;
 	public static float mapRadius;
 	public static float warnRadius;
 
@@ -48,6 +52,7 @@ public class GameManagerScript : MonoBehaviour {
 	*/
 
 	Camera mainCam;
+	Camera mouseLookCam;
 
 	GUIStyle guiStyle;
 
@@ -55,8 +60,14 @@ public class GameManagerScript : MonoBehaviour {
 	void Start () {
 
 		mainCam = GameObject.FindGameObjectWithTag("MainCamera").camera;
+		mouseLookCam = GameObject.FindGameObjectWithTag("MouseLookCam").camera;
 		
 		backgroundColor = backgroundCols[Random.Range(0, backgroundCols.Length - 1)];
+
+		float groundRadius = ground.GetComponent<TerrainCollider>().bounds.extents.x;
+		//float groundRadius = ground.transform.localScale.x;
+		ground.transform.position += Vector3.left * groundRadius;
+		ground.transform.position += Vector3.back * groundRadius;
 
 		Application.targetFrameRate = 60;
 
@@ -74,7 +85,10 @@ public class GameManagerScript : MonoBehaviour {
 		warningRect.center = new Vector2 (Screen.width * 0.5f, Screen.height * 0.5f);
 
 		creationRadius = 1000.0f; // was 800
-		mapRadius = creationRadius * 1.2f; // was 0.9
+		creationHeight = 500.0f;
+		creationAlt = 900.0f;
+		ground.transform.position += Vector3.down * creationRadius * 0.5f;
+		mapRadius = creationRadius * 2.2f; // was 0.9, then 1.2
 		warnRadius = mapRadius - 120;
 
 
@@ -264,13 +278,35 @@ public class GameManagerScript : MonoBehaviour {
 			guiStyle = new GUIStyle(GUI.skin.box);
 			guiStyle.fontSize = 16;
 		}
+
+		Camera currentCam;
+		if (mainCam.enabled)
+			currentCam = mainCam;
+		else
+			currentCam = mouseLookCam;
+
+
 		if (Player) {
 			// draw crosshairs
-			Vector3 crosshairsPt = mainCam.WorldToScreenPoint(Player.transform.position
-			                                                 + (Player.transform.forward * playerInfo.currentWeaponRange));
-			crosshairsPt.y = Screen.height - crosshairsPt.y;
-			float s = 9;
-			GUI.Label(new Rect(crosshairsPt.x - (0.5f * s), crosshairsPt.y - (0.5f * s), s, s), "+", guiStyle);
+			Vector3 crosshairsWorldPt = Player.transform.position + (Player.transform.forward * playerInfo.currentWeaponRange);
+			if (currentCam
+			    && Vector3.Angle(currentCam.transform.forward, crosshairsWorldPt - currentCam.transform.position) <= currentCam.fieldOfView * 0.5f) {
+				Vector3 crosshairsPt = mainCam.WorldToScreenPoint(crosshairsWorldPt);
+				crosshairsPt.y = Screen.height - crosshairsPt.y;
+				float s = 9;
+				GUI.Label(new Rect(crosshairsPt.x - (0.5f * s), crosshairsPt.y - (0.5f * s), s, s), "+", guiStyle);
+			}
+
+			// draw target indicator on current target
+			if (playerInfo.currentSelectedTarget != null
+			    && Vector3.Angle(currentCam.transform.forward,
+			                 playerInfo.currentSelectedTarget.transform.position - currentCam.transform.position)
+			    				<= currentCam.fieldOfView * 0.5f) {
+				Vector3 targetPt = currentCam.WorldToScreenPoint(playerInfo.currentSelectedTarget.transform.position);
+				targetPt.y = Screen.height - targetPt.y;
+				float s = 30;
+				GUI.Label(new Rect(targetPt.x - (0.5f * s), targetPt.y - (0.5f * s), s, s), "+", guiStyle);
+			}
 
 			/*
 			string aiTypeStr = aiType.ToString();
@@ -314,7 +350,7 @@ public class GameManagerScript : MonoBehaviour {
 
 	void createAsteroids(int numToCreate, float scaleFactor) {
 		for (int i = 0; i < numToCreate; i++) {
-			float f1, f2, f3;
+			float xPos, yPos, zPos;
 			/*
 			f1 = Random.Range(-10, 10);
 			f2 = Random.Range(-10, 10);
@@ -323,10 +359,11 @@ public class GameManagerScript : MonoBehaviour {
 			createPt.Normalize();
 			createPt *= Random.Range(20, creationRadius);
 			*/
-			f1 = Random.Range(-creationRadius, creationRadius);
-			f2 = Random.Range(-creationRadius, creationRadius);
-			f3 = Random.Range(-creationRadius, creationRadius);
-			Vector3 createPt = new Vector3(f1, f2, f3);
+			xPos = Random.Range(-creationRadius, creationRadius);
+			yPos = Random.Range(-creationHeight * 0.5f, creationHeight * 0.5f);
+			zPos = Random.Range(-creationRadius, creationRadius);
+			Vector3 createPt = new Vector3(xPos, yPos, zPos);
+			createPt.y += creationAlt;
 			int idx = Random.Range(0, numUniqueObstacles - 1);
 			GameObject obstacle = (GameObject) Instantiate(uniqueAsteroids[idx]);
 			obstacle.transform.localScale *= scaleFactor;

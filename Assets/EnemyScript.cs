@@ -72,7 +72,7 @@ public class EnemyScript : MonoBehaviour {
 	bool playerInSight;
 	Vector3 lastKnownPlayerPos; // the last place the player was seen
 	Vector3 prevLastKnownPlayerPos; // the previous last place the player was seen
-	Vector3 lastKnownPlayerVelocity; // the last known player velocity
+	public Vector3 lastKnownPlayerVelocity; // the last known player velocity
 	public Vector3 playerPosEstimate; // estimate of where the player currently is (useful if player not in sight)
 
 	bool omniscient;
@@ -164,9 +164,13 @@ public class EnemyScript : MonoBehaviour {
 
 		longAssBoidFunction ();
 
-		rigidbody.MovePosition (transform.position + (newPos * Time.deltaTime));
+		//rigidbody.MovePosition (transform.position + (newPos * Time.deltaTime));
 
 		checkTurnAngleThisFrame = false;
+	}
+
+	void FixedUpdate() {
+		rigidbody.MovePosition (transform.position + (newPos * Time.deltaTime));
 	}
 
 	void longAssBoidFunction() {
@@ -765,9 +769,10 @@ public class EnemyScript : MonoBehaviour {
 		}
 		float f1, f2, f3;
 		f1 = Random.Range(-GameManagerScript.creationRadius, GameManagerScript.creationRadius);
-		f2 = Random.Range(-GameManagerScript.creationRadius, GameManagerScript.creationRadius);
+		f2 = Random.Range(-GameManagerScript.creationHeight * 0.5f, GameManagerScript.creationHeight * 0.5f);
 		f3 = Random.Range(-GameManagerScript.creationRadius, GameManagerScript.creationRadius);
 		Vector3 newDestination = new Vector3(f1, f2, f3);
+		newDestination.y += GameManagerScript.creationAlt * 0.5f;
 		newDestination = Vector3.ClampMagnitude (newDestination, GameManagerScript.creationRadius);
 		destination = newDestination;
 
