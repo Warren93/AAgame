@@ -10,6 +10,7 @@ public class GameManagerScript : MonoBehaviour {
 	public GameObject ground;
 
 	public GameObject Enemy;
+	public GameObject enemyFlakTowerPrefab;
 	GameObject Player;
 	PlayerScript playerInfo;
 	public static int score;
@@ -134,6 +135,7 @@ public class GameManagerScript : MonoBehaviour {
 		createAsteroids (numObstacles, Random.Range(1.0f, 1.2f));
 		createAsteroids (numLargeObstacles, Random.Range(3.0f, 5.0f));
 
+		createFlakTowers ();
 
 		if (firstLoad)
 			showLevelLoadMsg = false;
@@ -461,6 +463,18 @@ public class GameManagerScript : MonoBehaviour {
 		}
 	}
 
+	void createFlakTowers() {
+		for (int i = 0; i < 20; i++) {
+			float groundRadius = ground.GetComponent<TerrainCollider>().bounds.extents.x;
+			float groundHeight = ground.GetComponent<TerrainCollider>().bounds.extents.y;
+			Vector3 createPt = new Vector3 (Random.Range (-groundRadius, groundRadius),
+		                               		Random.Range (-groundHeight, groundHeight),
+		                               		Random.Range (-groundRadius, groundRadius));
+			createPt += Vector3.down * creationRadius * 0.5f;
+			GameObject tower = (GameObject)Instantiate (enemyFlakTowerPrefab, createPt, Quaternion.identity);
+			tower.transform.GetChild(0).GetComponent<HPScript>().hitpoints = 50;
+		}
+	}
 
 	void removeLevelLoadMessage() {
 		showLevelLoadMsg = false;

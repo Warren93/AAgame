@@ -286,7 +286,7 @@ public class PlayerScript : MonoBehaviour {
 		hits = Physics.SphereCastAll(transform.position, 20, transform.forward, currentWeaponRange);
 		List<GameObject> relevantObjs = new List<GameObject> ();
 		foreach (RaycastHit hit in hits)
-			if (hit.collider.gameObject.tag == "Enemy")
+			if (hit.collider.gameObject.tag == "Enemy" || hit.collider.gameObject.tag == "Enemy Flak")
 				relevantObjs.Add(hit.collider.gameObject);
 		if (relevantObjs.Count <= 0)
 			return null;
@@ -316,7 +316,7 @@ public class PlayerScript : MonoBehaviour {
 		if (!invincible) {
 			if (collision.collider.tag == "Obstacle" || collision.collider.tag == "Ground")
 				hitpoints -= obstacleDamage;
-			if (collision.collider.tag == "Enemy")
+			if (collision.collider.tag == "Enemy" || collision.collider.tag == "Enemy Flak")
 				hitpoints -= enemyDamage;
 		}
 	}

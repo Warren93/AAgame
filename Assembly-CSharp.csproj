@@ -48,11 +48,14 @@
   <ItemGroup>
      <Compile Include="Assets\CameraScript.cs" />
      <Compile Include="Assets\EnemyBulletScript.cs" />
+     <Compile Include="Assets\EnemyFlakBulletScript.cs" />
      <Compile Include="Assets\EnemyGunScript.cs" />
      <Compile Include="Assets\EnemyScript.cs" />
+     <Compile Include="Assets\FlakTurretScript.cs" />
      <Compile Include="Assets\GameManagerScript.cs" />
      <Compile Include="Assets\HPScript.cs" />
      <Compile Include="Assets\HitEffectScript.cs" />
+     <Compile Include="Assets\LeadCalculator.cs" />
      <Compile Include="Assets\PlayerBulletScript.cs" />
      <Compile Include="Assets\PlayerGunScript.cs" />
      <Compile Include="Assets\PlayerScript.cs" />
