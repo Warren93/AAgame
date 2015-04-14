@@ -769,10 +769,10 @@ public class EnemyScript : MonoBehaviour {
 		}
 		float f1, f2, f3;
 		f1 = Random.Range(-GameManagerScript.creationRadius, GameManagerScript.creationRadius);
-		f2 = Random.Range(-GameManagerScript.creationHeight * 0.5f, GameManagerScript.creationHeight * 0.5f);
+		f2 = Random.Range(-GameManagerScript.creationHeight * 1.5f, GameManagerScript.creationHeight * 0.8f);
 		f3 = Random.Range(-GameManagerScript.creationRadius, GameManagerScript.creationRadius);
 		Vector3 newDestination = new Vector3(f1, f2, f3);
-		newDestination.y += GameManagerScript.creationAlt * 0.5f;
+		newDestination.y += GameManagerScript.creationAlt * 0.2f;
 		newDestination = Vector3.ClampMagnitude (newDestination, GameManagerScript.creationRadius);
 		destination = newDestination;
 

@@ -323,7 +323,7 @@ public class PlayerScript : MonoBehaviour {
 
 
 	void checkDead() {
-		if (hitpoints <= 0)
+		if (hitpoints <= 0 && !invincible)
 			resetGame ();
 	}
 

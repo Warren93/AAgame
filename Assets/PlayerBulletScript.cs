@@ -5,18 +5,13 @@ public class PlayerBulletScript : MonoBehaviour {
 
 	public float speed;
 	public float maxRange;
-	float distanceTraveled = 0;
+	public float distanceTraveled;
 	public GameObject HitEffectPrefab;
-
-	// Use this for initialization
-	void Start () {
-	
-	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (distanceTraveled >= maxRange)
-			Destroy(gameObject);
+			selfDestruct();
 	}
 
 	void FixedUpdate() {
@@ -47,7 +42,23 @@ public class PlayerBulletScript : MonoBehaviour {
 				otherHP.hitpoints -= 1;
 			}
 			Instantiate(HitEffectPrefab, transform.position, Quaternion.identity);
-			Destroy (gameObject);
+			selfDestruct();
 		}
+	}
+
+	/*
+	public void delayedReactivateTrail() {
+		Invoke ("reactivateTrail", 0.2f);
+	}
+	
+	void reactivateTrail() {
+		gameObject.GetComponent<TrailRenderer> ().enabled = true;
+	}
+	*/
+
+	void selfDestruct() {
+		//CancelInvoke("reactivateTrail");
+		//gameObject.GetComponent<TrailRenderer> ().enabled = false;
+		gameObject.SetActive (false);
 	}
 }

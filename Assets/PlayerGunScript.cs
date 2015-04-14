@@ -27,19 +27,29 @@ public class PlayerGunScript : MonoBehaviour {
 		Vector3 target = player.transform.position + (player.transform.forward * playerInfo.currentWeaponRange);
 		if (Input.GetMouseButton (0) && canShootThisFrame) {
 			float overallBulletSpeed = playerInfo.forwardSpeed + bulletSpeed;
+			/*
 			GameObject bullet = (GameObject) Instantiate(bulletPrefab,
-			                                             transform.position + transform.forward * (gunLength + 3) * (playerInfo.forwardSpeed / playerInfo.defaultForwardSpeed),
+			                                             transform.position + transform.forward * (gunLength + 3.5f), //* (playerInfo.forwardSpeed / playerInfo.defaultForwardSpeed),
 			                                             Quaternion.LookRotation(target - transform.position,
 			                        											player.transform.up));
+			*/
+
+			GameObject bullet = ObjectPoolerScript.objectPooler.getPlayerBullet();
+			bullet.transform.position = transform.position + transform.forward * (gunLength + 3.5f);
+			bullet.transform.rotation = Quaternion.LookRotation(target - transform.position,
+			                                                    player.transform.up);
+
 			PlayerBulletScript bulletInfo = bullet.GetComponent<PlayerBulletScript>();
 			bulletInfo.speed = overallBulletSpeed;
+			bulletInfo.distanceTraveled = 0;
 			bulletInfo.maxRange = playerInfo.currentWeaponRange;
 
+			bullet.SetActive(true);
+			//bulletInfo.delayedReactivateTrail();
+
 			// resize bullet
-			bullet.transform.localScale *= bulletScaleFactor;
-			TrailRenderer trail = bullet.GetComponent<TrailRenderer> ();
-			trail.startWidth *= bulletScaleFactor;
-			trail.endWidth *= bulletScaleFactor;
+			bullet.transform.localScale = Vector3.one * bulletScaleFactor;
+			//LineRenderer trail = bullet.GetComponent<LineRenderer> ();
 
 			canShootThisFrame = false;
 			Invoke("reAllowShooting", rateOfFire);

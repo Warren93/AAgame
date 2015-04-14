@@ -14,7 +14,7 @@ public class EnemyFlakBulletScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		subBulletSpeed = 15;
+		subBulletSpeed = 30;
 		subBulletRange = 15;
 	}
 	
@@ -48,22 +48,50 @@ public class EnemyFlakBulletScript : MonoBehaviour {
 
 	void createBulletExplosion() {
 		PlayerScript playerInfo = player.GetComponent<PlayerScript> ();
-		Vector3 target = 2f * Vector3.Distance(transform.position, player.transform.position) * playerInfo.newPos.normalized;
+		//Vector3 target = 2f * Vector3.Distance(transform.position, player.transform.position) * playerInfo.newPos.normalized;
+		Vector3 target = LeadCalculator.FirstOrderIntercept (transform.position,
+		                                                     Vector3.zero,
+		                                                     subBulletSpeed,
+		                                                     player.transform.position,
+		                                                     playerInfo.newPos);
 		for (int i = 0; i < 3; i++) {
-			float noise = 25;
+			float noise = 15;
 			Vector3 target2 = target + new Vector3(Random.Range(-noise, noise), Random.Range(-noise, noise), Random.Range(-noise, noise));
+			/*
 			GameObject subBullet = (GameObject) Instantiate(subBulletPrefab, transform.position,
 			                                                Quaternion.LookRotation(target2 - transform.position));
+			*/
+
+
+			GameObject subBullet = ObjectPoolerScript.objectPooler.getEnemyBullet();
+			subBullet.transform.position = transform.position;
+			subBullet.transform.rotation = Quaternion.LookRotation(target2 - transform.position);
+
 			EnemyBulletScript bulletInfo = subBullet.GetComponent<EnemyBulletScript>();
 			bulletInfo.speed = subBulletSpeed;
+			bulletInfo.distanceTraveled = 0;
 			bulletInfo.maxRange = subBulletRange;
+
+			subBullet.SetActive(true);
+			bulletInfo.delayedReactivateTrail();
 		}
 		for (int i = 0; i < 7; i++) {
+			/*
 			GameObject subBullet = (GameObject) Instantiate(subBulletPrefab, transform.position,
 			                                                Quaternion.Euler(Random.Range(-30, 30), Random.Range(0, 360), 0));
+			*/
+
+			GameObject subBullet = ObjectPoolerScript.objectPooler.getEnemyBullet();
+			subBullet.transform.position = transform.position;
+			subBullet.transform.rotation = Quaternion.Euler(Random.Range(-30, 30), Random.Range(0, 360), 0);
+
 			EnemyBulletScript bulletInfo = subBullet.GetComponent<EnemyBulletScript>();
 			bulletInfo.speed = subBulletSpeed;
+			bulletInfo.distanceTraveled = 0;
 			bulletInfo.maxRange = subBulletRange;
+
+			subBullet.SetActive(true);
+			bulletInfo.delayedReactivateTrail();
 
 		}
 	}
