@@ -9,15 +9,10 @@ public class EnemyFlakBulletScript : MonoBehaviour {
 	public GameObject HitEffectPrefab;
 	public GameObject subBulletPrefab;
 	public GameObject player;
-	float subBulletSpeed;
-	float subBulletRange;
+	public TerrainCollider terrainCol;
+	float subBulletSpeed = 30;
+	float subBulletRange = 15;
 
-	// Use this for initialization
-	void Start () {
-		subBulletSpeed = 30;
-		subBulletRange = 15;
-	}
-	
 	// Update is called once per frame
 	void Update () {
 		if (distanceTraveled >= maxRange || Vector3.Distance(player.transform.position, transform.position) < 30) {
@@ -36,14 +31,14 @@ public class EnemyFlakBulletScript : MonoBehaviour {
 		distanceTraveled += Mathf.Abs(newWorldPos.magnitude - oldWorldPos.magnitude);
 
 		//look ahead to see if going to hit something, because collision detection is apparently spotty otherwise...
-		/*
 		RaycastHit hitInfo;
-		bool didHit = Physics.Raycast (transform.position, transform.forward,
+		Ray ray = new Ray (transform.position, transform.forward);
+		bool didHit = terrainCol.Raycast (ray,
 		                               out hitInfo,
-		                               speed * Time.deltaTime * 0.5f);
+		                               speed * Time.deltaTime);
 		if (didHit)
 			collisionFunction(hitInfo.collider);
-		*/
+
 	}
 
 	void createBulletExplosion() {
@@ -101,12 +96,12 @@ public class EnemyFlakBulletScript : MonoBehaviour {
 	}
 
 	void collisionFunction(Collider col) {
-		if (col.gameObject.tag != "Enemy") {
+		//if (col.gameObject.tag != "Enemy") {
 			if (col.gameObject.tag == "Player") {
 					col.gameObject.GetComponent<PlayerScript>().hitpoints -= 5;
 			}
 			Instantiate(HitEffectPrefab, transform.position, Quaternion.identity);
 			Destroy (gameObject);
-		}
+		//}
 	}
 }

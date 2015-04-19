@@ -12,9 +12,10 @@ public class FlakTurretScript : MonoBehaviour {
 	Transform currentBarrelOut;
 	float rateOfFire = 1.0f;
 	float bulletScaleFactor;
+	TerrainCollider terrainCol;
 
-	public float range;
-	public float ceiling;
+	float range;
+	float ceiling;
 	public float bulletSpeed;
 
 	float horizontalDistance = 0;
@@ -24,8 +25,10 @@ public class FlakTurretScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		range = 500;
-		ceiling = 1000;
+		terrainCol = GameObject.FindGameObjectWithTag ("Ground").GetComponent<TerrainCollider> ();
+
+		range = 400;
+		ceiling = 150;
 		bulletSpeed = 400;
 
 		player = GameObject.FindGameObjectWithTag ("Player");
@@ -42,6 +45,7 @@ public class FlakTurretScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
 		//Vector3 target = player.transform.position;
 		//target += 0.1f * Vector3.Distance(transform.position, player.transform.position) * playerInfo.newPos.normalized;
 
@@ -89,6 +93,7 @@ public class FlakTurretScript : MonoBehaviour {
 			currentBarrelOut = leftGunOut;
 
 		EnemyFlakBulletScript bulletInfo = flakBullet.GetComponent<EnemyFlakBulletScript>();
+		bulletInfo.terrainCol = terrainCol;
 		bulletInfo.speed = bulletSpeed;
 		bulletInfo.maxRange = range;
 		bulletInfo.player = player;

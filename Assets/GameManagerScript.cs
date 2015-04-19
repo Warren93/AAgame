@@ -87,7 +87,7 @@ public class GameManagerScript : MonoBehaviour {
 
 		creationRadius = 1000.0f; // was 800
 		creationHeight = 500.0f;
-		creationAlt = 900.0f;
+		creationAlt = 100.0f; // was 900
 		ground.transform.position += Vector3.down * creationRadius * 0.5f;
 		mapRadius = creationRadius * 2.2f; // was 0.9, then 1.2
 		warnRadius = mapRadius - 120;
@@ -131,9 +131,9 @@ public class GameManagerScript : MonoBehaviour {
 			spawnEnemyAt (spawnPos);
 		}
 
-		createUniqueAsteroids (); // the asteroids from which all others will be duplicated
-		createAsteroids (numObstacles, Random.Range(1.0f, 1.2f));
-		createAsteroids (numLargeObstacles, Random.Range(3.0f, 5.0f));
+		//createUniqueAsteroids (); // the asteroids from which all others will be duplicated
+		//createAsteroids (numObstacles, Random.Range(1.0f, 1.2f));
+		//createAsteroids (numLargeObstacles, Random.Range(3.0f, 5.0f));
 
 		createFlakTowers ();
 
@@ -148,6 +148,7 @@ public class GameManagerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		//Debug.Log ("alt is " + creationAlt);
 		Screen.lockCursor = true;
 		Screen.showCursor = false;
 
@@ -464,14 +465,17 @@ public class GameManagerScript : MonoBehaviour {
 	}
 
 	void createFlakTowers() {
+		TerrainCollider terrainCol = ground.GetComponent<TerrainCollider> ();
+		float groundRadius = terrainCol.bounds.extents.x;
+		groundRadius -= 5;
 		for (int i = 0; i < 20; i++) {
-			float groundRadius = ground.GetComponent<TerrainCollider>().bounds.extents.x;
-			float groundHeight = ground.GetComponent<TerrainCollider>().bounds.extents.y;
-			Vector3 createPt = new Vector3 (Random.Range (-groundRadius, groundRadius),
-		                               		Random.Range (-groundHeight, groundHeight),
+			Vector3 raycastOrigin = new Vector3 (Random.Range (-groundRadius, groundRadius),
+		                               		1000,
 		                               		Random.Range (-groundRadius, groundRadius));
-			createPt += Vector3.down * creationRadius * 0.5f;
-			GameObject tower = (GameObject)Instantiate (enemyFlakTowerPrefab, createPt, Quaternion.identity);
+			Ray ray = new Ray(raycastOrigin, Vector3.down);
+			RaycastHit hit;
+			terrainCol.Raycast(ray, out hit, Mathf.Infinity);
+			GameObject tower = (GameObject)Instantiate (enemyFlakTowerPrefab, hit.point, Quaternion.identity);
 			tower.transform.GetChild(0).GetComponent<HPScript>().hitpoints = 50;
 		}
 	}

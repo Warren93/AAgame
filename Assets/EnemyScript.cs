@@ -9,6 +9,9 @@ public class EnemyScript : MonoBehaviour {
 	public const int SEARCH = 2;
 
 	public GameObject gameManger; // reference to the game manager object
+	TerrainCollider terrainCol;
+	float groundDetectDist = 200;
+	float groundDetectWeight = 2500;
 
 	float boidUpdateFreq = 0.5f;
 
@@ -130,6 +133,7 @@ public class EnemyScript : MonoBehaviour {
 		facingDirection = direction;
 
 		player = GameObject.FindGameObjectWithTag ("Player");
+		terrainCol = GameObject.FindGameObjectWithTag ("Ground").GetComponent<TerrainCollider> ();
 		omniscient = false;
 
 		//avoidanceRange = gameObject.GetComponent<SphereCollider>().bounds.extents.magnitude * 3;
@@ -277,6 +281,9 @@ public class EnemyScript : MonoBehaviour {
 		getRollRot (newDirection);
 
 		direction += newDirection * speedScaleFac;
+
+		// DON'T CRASH INTO GROUND...
+		direction += groundCheckSimple (transform.position, groundDetectDist);
 		
 		if (checkTurnAngleThisFrame)
 			directionLastTurnCheck = newDirection.normalized;
@@ -768,12 +775,12 @@ public class EnemyScript : MonoBehaviour {
 			return;
 		}
 		float f1, f2, f3;
-		f1 = Random.Range(-GameManagerScript.creationRadius, GameManagerScript.creationRadius);
-		f2 = Random.Range(-GameManagerScript.creationHeight * 1.5f, GameManagerScript.creationHeight * 0.8f);
-		f3 = Random.Range(-GameManagerScript.creationRadius, GameManagerScript.creationRadius);
+		f1 = Random.Range(-terrainCol.bounds.extents.x, terrainCol.bounds.extents.x);
+		f2 = Random.Range(terrainCol.transform.position.x + 50, terrainCol.transform.position.x + 150);
+		f3 = Random.Range(-terrainCol.bounds.extents.z, terrainCol.bounds.extents.z);
 		Vector3 newDestination = new Vector3(f1, f2, f3);
-		newDestination.y += GameManagerScript.creationAlt * 0.2f;
-		newDestination = Vector3.ClampMagnitude (newDestination, GameManagerScript.creationRadius);
+		newDestination += 300 * groundCheck (newDestination, 1000);
+		newDestination = Vector3.ClampMagnitude (newDestination, terrainCol.bounds.extents.magnitude * 0.8f);
 		destination = newDestination;
 
 		//Debug.Log ("destination changed to " + newDestination);
@@ -843,6 +850,63 @@ public class EnemyScript : MonoBehaviour {
 			return true;
 		else
 			return false;
+	}
+
+	Vector3 groundCheck(Vector3 pos, float radius) {
+		Vector3 returnVec = Vector3.zero;
+		const int len = 6;
+		Ray[] rays = new Ray[len];
+		rays[0] = new Ray (pos, transform.up); // up
+		rays[1] = new Ray (pos, transform.up * -1); // down
+		rays[2] = new Ray (pos, transform.right * -1); // left
+		rays[3] = new Ray (pos, transform.right); // right
+		rays[4] = new Ray (pos, transform.forward); // forward
+		rays[5] = new Ray (pos, transform.forward * -1); // back
+		RaycastHit hitInfo;
+		for (int i = 0; i < len; i++) {
+			bool didHit;
+			didHit = terrainCol.Raycast (rays[i], out hitInfo, radius);
+			//didHit = Physics.SphereCast (rays[i].origin, 60, rays[i].direction, out hitInfo, radius);
+			if (!didHit/* || hitInfo.collider.tag != "Ground"*/)
+				continue;
+			//Debug.Log("ray hit ground");
+			Vector3 vecFromContactPt = transform.position - hitInfo.point;
+			float distFromContactPt = vecFromContactPt.magnitude;
+			if (distFromContactPt < 0.1f)
+				distFromContactPt = 0.1f;
+			returnVec += (vecFromContactPt.normalized / distFromContactPt) * groundDetectWeight;
+		}
+		return returnVec;
+	}
+
+	Vector3 groundCheckSimple(Vector3 pos, float dist) {
+		Vector3 returnVec = Vector3.zero;
+		Ray rayDown = new Ray (pos, Vector3.up * -1); // down
+		Ray rayFwd = new Ray (pos, transform.forward); // forward
+		RaycastHit hitInfo;
+		bool didHit;
+		didHit = terrainCol.Raycast (rayDown, out hitInfo, dist);
+		if (didHit) {
+			Vector3 vecFromContactPt = transform.position - hitInfo.point;
+			float distFromContactPt = vecFromContactPt.magnitude;
+			if (distFromContactPt < 0.1f)
+				distFromContactPt = 0.1f;
+			returnVec += (vecFromContactPt.normalized / Mathf.Pow(distFromContactPt, 2)) * groundDetectWeight;
+		}
+		didHit = terrainCol.Raycast (rayFwd, out hitInfo, dist * 0.2f);
+		if (didHit) {
+			Vector3 vecFromContactPt = transform.position - hitInfo.point;
+			float distFromContactPt = vecFromContactPt.magnitude;
+			if (distFromContactPt < 0.1f)
+				distFromContactPt = 0.1f;
+			returnVec += (vecFromContactPt.normalized / Mathf.Pow(distFromContactPt, 2)) * groundDetectWeight;
+		}
+		return returnVec;
+	}
+
+	void OnCollisionEnter(Collision collision) {
+		if (collision.collider.gameObject.tag == "Ground")
+			Debug.Log("enemy fighter hit ground");
 	}
 
 	bool checkVectorIsNaN(Vector3 test) {

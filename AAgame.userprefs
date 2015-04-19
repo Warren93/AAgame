@@ -1,8 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/EnemyScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/AirBossScript.cs">
     <Files>
-      <File FileName="Assets/EnemyScript.cs" Line="775" Column="58" />
+      <File FileName="Assets/GameManagerScript.cs" Line="479" Column="72" />
+      <File FileName="Assets/BossTurretScript.cs" Line="56" Column="22" />
+      <File FileName="Assets/EnemyGunScript.cs" Line="62" Column="30" />
+      <File FileName="Assets/AirBossScript.cs" Line="68" Column="5" />
+      <File FileName="Assets/LeadCalculator.cs" Line="19" Column="28" />
+      <File FileName="Assets/ObjectPoolerScript.cs" Line="59" Column="4" />
+      <File FileName="Assets/FlakTurretScript.cs" Line="31" Column="15" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
