@@ -50,7 +50,7 @@ public class BossTurretScript : MonoBehaviour {
 	void Update () {
 		Vector3 target = LeadCalculator.FirstOrderIntercept (
 				currentBarrelOut.position,
-				boss.transform.forward * bossInfo.speed * Time.deltaTime,
+				Vector3.zero, //boss.transform.forward * bossInfo.speed * Time.deltaTime,
 				bulletSpeed * Time.deltaTime,
 				player.transform.position,
 				playerInfo.newPos);

@@ -28,6 +28,17 @@ public class AirBossScript : MonoBehaviour {
 		for (int i = 0; i < 4; i++)
 			props.Add(transform.GetChild(i).gameObject);
 
+		foreach (Transform child in transform) {
+			if (child.tag == "AirBossWingCollider") {
+				Transform newChild = (Transform) Instantiate(child, child.position, child.rotation);
+				Vector3 currentChildRot = child.rotation.eulerAngles;
+				currentChildRot.y *= -1;
+				currentChildRot.z *= -1;
+				newChild.rotation = Quaternion.Euler(currentChildRot);
+				newChild.parent = transform;
+			}
+		}
+
 		Invoke ("beginTurning", turnFreq);
 	}
 	
