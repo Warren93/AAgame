@@ -285,9 +285,12 @@ public class PlayerScript : MonoBehaviour {
 		RaycastHit[] hits;
 		hits = Physics.SphereCastAll(transform.position, 20, transform.forward, currentWeaponRange);
 		List<GameObject> relevantObjs = new List<GameObject> ();
-		foreach (RaycastHit hit in hits)
-			if (hit.collider.gameObject.tag == "Enemy" || hit.collider.gameObject.tag == "Enemy Flak")
+		foreach (RaycastHit hit in hits) {
+			if (hit.collider.gameObject.GetComponent<HPScript>() != null && hit.collider.gameObject.tag == "Enemy" || hit.collider.gameObject.tag == "Enemy Flak")
 				relevantObjs.Add(hit.collider.gameObject);
+			if (hit.collider.transform.parent != null && hit.collider.transform.parent.gameObject.tag == "Enemy")
+				relevantObjs.Add(hit.collider.transform.parent.gameObject);
+		}
 		if (relevantObjs.Count <= 0)
 			return null;
 		GameObject closest = relevantObjs[0];

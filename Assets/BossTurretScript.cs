@@ -48,12 +48,20 @@ public class BossTurretScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		float boostMult = 1;
+		float leadMult = 0.85f;
+		if (Input.GetKey(KeyCode.LeftShift)) {
+			boostMult = 3f;
+			leadMult = 1;
+		}
+
 		Vector3 target = LeadCalculator.FirstOrderIntercept (
 				currentBarrelOut.position,
 				Vector3.zero, //boss.transform.forward * bossInfo.speed * Time.deltaTime,
-				bulletSpeed * Time.deltaTime,
+				bulletSpeed * boostMult *Time.deltaTime,
 				player.transform.position,
-				playerInfo.newPos);
+				playerInfo.newPos * leadMult);
+				//player.transform.forward * playerInfo.defaultForwardSpeed * Time.deltaTime);
 		Vector3 targetPosInLocalFrame = transform.InverseTransformPoint (target);
 		Vector3 adjustedTargetInWorldFrame = transform.TransformPoint(new Vector3 (targetPosInLocalFrame.x, 0, targetPosInLocalFrame.z));
 		//float horizontalAngleToTarget = Mathf.Atan2(targetPosInLocalFrame.x, targetPosInLocalFrame.z);
@@ -75,7 +83,7 @@ public class BossTurretScript : MonoBehaviour {
 	}
 
 	void shoot() {
-		if (!playerInRange())
+		if (!playerInRange() || !clearLOS(gameObject, player, range))
 			return;
 		// alternate barrels
 		if (currentBarrelOut == leftGunOut)
@@ -105,6 +113,30 @@ public class BossTurretScript : MonoBehaviour {
 
 	bool playerInRange() {
 		if (Vector3.Distance(transform.position, player.transform.position) <= range && unadjustedElevationAngle >= 0)
+			return true;
+		else
+			return false;
+	}
+
+	bool clearLOS(GameObject obj1, GameObject obj2, float range) {
+		RaycastHit[] hits;
+		Vector3 rayDirection = obj2.transform.position - obj1.transform.position;
+		hits = Physics.RaycastAll(obj1.transform.position, rayDirection, range);
+		if (hits.Length <= 0)
+			return false;
+		GameObject closest = hits [0].collider.gameObject;
+		float distToClosest = Vector3.Distance(obj1.transform.position, closest.transform.position);
+		foreach (RaycastHit hit in hits) {
+			GameObject current = hit.collider.gameObject;
+			if (current == obj1)
+				continue;
+			float distToCurrent = Vector3.Distance(obj1.transform.position, current.transform.position);
+			if (distToCurrent < distToClosest) {
+				closest = current;
+				distToClosest = distToCurrent;
+			}
+		}
+		if (closest == obj2)
 			return true;
 		else
 			return false;

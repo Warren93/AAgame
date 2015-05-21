@@ -395,9 +395,9 @@ public class EnemyScript : MonoBehaviour {
 			// if flock too big, lower cohesion distance
 			else {
 				setCohesionRangeShort();
-				cohesionRange = cohesionRange * 0.5f;
+				cohesionRange = cohesionRange * 0.2f; // was 0.5
 				cohesionWeight = 0;
-				agentAvoidanceWeight = defaultAgentAvoidanceWeight * 2;
+				agentAvoidanceWeight = defaultAgentAvoidanceWeight * 3; // was default x2
 			}
 		}
 		else if (state == PURSUE) {
@@ -650,6 +650,7 @@ public class EnemyScript : MonoBehaviour {
 		return avoidanceVec * agentAvoidanceWeight;
 	}
 
+	/*
 	void getNeighbors() {
 		neighbors.Clear ();
 		closeNeighbors.Clear ();
@@ -659,6 +660,22 @@ public class EnemyScript : MonoBehaviour {
 				neighbors.Add(col.gameObject);
 				if (Vector3.Distance(transform.position, col.gameObject.transform.position) < agentAvoidanceRange)
 					closeNeighbors.Add(col.gameObject);
+			}
+		}
+	}
+	*/
+
+	void getNeighbors() {
+		neighbors.Clear ();
+		closeNeighbors.Clear ();
+		foreach(GameObject enemy in GameManagerScript.enemies) {
+			if (!enemy)
+				continue;
+			float distToOther = Vector3.Distance(transform.position, enemy.transform.position);
+			if (distToOther <= cohesionRange) {
+				neighbors.Add(enemy);
+				if (distToOther < agentAvoidanceRange)
+					closeNeighbors.Add(enemy);
 			}
 		}
 	}
@@ -706,6 +723,8 @@ public class EnemyScript : MonoBehaviour {
 			if (!obj)
 				continue;
 			EnemyScript currentObj = obj.GetComponent<EnemyScript>();
+			if (!currentObj)
+				continue;
 			float mult = 1;
 			if (currentObj.state == PURSUE)
 				mult = 50;
@@ -915,6 +934,10 @@ public class EnemyScript : MonoBehaviour {
 			return true;
 		}
 		return false;
+	}
+
+	void OnDestroy() {
+		GameManagerScript.enemies.Remove (gameObject);
 	}
 	
 

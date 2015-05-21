@@ -27,16 +27,29 @@ public class AirBossScript : MonoBehaviour {
 		props = new List<GameObject> ();
 		for (int i = 0; i < 4; i++)
 			props.Add(transform.GetChild(i).gameObject);
-
+		List<Transform> newChildren = new List<Transform> ();
+		List<Vector3> newChildPositions = new List<Vector3> ();
+		List<Vector3> newChildScales = new List<Vector3> ();
 		foreach (Transform child in transform) {
 			if (child.tag == "AirBossWingCollider") {
 				Transform newChild = (Transform) Instantiate(child, child.position, child.rotation);
+				Vector3 currentChildScale = child.localScale;
+				Vector3 currentChildLocalPos = child.localPosition;
 				Vector3 currentChildRot = child.rotation.eulerAngles;
+				currentChildLocalPos.x *= -1;
 				currentChildRot.y *= -1;
 				currentChildRot.z *= -1;
+				newChildPositions.Add(currentChildLocalPos);
+				newChildScales.Add(currentChildScale);
 				newChild.rotation = Quaternion.Euler(currentChildRot);
-				newChild.parent = transform;
+				newChildren.Add(newChild);
 			}
+		}
+
+		for (int i = 0; i < newChildren.Count; i++) {
+			newChildren[i].parent = transform;
+			newChildren[i].localScale = newChildScales[i];
+			newChildren[i].localPosition = newChildPositions[i];
 		}
 
 		Invoke ("beginTurning", turnFreq);
@@ -48,9 +61,18 @@ public class AirBossScript : MonoBehaviour {
 			props[i].transform.RotateAround(props[i].transform.position,
 			                                props[i].transform.forward,
 			                                defaultPropRotationSpeed * Time.deltaTime);
+		executeTurn ();
+	}
+
+	void FixedUpdate() {
+		rigidbody.MovePosition (transform.position + (transform.forward * speed * Time.deltaTime));
+	}
+
+	void executeTurn() {
 		if (state == TURNING) {
 			turnRate = Vector3.Angle(transform.forward, desiredHeading) / remainingTurnTime; // degrees to turn divided by time
 			transform.RotateAround (transform.position, Vector3.up, turnRate * Time.deltaTime);
+			//rigidbody.MoveRotation(Quaternion.RotateTowards(transform.rotation, Quaternion.FromToRotation(transform.up, transform.right), turnRate * Time.deltaTime));
 			//Debug.Log("turning at rate of " + turnRate + " degrees per sec, for " + turnDuration + " seconds");
 
 			// bank
@@ -62,10 +84,6 @@ public class AirBossScript : MonoBehaviour {
 			remainingTurnTime -= Time.deltaTime;
 		}
 		//Debug.Log ("air boss y is " + transform.position.y);
-	}
-
-	void FixedUpdate() {
-		rigidbody.MovePosition (transform.position + (transform.forward * speed * Time.deltaTime));
 	}
 
 	void beginTurning() {

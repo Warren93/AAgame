@@ -37,9 +37,15 @@ public class PlayerBulletScript : MonoBehaviour {
 
 	void collisionFunction(Collider col) {
 		HPScript otherHP = col.gameObject.GetComponent<HPScript> ();
+		HPScript otherParentHP = null;
+		if (col.transform.parent != null)
+			otherParentHP = col.gameObject.transform.parent.GetComponent<HPScript> ();
 		if (col.gameObject.tag != "Player") {
 			if (otherHP != null) {
 				otherHP.hitpoints -= 1;
+			}
+			else if (col.transform.parent != null) {
+				otherParentHP.hitpoints -= 1;
 			}
 			Instantiate(HitEffectPrefab, transform.position, Quaternion.identity);
 			selfDestruct();

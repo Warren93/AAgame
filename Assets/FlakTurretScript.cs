@@ -38,7 +38,7 @@ public class FlakTurretScript : MonoBehaviour {
 		rightGunOut = gunBarrels.transform.GetChild (1).gameObject.transform;
 		currentBarrelOut = leftGunOut;
 
-		bulletScaleFactor = 4.0f;
+		bulletScaleFactor = 7.0f; // was 4
 
 		InvokeRepeating ("shoot", Random.Range (0.1f, rateOfFire), rateOfFire);
 	}
@@ -103,6 +103,8 @@ public class FlakTurretScript : MonoBehaviour {
 		TrailRenderer trail = flakBullet.GetComponent<TrailRenderer> ();
 		trail.startWidth *= bulletScaleFactor;
 		trail.endWidth *= bulletScaleFactor;
+		trail.material.color = Color.yellow;
+		flakBullet.renderer.material.color = Color.yellow;
 
 	}
 

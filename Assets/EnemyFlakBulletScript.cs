@@ -62,13 +62,7 @@ public class EnemyFlakBulletScript : MonoBehaviour {
 			subBullet.transform.position = transform.position;
 			subBullet.transform.rotation = Quaternion.LookRotation(target2 - transform.position);
 
-			EnemyBulletScript bulletInfo = subBullet.GetComponent<EnemyBulletScript>();
-			bulletInfo.speed = subBulletSpeed;
-			bulletInfo.distanceTraveled = 0;
-			bulletInfo.maxRange = subBulletRange;
-
-			subBullet.SetActive(true);
-			bulletInfo.delayedReactivateTrail();
+			prepareBullet(subBullet);
 		}
 		for (int i = 0; i < 7; i++) {
 			/*
@@ -80,15 +74,22 @@ public class EnemyFlakBulletScript : MonoBehaviour {
 			subBullet.transform.position = transform.position;
 			subBullet.transform.rotation = Quaternion.Euler(Random.Range(-30, 30), Random.Range(0, 360), 0);
 
-			EnemyBulletScript bulletInfo = subBullet.GetComponent<EnemyBulletScript>();
-			bulletInfo.speed = subBulletSpeed;
-			bulletInfo.distanceTraveled = 0;
-			bulletInfo.maxRange = subBulletRange;
-
-			subBullet.SetActive(true);
-			bulletInfo.delayedReactivateTrail();
-
+			prepareBullet(subBullet);
 		}
+	}
+
+	void prepareBullet(GameObject subBullet) {
+		EnemyBulletScript bulletInfo = subBullet.GetComponent<EnemyBulletScript>();
+		bulletInfo.speed = subBulletSpeed;
+		bulletInfo.distanceTraveled = 0;
+		bulletInfo.maxRange = subBulletRange;
+		
+		TrailRenderer trail = subBullet.GetComponent<TrailRenderer> ();
+		trail.material.color = Color.yellow;
+		subBullet.renderer.material.color = Color.yellow;
+		
+		subBullet.SetActive(true);
+		bulletInfo.delayedReactivateTrail();
 	}
 
 	void OnCollisionEnter(Collision collision) {

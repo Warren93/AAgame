@@ -64,6 +64,7 @@ public class GameManagerScript : MonoBehaviour {
 		mouseLookCam = GameObject.FindGameObjectWithTag("MouseLookCam").camera;
 		
 		backgroundColor = backgroundCols[Random.Range(0, backgroundCols.Length - 1)];
+		backgroundColor = new Color (184.0f / 255.0f, 145.0f / 255.0f, 61.0f / 255.0f);
 
 		float groundRadius = ground.GetComponent<TerrainCollider>().bounds.extents.x;
 		//float groundRadius = ground.transform.localScale.x;
@@ -319,9 +320,16 @@ public class GameManagerScript : MonoBehaviour {
 			        "AI type: " + aiTypeStr + "    Boost: " + (int)playerInfo.boostCharge + "   Health: " + (int)playerInfo.hitpoints + "   Score: " + score,  guiStyle);
 			*/
 
+			HPScript targetHP = null;
+			string targetHP_Str = "";
+			if (playerInfo.currentSelectedTarget != null && playerInfo.currentSelectedTarget.GetComponent<HPScript>() != null) {
+				targetHP = playerInfo.currentSelectedTarget.GetComponent<HPScript>();
+				targetHP_Str = ((int)(targetHP.hitpoints)).ToString();
+			}
+
 			GUI.Box(infoBarRect,
 			        "Boost: " + (int)playerInfo.boostCharge + "   Health: " + (int)playerInfo.hitpoints
-			        + "   Score: " + score,  guiStyle);
+			        + "   Score: " + score + "    Target HP: " + targetHP_Str,  guiStyle);
 
 			float playerDistFromOrigin = Vector3.Distance(Vector3.zero, Player.transform.position);
 			float distToEdge = mapRadius - playerDistFromOrigin;

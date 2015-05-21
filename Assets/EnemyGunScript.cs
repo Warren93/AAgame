@@ -58,6 +58,8 @@ public class EnemyGunScript : MonoBehaviour {
 			TrailRenderer trail = bullet.GetComponent<TrailRenderer> ();
 			trail.startWidth = 0.05f * bulletScaleFactor;
 			trail.endWidth = 0.001f * bulletScaleFactor;
+			trail.material.color = Color.red;
+			bullet.renderer.material.color = Color.red;
 
 			canShootThisFrame = false;
 			Invoke("reAllowShooting", rateOfFire);
