@@ -12,6 +12,6 @@ public class EngineScript : MonoBehaviour {
 	
 	void OnCollisionEnter(Collision collision) {
 		if (collision.collider.gameObject.tag == "PlayerBullet")
-			parentHP.hitpoints -= 3;
+			parentHP.hitpoints -= 4;
 	}
 }

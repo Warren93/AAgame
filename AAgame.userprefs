@@ -1,13 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\EnemyGunScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\BossTurretScript.cs">
     <Files>
-      <File FileName="Assets\BossTurretScript.cs" Line="54" Column="17" />
-      <File FileName="Assets\LeadCalculator.cs" Line="16" Column="43" />
-      <File FileName="Assets\PlayerScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\FlakTurretScript.cs" Line="41" Column="24" />
-      <File FileName="Assets\EnemyFlakBulletScript.cs" Line="93" Column="3" />
-      <File FileName="Assets\EnemyGunScript.cs" Line="73" Column="1" />
+      <File FileName="Assets\BossTurretScript.cs" Line="260" Column="21" />
+      <File FileName="Assets\LeadCalculator.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

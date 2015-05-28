@@ -11,6 +11,7 @@ Shader "MultiShade" {
 		
 CGPROGRAM
 #pragma surface surf ToonRamp
+#pragma target 3.0
 
 sampler2D _Ramp;
 

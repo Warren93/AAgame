@@ -1,14 +1,20 @@
 Base path: C:/Program Files (x86)/Unity/Editor/Data
-Pipe name: \\.\pipe\UnityShaderCompiler-8-804
+Pipe name: \\.\pipe\UnityShaderCompiler-8-8860
 Cmd: getPlatforms
 Cmd: compileSnippet
-  error: 2 plat 1 at (0): Arithmetic instruction limit of 64 exceeded; 67 arithmetic instructions needed to compile program
-  error: 1 plat 1 at (36): implicit cast from "half4" to "half3"
-  api=1 type=1 insize=3340 outsize=0 kw=SPOT ok=0
+  api=4 type=0 insize=5383 outsize=2997 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF ok=1
 Cmd: compileSnippet
-  error: 2 plat 0 at (0): Arithmetic instruction limit of 64 exceeded; 66 arithmetic instructions needed to compile program
-  error: 1 plat 0 at (36): implicit cast from "half4" to "half3"
-  api=0 type=1 insize=3340 outsize=0 kw=SPOT ok=0
+  api=1 type=1 insize=5383 outsize=232 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_ON DIRLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=5383 outsize=1672 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_ON DIRLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=3359 outsize=1851 kw=DIRECTIONAL ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=3359 outsize=821 kw=POINT_COOKIE ok=1
+Cmd: compileSnippet
+  api=1 type=1 insize=3359 outsize=1831 kw=POINT ok=1
+Cmd: compileSnippet
+  api=1 type=1 insize=3359 outsize=1871 kw=POINT_COOKIE ok=1
 Unhandled exception: Readfile from pipe failed. GLE=The pipe has been ended.
 
 
