@@ -6,7 +6,12 @@ public class EnemyBulletScript : MonoBehaviour {
 	public float speed;
 	public float maxRange;
 	public float distanceTraveled;
+	public float damage = 5;
 	public GameObject HitEffectPrefab;
+
+	void OnEnable() {
+		damage = 5; // default
+	}
 
 	// Update is called once per frame
 	void Update () {
@@ -41,7 +46,7 @@ public class EnemyBulletScript : MonoBehaviour {
 	void collisionFunction(Collider col) {
 		if (col.gameObject.tag != "Enemy") {
 			if (col.gameObject.tag == "Player") {
-					col.gameObject.GetComponent<PlayerScript>().hitpoints -= 5;
+					col.gameObject.GetComponent<PlayerScript>().hitpoints -= damage;
 			}
 			Instantiate(HitEffectPrefab, transform.position, Quaternion.identity);
 			selfDestruct();

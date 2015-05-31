@@ -103,7 +103,6 @@ public class EnemyScript : MonoBehaviour {
 	Vector3 directionLastTurnCheck;
 	bool tempPreventEnergyDrain = false;
 
-
 	public Vector3 newPos = Vector3.zero;
 
 	// Use this for initialization
@@ -261,9 +260,9 @@ public class EnemyScript : MonoBehaviour {
 		}
 		
 		newDirection += obstacleVec;
-		
+
 		float speed = defaultSpeed;
-		
+
 		if (!flockingEnabled)
 			newDirection = directVectorToDest;
 		
@@ -290,24 +289,26 @@ public class EnemyScript : MonoBehaviour {
 		
 		newPos = direction * speed * (energyLevel / 100.0f);
 		
-		if (state == WANDER && newPos.magnitude > defaultSpeed || closeToPlayer())
+		if ((state == WANDER && newPos.magnitude > defaultSpeed) || closeToPlayer())
 			newPos = Vector3.ClampMagnitude (newPos, defaultSpeed);
 		
 		if (newPos.magnitude > maxSpeed)
 			newPos = Vector3.ClampMagnitude (newPos, maxSpeed);
 		
-		if (!rammingEnabled && closeToPlayer() /*&& newPos.magnitude > lastKnownPlayerVelocity.magnitude*/)
+		if (!rammingEnabled && closeToPlayer())
 			newPos = Vector3.ClampMagnitude (newPos, lastKnownPlayerVelocity.magnitude);
-		
+
+		/*
 		if (GameManagerScript.enemies.Count <= 3) {
 			Debug.DrawLine (transform.position, player.transform.position, Color.magenta);
 			Debug.DrawRay (transform.position, newDirection * 10, Color.cyan);
-			if (/*state != WANDER*/true) {
+			if (true) {
 				Debug.Log ("new direction magnitude: " + newDirection.magnitude
 				           + ", energy level is " + energyLevel + " and speed is " + newPos.magnitude
 				           + ", turn angle is " + turnAngle);
 			}
 		}
+		*/
 		
 		
 		//if (closeToPlayer() && flockingEnabled)
@@ -453,7 +454,7 @@ public class EnemyScript : MonoBehaviour {
 		if (!flockingEnabled)
 			setDefaultWeights();
 	}
-	
+
 	void changeStateTo(int newState) {
 		if (state == newState)
 			return;

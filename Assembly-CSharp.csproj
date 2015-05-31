@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\AirBossScript.cs" />
      <Compile Include="Assets\BossTurretScript.cs" />
+     <Compile Include="Assets\BulletLinkScript.cs" />
      <Compile Include="Assets\CameraScript.cs" />
      <Compile Include="Assets\EnemyBulletScript.cs" />
      <Compile Include="Assets\EnemyFlakBulletScript.cs" />
