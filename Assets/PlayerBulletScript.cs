@@ -7,7 +7,8 @@ public class PlayerBulletScript : MonoBehaviour {
 	public float maxRange;
 	public float distanceTraveled;
 	public GameObject HitEffectPrefab;
-	
+	public LayerMask relevantLayers;
+
 	// Update is called once per frame
 	void Update () {
 		if (distanceTraveled >= maxRange)
@@ -26,7 +27,7 @@ public class PlayerBulletScript : MonoBehaviour {
 		RaycastHit hitInfo;
 		bool didHit = Physics.Raycast (transform.position, transform.forward,
 		                               out hitInfo,
-		                               speed * Time.deltaTime * 0.5f);
+		                               speed * Time.deltaTime * 0.5f, relevantLayers);
 		if (didHit)
 			collisionFunction(hitInfo.collider);
 	}

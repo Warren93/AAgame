@@ -11,9 +11,16 @@ public class BulletLinkScript : MonoBehaviour {
 	public float detectionWidth;
 	LayerMask playerLayer;
 	PlayerScript playerInfo;
-	float damage = 5;
+	public float damage;
+	bool interpolateColorEnabled;
+	Color col1, col2;
+	float colorChangeRate = 0;
+	float currentColorStep = 0;
+	int mult = 1;
 
 	public void Init () {
+		damage = 5;
+		interpolateColorEnabled = false;
 		line = GetComponent<LineRenderer> ();
 		bullets = new List<GameObject> ();
 		player = GameObject.FindGameObjectWithTag ("Player");
@@ -28,6 +35,13 @@ public class BulletLinkScript : MonoBehaviour {
 		detectionWidth = width;
 	}
 
+	public void interpolateColor (Color a, Color b, float rate) {
+		col1 = a;
+		col2 = b;
+		colorChangeRate = rate;
+		interpolateColorEnabled = true;
+	}
+
 	/*
 	void OnEnable() {
 		line.SetVertexCount (bullets.Count + 1);
@@ -36,6 +50,16 @@ public class BulletLinkScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
+		if (interpolateColorEnabled == true) {
+			if (currentColorStep > 1 && mult == 1)
+				mult = -1;
+			else if (currentColorStep < 0 && mult == -1)
+				mult = 1;
+			currentColorStep += mult * colorChangeRate * Time.deltaTime;
+			line.material.color = Color.Lerp(col1, col2, currentColorStep);
+		}
+
 		line.SetVertexCount (bullets.Count + 1);
 		for (int i = 0; i < bullets.Count; i++) {
 			if (!bullets[i].activeSelf) {
@@ -112,5 +136,9 @@ public class BulletLinkScript : MonoBehaviour {
 		CancelInvoke("reactivateTrail");
 		gameObject.SetActive (false);
 		bullets.Clear ();
+		// set things back to default
+		damage = 5;
+		interpolateColorEnabled = false;
+		currentColorStep = 0;
 	}
 }

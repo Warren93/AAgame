@@ -23,6 +23,10 @@ public class ObjectPoolerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		// DETERMINE WHAT PLAYER BULLETS SHOULD DO EXTRA COLLISION CHECKING FOR
+		LayerMask maskForPlayerBullets = (1 << LayerMask.NameToLayer ("Default")) | (1 << LayerMask.NameToLayer ("AirBoss"));
+
 		// create the initial enemy bullets
 		pooledEnemyBullets = new List<GameObject> ();
 		for (int i = 0; i < initialEnemyBulletPoolSize; i++) {
@@ -35,6 +39,7 @@ public class ObjectPoolerScript : MonoBehaviour {
 		for (int i = 0; i < initialPlayerBulletPoolSize; i++) {
 			GameObject newBullet = (GameObject)Instantiate(playerBulletPrefab);
 			newBullet.SetActive(false);
+			newBullet.GetComponent<PlayerBulletScript>().relevantLayers = maskForPlayerBullets;
 			pooledPlayerBullets.Add(newBullet);
 		}
 		pooledBulletLinks = new List<GameObject> ();

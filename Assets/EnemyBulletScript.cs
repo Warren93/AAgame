@@ -8,13 +8,37 @@ public class EnemyBulletScript : MonoBehaviour {
 	public float distanceTraveled;
 	public float damage = 5;
 	public GameObject HitEffectPrefab;
+	bool curveTowardPointEnabled = false;
+	Vector3 targetPoint;
+	Vector3 originalFwdVec;
+	float angleStep;
+	float currentStep;
 
 	void OnEnable() {
 		damage = 5; // default
 	}
 
+	public void curveTowardPoint(Vector3 point, float step) {
+		targetPoint = point;
+		angleStep = step;
+		currentStep = 0;
+		originalFwdVec = transform.forward;
+		curveTowardPointEnabled = true;
+	}
+
 	// Update is called once per frame
 	void Update () {
+
+		if (curveTowardPointEnabled) {
+			if (currentStep < 1)
+				currentStep += angleStep * Time.deltaTime;
+			transform.LookAt(transform.position + Vector3.Slerp(originalFwdVec, targetPoint - transform.position, currentStep));
+			if (Vector3.Distance(transform.position, targetPoint) <= 5)
+				curveTowardPointEnabled = false;
+			//if (Vector3.Distance(transform.position, targetPoint) <= 5)
+			//	selfDestruct();
+		}
+
 		if (distanceTraveled >= maxRange)
 			selfDestruct();
 		//Debug.DrawRay(transform.position, transform.forward * 50, Color.cyan);
@@ -65,5 +89,8 @@ public class EnemyBulletScript : MonoBehaviour {
 		CancelInvoke("reactivateTrail");
 		gameObject.GetComponent<TrailRenderer> ().enabled = false;
 		gameObject.SetActive (false);
+		// set back to default value
+		curveTowardPointEnabled = false;
+		damage = 5; // default
 	}
 }

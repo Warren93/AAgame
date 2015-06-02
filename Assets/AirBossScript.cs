@@ -20,11 +20,13 @@ public class AirBossScript : MonoBehaviour {
 	float remainingTurnTime = 0;
 
 	List<GameObject> props;
+	public List<BossTurretScript> turretScripts;
 
 	// Use this for initialization
 	void Start () {
 		state = GOING_STRAIGHT;
 		props = new List<GameObject> ();
+		turretScripts = new List<BossTurretScript> ();
 		for (int i = 0; i < 4; i++)
 			props.Add(transform.GetChild(i).gameObject);
 		List<Transform> newChildren = new List<Transform> ();
@@ -44,6 +46,10 @@ public class AirBossScript : MonoBehaviour {
 				newChild.rotation = Quaternion.Euler(currentChildRot);
 				newChildren.Add(newChild);
 			}
+			else if (child.tag == "Enemy Flak") {
+				BossTurretScript script = child.transform.GetChild(0).GetComponent<BossTurretScript>();
+				turretScripts.Add(script);
+			}
 		}
 
 		for (int i = 0; i < newChildren.Count; i++) {
@@ -52,11 +58,35 @@ public class AirBossScript : MonoBehaviour {
 			newChildren[i].localPosition = newChildPositions[i];
 		}
 
+		// mark which turrets are located on wingtips
+		// (ONLY WORKS IF TURRETS ARE ORDERED PROPERLY IN HIERARCHY)
+		for (int i = 0; i < turretScripts.Count; i++) {
+			if (i == 0 || i == 1 || i ==6 || i ==7)
+				turretScripts[i].wingtipTurret = true;
+			else
+				turretScripts[i].wingtipTurret = false;
+		}
+
 		Invoke ("beginTurning", turnFreq);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		// this C# sorting technique taken from from post by user "GenericTypeTea" on Stack Overflow:
+		//http://stackoverflow.com/questions/3309188/how-to-sort-a-listt-by-a-property-in-the-object
+		turretScripts.Sort(
+			delegate(BossTurretScript p1, BossTurretScript p2)
+			{
+			return p1.distToPlayer.CompareTo(p2.distToPlayer);
+		}
+		);
+		//Debug.DrawRay (turretScripts [0].transform.position, Vector3.down * 1000, Color.magenta);
+
+		for (int i = 0; i < turretScripts.Count; i++)
+			turretScripts[i].rank = i;
+		
+
 		for (int i = 0; i < 4; i++)
 			props[i].transform.RotateAround(props[i].transform.position,
 			                                props[i].transform.forward,

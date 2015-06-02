@@ -69,7 +69,6 @@ public class PlayerScript : MonoBehaviour {
 
 		defaultForwardSpeed = 80.0f; // was 40 in thesis, then 80
 
-		//sidewaysSpeed = defaultForwardSpeed * 0.7f;
 		sidewaysSpeed = defaultForwardSpeed * 2.0f;
 		mouseY_AxisSensitivity = 100.0f;
 		mouseX_AxisSensitivity = mouseY_AxisSensitivity * 0.35f;
@@ -180,6 +179,7 @@ public class PlayerScript : MonoBehaviour {
 		newPos = (transform.TransformDirection (Vector3.forward) * forwardSpeed * Time.deltaTime);
 
 		// sideways strafing
+		sidewaysSpeed = forwardSpeed * 2.0f;
 		if (Input.GetKey(KeyCode.A))
 			newPos += (transform.TransformDirection(Vector3.left) * sidewaysSpeed * Time.deltaTime);
 		if (Input.GetKey(KeyCode.D))
