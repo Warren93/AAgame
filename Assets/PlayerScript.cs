@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class PlayerScript : MonoBehaviour {
 
 	bool nocollide = false;
-	bool invincible = false;
+	bool invincible = true;
 	public float hitpoints;
 
 	public float currentWeaponRange = 200;
@@ -24,7 +24,7 @@ public class PlayerScript : MonoBehaviour {
 	public float sidewaysSpeed;
 
 	public float boostCharge;
-	float boostDecrement = 18; // was 17, then 21, then 18
+	float boostDecrement = 25; // was 17, then 21, then 18
 	//float boostDecrement = 0.0f;
 	float boostIncrement;
 
@@ -55,7 +55,7 @@ public class PlayerScript : MonoBehaviour {
 		hitpoints = 100.0f;
 		boostCharge = 100.0f;
 
-		boostIncrement = boostDecrement * 1; // was * 0.7, then 0.85, then 1.2
+		boostIncrement = boostDecrement * 0.9f; // was * 0.7, then 0.85, then 1.2, 1
 
 		mouseLookY_Rotation = 0;
 		mouseLookX_Rotation = 0;
@@ -91,7 +91,6 @@ public class PlayerScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
 		//Debug.Log ("rotation is " + transform.rotation.eulerAngles);
 
 		Debug.DrawRay(transform.position, Vector3.up * 50, Color.cyan);
@@ -230,6 +229,9 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	void dampenRigidbodyForces() {
+		rigidbody.velocity = Vector3.zero;
+		rigidbody.angularVelocity = Vector3.zero;
+		/*
 		float cutoff = 0.000001f;
 		if (rigidbody.velocity.magnitude > 0 || rigidbody.angularVelocity.magnitude > 0) {
 			//Debug.Log ("collision velocity: " + rigidbody.velocity.magnitude + ", collision angular: " + rigidbody.angularVelocity.magnitude);
@@ -240,6 +242,7 @@ public class PlayerScript : MonoBehaviour {
 			if (rigidbody.angularVelocity.magnitude <= cutoff)
 				rigidbody.angularVelocity = Vector3.zero;
 		}
+		*/
 	}
 
 	void switchToMouseLookCam() {
@@ -316,12 +319,10 @@ public class PlayerScript : MonoBehaviour {
 		if (nocollide)
 			return;
 		//Debug.Log ("in collsion function");
-		if (!invincible) {
-			if (collision.collider.tag == "Obstacle" || collision.collider.tag == "Ground")
-				hitpoints -= obstacleDamage;
-			if (collision.collider.tag == "Enemy" || collision.collider.tag == "Enemy Flak")
-				hitpoints -= enemyDamage;
-		}
+		if (collision.collider.tag == "Obstacle" || collision.collider.tag == "Ground")
+			hitpoints -= obstacleDamage;
+		if (collision.collider.tag == "Enemy" || collision.collider.tag == "Enemy Flak")
+			hitpoints -= enemyDamage;
 	}
 
 

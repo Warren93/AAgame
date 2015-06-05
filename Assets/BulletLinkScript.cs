@@ -6,6 +6,8 @@ public class BulletLinkScript : MonoBehaviour {
 
 	LineRenderer line;
 	public List<GameObject> bullets;
+	public float bulletSpeed;
+	public List<Vector3> prevBulletPositions;
 	GameObject player;
 	public GameObject HitEffectPrefab;
 	public float detectionWidth;
@@ -22,7 +24,8 @@ public class BulletLinkScript : MonoBehaviour {
 		damage = 5;
 		interpolateColorEnabled = false;
 		line = GetComponent<LineRenderer> ();
-		bullets = new List<GameObject> ();
+		bullets = new List<GameObject> (10);
+		prevBulletPositions = new List<Vector3> (10);
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerLayer = 1 << player.layer;
 		playerInfo = player.GetComponent<PlayerScript> ();
@@ -51,6 +54,23 @@ public class BulletLinkScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		// PREVENT GLITCHES DUE TO OBJECT POOLING
+		if (prevBulletPositions.Count != bullets.Count) {
+			selfDestruct();
+			return;
+		}
+
+		for (int i = 0; i < prevBulletPositions.Count; i++) {
+			if (Vector3.Distance(bullets[i].transform.position, prevBulletPositions[i]) > bulletSpeed * Time.deltaTime * 7.5f) {
+				selfDestruct();
+				return;
+			}
+			else
+				prevBulletPositions[i] = bullets[i].transform.position;
+		}
+
+
+
 		if (interpolateColorEnabled == true) {
 			if (currentColorStep > 1 && mult == 1)
 				mult = -1;
@@ -62,7 +82,7 @@ public class BulletLinkScript : MonoBehaviour {
 
 		line.SetVertexCount (bullets.Count + 1);
 		for (int i = 0; i < bullets.Count; i++) {
-			if (!bullets[i].activeSelf) {
+			if (!bullets[i].activeInHierarchy) {
 				selfDestruct();
 				return;
 			}
@@ -95,6 +115,10 @@ public class BulletLinkScript : MonoBehaviour {
 			}
 			*/
 		}
+
+		//for (int i = 0; i < prevBulletPositions.Count; i++)
+		//	prevBulletPositions[i] = bullets[i].transform.position;
+
 		detectCollisions ();
 
 	}
@@ -132,10 +156,10 @@ public class BulletLinkScript : MonoBehaviour {
 		}
 	}
 
-	void selfDestruct() {
-		CancelInvoke("reactivateTrail");
-		gameObject.SetActive (false);
+	public void selfDestruct() {
 		bullets.Clear ();
+		prevBulletPositions.Clear ();
+		gameObject.SetActive (false);
 		// set things back to default
 		damage = 5;
 		interpolateColorEnabled = false;

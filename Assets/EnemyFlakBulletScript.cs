@@ -4,8 +4,8 @@ using System.Collections;
 public class EnemyFlakBulletScript : MonoBehaviour {
 
 	public float speed;
-	public float maxRange;
-	float distanceTraveled = 0;
+	public float maxRange = 100; // default
+	public float distanceTraveled = 0;
 	public GameObject HitEffectPrefab;
 	public GameObject subBulletPrefab;
 	public GameObject player;
@@ -17,7 +17,7 @@ public class EnemyFlakBulletScript : MonoBehaviour {
 	void Update () {
 		if (distanceTraveled >= maxRange || Vector3.Distance(player.transform.position, transform.position) < 30) {
 			createBulletExplosion();
-			Destroy(gameObject);
+			selfDestruct();
 		}
 		//Debug.DrawRay(transform.position, transform.forward * 50, Color.cyan);
 	}
@@ -79,14 +79,15 @@ public class EnemyFlakBulletScript : MonoBehaviour {
 	}
 
 	void prepareBullet(GameObject subBullet) {
+		Color darkGray = Color.Lerp (Color.gray, Color.black, 0.75f);
 		EnemyBulletScript bulletInfo = subBullet.GetComponent<EnemyBulletScript>();
 		bulletInfo.speed = subBulletSpeed;
 		bulletInfo.distanceTraveled = 0;
 		bulletInfo.maxRange = subBulletRange;
 		
 		TrailRenderer trail = subBullet.GetComponent<TrailRenderer> ();
-		trail.material.color = Color.yellow;
-		subBullet.renderer.material.color = Color.yellow;
+		trail.material.color = darkGray;
+		subBullet.renderer.material.color = darkGray;
 		
 		subBullet.SetActive(true);
 		bulletInfo.delayedReactivateTrail();
@@ -102,7 +103,22 @@ public class EnemyFlakBulletScript : MonoBehaviour {
 					col.gameObject.GetComponent<PlayerScript>().hitpoints -= 5;
 			}
 			Instantiate(HitEffectPrefab, transform.position, Quaternion.identity);
-			Destroy (gameObject);
+			selfDestruct();
 		//}
+	}
+
+	public void delayedReactivateTrail() {
+		Invoke ("reactivateTrail", 0.2f);
+	}
+
+	void reactivateTrail() {
+		gameObject.GetComponent<TrailRenderer> ().enabled = true;
+	}
+
+	void selfDestruct() {
+		CancelInvoke("reactivateTrail");
+		gameObject.GetComponent<TrailRenderer> ().enabled = false;
+		gameObject.SetActive (false);
+		maxRange = 100; // default
 	}
 }

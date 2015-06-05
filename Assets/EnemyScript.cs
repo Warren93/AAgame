@@ -103,10 +103,14 @@ public class EnemyScript : MonoBehaviour {
 	Vector3 directionLastTurnCheck;
 	bool tempPreventEnergyDrain = false;
 
+	LayerMask airBossMask;
+
 	public Vector3 newPos = Vector3.zero;
 
 	// Use this for initialization
 	void Start () {
+
+		airBossMask = 1 << LayerMask.NameToLayer ("AirBoss");
 
 		defaultSpeed = 65.0f; // was 65 in thesis, then 130
 		currentWeaponRange = 500;
@@ -621,8 +625,10 @@ public class EnemyScript : MonoBehaviour {
 
 	Vector3 obstacleCheck() {
 		// check for obstacles and return vector away from them
-		Collider[] cols = Physics.OverlapSphere(transform.position, obstacleAvoidanceRange);
+		//Collider[] cols = Physics.OverlapSphere(transform.position, obstacleAvoidanceRange);
+		Collider[] cols = Physics.OverlapSphere(transform.position, obstacleAvoidanceRange, airBossMask);
 		Vector3 avoidanceVec = Vector3.zero;
+		/*
 		foreach (Collider col in cols) {
 			if (col.gameObject.tag == "Obstacle" || col.gameObject.tag == "Score Powerup") {
 				Vector3 vecFromObj = transform.position - col.gameObject.transform.position;
@@ -631,6 +637,13 @@ public class EnemyScript : MonoBehaviour {
 				//avoidanceVec += vecFromObj * obstacleAvoidanceWeight * (1 / Mathf.Pow(range, 2));
 				avoidanceVec += vecFromObj * (1 / range);
 			}
+		}
+		*/
+		foreach (Collider col in cols) {
+			Vector3 vecFromObj = transform.position - col.gameObject.transform.position;
+			float range = vecFromObj.magnitude;
+			vecFromObj.Normalize();
+			avoidanceVec += vecFromObj * (1 / range);
 		}
 		return avoidanceVec * obstacleAvoidanceWeight;
 	}
@@ -796,7 +809,7 @@ public class EnemyScript : MonoBehaviour {
 		}
 		float f1, f2, f3;
 		f1 = Random.Range(-terrainCol.bounds.extents.x, terrainCol.bounds.extents.x);
-		f2 = Random.Range(terrainCol.transform.position.x + 50, terrainCol.transform.position.x + 150);
+		f2 = Random.Range(terrainCol.transform.position.x + 50, terrainCol.transform.position.x + 220);
 		f3 = Random.Range(-terrainCol.bounds.extents.z, terrainCol.bounds.extents.z);
 		Vector3 newDestination = new Vector3(f1, f2, f3);
 		newDestination += 300 * groundCheck (newDestination, 1000);

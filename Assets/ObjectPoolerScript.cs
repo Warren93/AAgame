@@ -4,10 +4,17 @@ using System.Collections.Generic;
 
 public class ObjectPoolerScript : MonoBehaviour {
 
+	public bool poolEnabled;
+
 	public static ObjectPoolerScript objectPooler;
+
 	public List<GameObject> pooledEnemyBullets;
 	public GameObject enemyBulletPrefab;
 	public int initialEnemyBulletPoolSize = 200;
+
+	public List<GameObject> pooledEnemyFlakBullets;
+	public GameObject enemyFlakBulletPrefab;
+	public int initialEnemyFlakBulletPoolSize = 200;
 
 	public List<GameObject> pooledPlayerBullets;
 	public GameObject playerBulletPrefab;
@@ -24,8 +31,13 @@ public class ObjectPoolerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		if (!poolEnabled)
+			return;
+
 		// DETERMINE WHAT PLAYER BULLETS SHOULD DO EXTRA COLLISION CHECKING FOR
-		LayerMask maskForPlayerBullets = (1 << LayerMask.NameToLayer ("Default")) | (1 << LayerMask.NameToLayer ("AirBoss"));
+		LayerMask maskForPlayerBullets = (1 << LayerMask.NameToLayer ("Default"))
+				| (1 << LayerMask.NameToLayer ("AirBoss"))
+				| (1 << LayerMask.NameToLayer ("Ground"));
 
 		// create the initial enemy bullets
 		pooledEnemyBullets = new List<GameObject> ();
@@ -33,6 +45,13 @@ public class ObjectPoolerScript : MonoBehaviour {
 			GameObject newBullet = (GameObject)Instantiate(enemyBulletPrefab);
 			newBullet.SetActive(false);
 			pooledEnemyBullets.Add(newBullet);
+		}
+		// create the initial enemy flak bullets
+		pooledEnemyFlakBullets = new List<GameObject> ();
+		for (int i = 0; i < initialEnemyFlakBulletPoolSize; i++) {
+			GameObject newBullet = (GameObject)Instantiate(enemyFlakBulletPrefab);
+			newBullet.SetActive(false);
+			pooledEnemyFlakBullets.Add(newBullet);
 		}
 		// create the initial player bullets
 		pooledPlayerBullets = new List<GameObject> ();
@@ -61,6 +80,16 @@ public class ObjectPoolerScript : MonoBehaviour {
 		return newBullet;
 	}
 
+	public GameObject getEnemyFlakBullet() {
+		for (int i = 0; i < pooledEnemyFlakBullets.Count; i++)
+			if (!pooledEnemyFlakBullets[i].activeInHierarchy)
+				return pooledEnemyFlakBullets[i];
+		GameObject newBullet = (GameObject)Instantiate (enemyFlakBulletPrefab);
+		newBullet.SetActive (false);
+		pooledEnemyFlakBullets.Add (newBullet);
+		return newBullet;
+	}
+
 	public GameObject getBulletLink() {
 		for (int i = 0; i < pooledBulletLinks.Count; i++)
 			if (!pooledBulletLinks[i].activeInHierarchy)
@@ -84,8 +113,8 @@ public class ObjectPoolerScript : MonoBehaviour {
 	// Update is called once per frame
 	/*
 	void Update () {
-		Debug.Log ("enemy bullets in pool: " + pooledEnemyBullets.Count
-		           + ", and player bullets: " + pooledPlayerBullets.Count);
+		Debug.Log ("enemy bullets in pool: " + pooledEnemyBullets.Count);
+		           //+ ", and player bullets: " + pooledPlayerBullets.Count);
 	}
 	*/
 }

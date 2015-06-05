@@ -65,9 +65,9 @@ public class BossTurretScript : MonoBehaviour {
 		rank = 0;
 
 		orange = new Color (1.0f, 196.0f / 255.0f, 0.0f, 1.0f);
-		pink = new Color (1.0f, 102.0f / 255.0f, 184.0f / 255.0f, 1.0f);
+		pink = Color.Lerp (Color.red, Color.magenta, 0.5f); //new Color (1.0f, 102.0f / 255.0f, 184.0f / 255.0f, 1.0f);
 
-		pattern = TUNNEL; // initial
+		pattern = RANDOM; //FLOWER; // initial
 		burstCounter = 5;
 
 		//terrainCol = GameObject.FindGameObjectWithTag ("Ground").GetComponent<TerrainCollider> ();
@@ -92,9 +92,9 @@ public class BossTurretScript : MonoBehaviour {
 
 		bulletScaleFactor = 12.0f; //4.0f;
 
-		InvokeRepeating ("shoot", Random.Range (0.1f, rateOfFire), rateOfFire);
+		//InvokeRepeating ("shoot", 2.5f, rateOfFire);
 		//Invoke ("shoot", rateOfFire); // OLD
-		Invoke ("changePattern", 0.2f);
+		Invoke ("changePattern", 4f);
 	}
 
 	// Update is called once per frame
@@ -125,6 +125,10 @@ public class BossTurretScript : MonoBehaviour {
 		else
 			range = defaultRange;
 
+		Vector3 playerVelocity = playerInfo.newPos * leadMult;
+		if (pattern == TUNNEL)
+			playerVelocity = player.transform.forward * playerInfo.newPos.magnitude;
+
 		if (pattern != SWEEP) {
 			target = LeadCalculator.FirstOrderIntercept (
 					currentBarrelOut.position,
@@ -132,7 +136,7 @@ public class BossTurretScript : MonoBehaviour {
 					adjustedBulletSpeed * Time.deltaTime,
 					player.transform.position,
 					//playerInfo.newPos);
-					playerInfo.newPos * leadMult);
+					playerVelocity);
 					//player.transform.forward * playerInfo.defaultForwardSpeed * Time.deltaTime);
 		}
 		else {
@@ -281,6 +285,7 @@ public class BossTurretScript : MonoBehaviour {
 		float angleIncrement = (2 * Mathf.PI) * 3;
 		GameObject newLink = ObjectPoolerScript.objectPooler.getBulletLink();
 		BulletLinkScript linkInfo = newLink.GetComponent<BulletLinkScript> ();
+		linkInfo.bullets.Clear ();
 		for (int i = 0; i < numBullets; i++) {
 			GameObject bullet = ObjectPoolerScript.objectPooler.getEnemyBullet();
 			bullet.transform.position = currentBarrelOut.position;
@@ -299,10 +304,12 @@ public class BossTurretScript : MonoBehaviour {
 			bulletInfo.maxRange = range * 0.6f;
 
 			linkInfo.bullets.Add(bullet);
+			linkInfo.prevBulletPositions.Add(bullet.transform.position);
 			
 			setScaleAndColorForBullet (bullet, bulletInfo, 20, Color.cyan);
 		}
 		newLink.GetComponent<LineRenderer> ().material.color = Color.cyan;
+		linkInfo.bulletSpeed = adjustedBulletSpeed;
 		linkInfo.setWidth (1);
 		newLink.SetActive (true);
 		baseAngle += baseAngleIncrement;
@@ -318,6 +325,7 @@ public class BossTurretScript : MonoBehaviour {
 		float halfSweepHeight = 120; // 35
 		GameObject newLink = ObjectPoolerScript.objectPooler.getBulletLink();
 		BulletLinkScript linkInfo = newLink.GetComponent<BulletLinkScript> ();
+		linkInfo.bullets.Clear ();
 		for (int i = 0; i < numBullets; i++) {
 			GameObject bullet = ObjectPoolerScript.objectPooler.getEnemyBullet();
 			bullet.transform.position = currentBarrelOut.position;
@@ -334,12 +342,14 @@ public class BossTurretScript : MonoBehaviour {
 			bulletInfo.speed = adjustedBulletSpeed;
 			bulletInfo.distanceTraveled = 0;
 			bulletInfo.maxRange = range * 0.75f;
-			
+
 			linkInfo.bullets.Add(bullet);
+			linkInfo.prevBulletPositions.Add(bullet.transform.position);
 			
 			setScaleAndColorForBullet (bullet, bulletInfo, 8, orange);
 		}
 		newLink.GetComponent<LineRenderer> ().material.color = orange;
+		linkInfo.bulletSpeed = adjustedBulletSpeed;
 		linkInfo.setWidth (5);
 		linkInfo.damage = 10;
 		linkInfo.interpolateColor (orange, Color.red, 3f);
@@ -387,32 +397,36 @@ public class BossTurretScript : MonoBehaviour {
 
 	void tunnelShoot() {
 		int numBullets = 8;
-		float radius = 35;
+		float radius = 45; // was 35
 		GameObject newLink = ObjectPoolerScript.objectPooler.getBulletLink();
 		BulletLinkScript linkInfo = newLink.GetComponent<BulletLinkScript> ();
+		linkInfo.bullets.Clear ();
 		for (int i = 0; i < numBullets; i++) {
 			GameObject bullet = ObjectPoolerScript.objectPooler.getEnemyBullet();
 			bullet.transform.position = currentBarrelOut.position;
 			float currentAngle = i * (Mathf.PI * 2 / numBullets) + Mathf.PI * 0.125f + baseAngle;
 			bullet.transform.LookAt (target);
 			Vector3 targetRight = bullet.transform.right;
-			Vector3 targetPt = target
+			Vector3 lookAtPt = bullet.transform.position
 					+ (bullet.transform.right * radius * Mathf.Cos(currentAngle))
 					+ (bullet.transform.up * radius * Mathf.Sin(currentAngle));
-			bullet.transform.LookAt ( bullet.transform.position
-			                         + (bullet.transform.right * radius * Mathf.Cos(currentAngle))
-			                         + (bullet.transform.up * radius * Mathf.Sin(currentAngle)) );
+			Vector3 targetPt = lookAtPt + (target - bullet.transform.position) * range;
+			bullet.transform.LookAt ( lookAtPt );
 			
 			EnemyBulletScript bulletInfo = bullet.GetComponent<EnemyBulletScript>();
 			bulletInfo.speed = adjustedBulletSpeed * 0.75f;
 			bulletInfo.distanceTraveled = 0;
 			bulletInfo.maxRange = range * 0.6f;
 			bulletInfo.damage = 10;
-			bulletInfo.curveTowardPoint(targetPt + (targetRight * Mathf.Sin(variation) * 23), 1.5f);
+			bulletInfo.curveTowardPoint(targetPt + (targetRight * Mathf.Sin(variation) * 40.0f), 1.5f);
 			
 			setScaleAndColorForBullet (bullet, bulletInfo, 35, Color.Lerp(Color.blue, Color.magenta, 0.5f));
+
 			linkInfo.bullets.Add(bullet);
+			linkInfo.prevBulletPositions.Add(bullet.transform.position);
+			//Debug.Log("bullets count: " + linkInfo.bullets.Count + ", prev pos count: " + linkInfo.prevBulletPositions.Count);
 		}
+		linkInfo.bulletSpeed = adjustedBulletSpeed * 0.75f;
 		linkInfo.setWidth (2);
 		linkInfo.damage = 10;
 		linkInfo.interpolateColor (Color.blue, Color.magenta, 4.5f);
@@ -432,7 +446,7 @@ public class BossTurretScript : MonoBehaviour {
 			Vector3.zero,
 			localSpeed * Time.deltaTime,
 			player.transform.position,
-			playerInfo.newPos * 1.3f);
+			playerInfo.newPos * 1.15f);
 		for (int i = 0; i < numBullets; i++) {
 			GameObject bullet = ObjectPoolerScript.objectPooler.getEnemyBullet();
 			bullet.transform.position = currentBarrelOut.position;
@@ -521,7 +535,7 @@ public class BossTurretScript : MonoBehaviour {
 	bool playerComingTowardTurret() {
 		if (player == null)
 			return false;
-		if (Vector3.Angle((transform.position - player.transform.position), player.transform.forward) < 90.0f) {
+		if (Vector3.Angle((transform.position - player.transform.position), playerInfo.newPos) < 90.0f) {
 			//Debug.Log ("player coming TOWARD turret");
 			return true;
 		}
@@ -560,7 +574,7 @@ public class BossTurretScript : MonoBehaviour {
 		else if (pattern == SWEEP) {  // CHANGE TO FLOWER
 			pattern = FLOWER;
 			burstCounter = 9;
-			bulletSpeed = 220;
+			bulletSpeed = 200;
 			rateOfFire = 1.7f;
 			timeUntilNextChange = patternChangeRate * 1.5f;
 		}
@@ -582,16 +596,17 @@ public class BossTurretScript : MonoBehaviour {
 			return;
 		}
 		CancelInvoke ();
-		InvokeRepeating ("shoot", Random.Range (0.1f, rateOfFire), rateOfFire);
+		InvokeRepeating ("shoot", 0.5f, rateOfFire);
 		Invoke ("changePattern", timeUntilNextChange);
 		if (pattern == STANDARD && wingtipTurret == true)
 			InvokeRepeating("verticalCurtainShoot", 1, 1);
 		else if (pattern == FLOWER)
-			InvokeRepeating("flowerShootInner", 0.01f, 0.15f);
+			InvokeRepeating("flowerShootInner", 0.75f, 0.15f);
 	}
 
 	void OnDestroy() {
-		bossInfo.turretScripts.Remove (this);
+		if (bossInfo && bossInfo.turretsEnabled)
+			bossInfo.turretScripts.Remove (this);
 	}
 
 }

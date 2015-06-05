@@ -40,7 +40,7 @@ public class FlakTurretScript : MonoBehaviour {
 
 		bulletScaleFactor = 7.0f; // was 4
 
-		InvokeRepeating ("shoot", Random.Range (0.1f, rateOfFire), rateOfFire);
+		InvokeRepeating ("shoot", 2f, rateOfFire);
 	}
 	
 	// Update is called once per frame
@@ -85,7 +85,10 @@ public class FlakTurretScript : MonoBehaviour {
 		if (!playerInRange())
 			return;
 		//Debug.Log ("SHOT FLAK");
-		GameObject flakBullet = (GameObject) Instantiate(flakBulletPrefab, currentBarrelOut.position, gunBarrels.transform.rotation);
+		//GameObject flakBullet = (GameObject) Instantiate(flakBulletPrefab, currentBarrelOut.position, gunBarrels.transform.rotation);
+		GameObject flakBullet = ObjectPoolerScript.objectPooler.getEnemyFlakBullet();
+		flakBullet.transform.position = currentBarrelOut.position;
+		flakBullet.transform.rotation = gunBarrels.transform.rotation;
 		// alternate barrels
 		if (currentBarrelOut == leftGunOut)
 			currentBarrelOut = rightGunOut;
@@ -95,16 +98,20 @@ public class FlakTurretScript : MonoBehaviour {
 		EnemyFlakBulletScript bulletInfo = flakBullet.GetComponent<EnemyFlakBulletScript>();
 		bulletInfo.terrainCol = terrainCol;
 		bulletInfo.speed = bulletSpeed;
+		bulletInfo.distanceTraveled = 0;
 		bulletInfo.maxRange = range;
 		bulletInfo.player = player;
 		
 		// resize bullet
-		flakBullet.transform.localScale *= bulletScaleFactor;
+		flakBullet.transform.localScale = Vector3.one * bulletScaleFactor;
 		TrailRenderer trail = flakBullet.GetComponent<TrailRenderer> ();
-		trail.startWidth *= bulletScaleFactor;
-		trail.endWidth *= bulletScaleFactor;
+		trail.startWidth = 0.05f * bulletScaleFactor;
+		trail.endWidth = 0.001f * bulletScaleFactor;
 		trail.material.color = Color.yellow;
 		flakBullet.renderer.material.color = Color.yellow;
+
+		flakBullet.SetActive(true);
+		bulletInfo.delayedReactivateTrail();
 
 	}
 

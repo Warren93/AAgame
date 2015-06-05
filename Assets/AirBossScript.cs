@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class AirBossScript : MonoBehaviour {
 
+	public bool turretsEnabled;
+
 	const int GOING_STRAIGHT = 1;
 	const int TURNING = 2;
 	int state;
@@ -24,6 +26,11 @@ public class AirBossScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		Vector3 groundExtents = GameObject.FindGameObjectWithTag ("Ground").GetComponent<TerrainCollider> ().bounds.extents;
+		transform.position += transform.right * -0.4f * groundExtents.x;
+		transform.position += transform.forward * -0.6f * groundExtents.z;
+
 		state = GOING_STRAIGHT;
 		props = new List<GameObject> ();
 		turretScripts = new List<BossTurretScript> ();
@@ -49,6 +56,10 @@ public class AirBossScript : MonoBehaviour {
 			else if (child.tag == "Enemy Flak") {
 				BossTurretScript script = child.transform.GetChild(0).GetComponent<BossTurretScript>();
 				turretScripts.Add(script);
+				if (!turretsEnabled) {
+					script.gameObject.SetActive(false);
+					script.transform.parent.gameObject.SetActive(false);
+				}
 			}
 		}
 
@@ -58,33 +69,34 @@ public class AirBossScript : MonoBehaviour {
 			newChildren[i].localPosition = newChildPositions[i];
 		}
 
-		// mark which turrets are located on wingtips
-		// (ONLY WORKS IF TURRETS ARE ORDERED PROPERLY IN HIERARCHY)
-		for (int i = 0; i < turretScripts.Count; i++) {
-			if (i == 0 || i == 1 || i ==6 || i ==7)
-				turretScripts[i].wingtipTurret = true;
-			else
-				turretScripts[i].wingtipTurret = false;
+		if (turretsEnabled) {
+			// mark which turrets are located on wingtips
+			// (ONLY WORKS IF TURRETS ARE ORDERED PROPERLY IN HIERARCHY)
+			for (int i = 0; i < turretScripts.Count; i++) {
+				if (i == 0 || i == 1 || i ==6 || i ==7)
+					turretScripts[i].wingtipTurret = true;
+				else
+					turretScripts[i].wingtipTurret = false;
+			}
 		}
 
-		Invoke ("beginTurning", turnFreq);
+		Invoke ("beginTurning", turnFreq * 0.5f);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-		// this C# sorting technique taken from from post by user "GenericTypeTea" on Stack Overflow:
-		//http://stackoverflow.com/questions/3309188/how-to-sort-a-listt-by-a-property-in-the-object
-		turretScripts.Sort(
-			delegate(BossTurretScript p1, BossTurretScript p2)
-			{
-			return p1.distToPlayer.CompareTo(p2.distToPlayer);
+		// this C# sorting technique taken from post by user "GenericTypeTea" on Stack Overflow:
+		// http://stackoverflow.com/questions/3309188/how-to-sort-a-listt-by-a-property-in-the-object
+		if (turretsEnabled) {
+			turretScripts.Sort(
+				delegate(BossTurretScript p1, BossTurretScript p2) {
+					return p1.distToPlayer.CompareTo(p2.distToPlayer);
+				}
+			);
+			//Debug.DrawRay (turretScripts [0].transform.position, Vector3.down * 1000, Color.magenta);
+			for (int i = 0; i < turretScripts.Count; i++)
+				turretScripts[i].rank = i;
 		}
-		);
-		//Debug.DrawRay (turretScripts [0].transform.position, Vector3.down * 1000, Color.magenta);
-
-		for (int i = 0; i < turretScripts.Count; i++)
-			turretScripts[i].rank = i;
 		
 
 		for (int i = 0; i < 4; i++)
@@ -92,11 +104,16 @@ public class AirBossScript : MonoBehaviour {
 			                                props[i].transform.forward,
 			                                defaultPropRotationSpeed * Time.deltaTime);
 		executeTurn ();
+
+		//transform.Translate(Vector3.forward * speed * Time.deltaTime);
+		//rigidbody.MovePosition (transform.position + (transform.forward * speed * Time.deltaTime));
 	}
+
 
 	void FixedUpdate() {
 		rigidbody.MovePosition (transform.position + (transform.forward * speed * Time.deltaTime));
 	}
+
 
 	void executeTurn() {
 		if (state == TURNING) {
@@ -125,6 +142,7 @@ public class AirBossScript : MonoBehaviour {
 
 	void finishTurning() {
 		//transform.LookAt (transform.position + transform.forward * 1000);
+		transform.LookAt (transform.position + desiredHeading);
 		state = GOING_STRAIGHT;
 		Invoke ("beginTurning", turnFreq);
 	}

@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class GameManagerScript : MonoBehaviour {
 
+	public bool enemiesEnabled;
+	public bool flakTowersEnabled;
+
 	public Color backgroundColor;
 	Color[]  backgroundCols = {Color.red, Color.yellow, Color.blue, Color.green, Color.magenta};
 
@@ -111,32 +114,35 @@ public class GameManagerScript : MonoBehaviour {
 		Player = GameObject.FindGameObjectWithTag ("Player");
 		playerInfo = Player.GetComponent<PlayerScript> ();
 
-		// create enemy
-		for (int i = 0; i < numEnemies; i++) {
-			//Vector3 spawnPos = Vector3.zero + Vector3.back * 70;
-			Vector3 spawnPos = Vector3.back * 400;
-			float f1, f2, f3;
-			/*
-			f1 = Random.Range(-10, 10);
-			f2 = Random.Range(-10, 10);
-			f3 = Random.Range(-10, 10);
-			Vector3 createPt = new Vector3(f1, f2, f3);
-			createPt.Normalize();
-			createPt *= Random.Range(60, 120);
-			*/
-			f1 = Random.Range(-120, 120);
-			f2 = Random.Range(-120, 120);
-			f3 = Random.Range(-120, 120);
-			Vector3 createPt = new Vector3(f1, f2, f3);
-			spawnPos += createPt;
-			spawnEnemyAt (spawnPos);
+		if (enemiesEnabled) {
+			// create enemy
+			for (int i = 0; i < numEnemies; i++) {
+				//Vector3 spawnPos = Vector3.zero + Vector3.back * 70;
+				Vector3 spawnPos = Vector3.back * 400;
+				float f1, f2, f3;
+				/*
+				f1 = Random.Range(-10, 10);
+				f2 = Random.Range(-10, 10);
+				f3 = Random.Range(-10, 10);
+				Vector3 createPt = new Vector3(f1, f2, f3);
+				createPt.Normalize();
+				createPt *= Random.Range(60, 120);
+				*/
+				f1 = Random.Range(-120, 120);
+				f2 = Random.Range(-120, 120);
+				f3 = Random.Range(-120, 120);
+				Vector3 createPt = new Vector3(f1, f2, f3);
+				spawnPos += createPt;
+				spawnEnemyAt (spawnPos);
+			}
 		}
 
 		//createUniqueAsteroids (); // the asteroids from which all others will be duplicated
 		//createAsteroids (numObstacles, Random.Range(1.0f, 1.2f));
 		//createAsteroids (numLargeObstacles, Random.Range(3.0f, 5.0f));
 
-		createFlakTowers ();
+		if (flakTowersEnabled)
+			createFlakTowers ();
 
 		if (firstLoad)
 			showLevelLoadMsg = false;
@@ -484,7 +490,7 @@ public class GameManagerScript : MonoBehaviour {
 			RaycastHit hit;
 			terrainCol.Raycast(ray, out hit, Mathf.Infinity);
 			GameObject tower = (GameObject)Instantiate (enemyFlakTowerPrefab, hit.point, Quaternion.identity);
-			tower.transform.GetChild(0).GetComponent<HPScript>().hitpoints = 50;
+			tower.transform.GetChild(0).GetComponent<HPScript>().hitpoints = 15;
 		}
 	}
 

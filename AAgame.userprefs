@@ -1,13 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\BossTurretScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\AirBossScript.cs">
     <Files>
-      <File FileName="Assets\EnemyBulletScript.cs" Line="38" Column="13" />
-      <File FileName="Assets\BossTurretScript.cs" Line="411" Column="83" />
-      <File FileName="Assets\BulletLinkScript.cs" Line="53" Column="3" />
-      <File FileName="Assets\AirBossScript.cs" Line="62" Column="63" />
-      <File FileName="Assets\PlayerScript.cs" Line="197" Column="13" />
-      <File FileName="Assets\ObjectPoolerScript.cs" Line="69" Column="35" />
+      <File FileName="Assets\EnemyBulletScript.cs" Line="94" Column="61" />
+      <File FileName="Assets\BossTurretScript.cs" Line="70" Column="21" />
+      <File FileName="Assets\BulletLinkScript.cs" Line="64" Column="114" />
+      <File FileName="Assets\AirBossScript.cs" Line="113" Column="22" />
+      <File FileName="Assets\PlayerScript.cs" Line="98" Column="3" />
+      <File FileName="Assets\ObjectPoolerScript.cs" Line="68" Column="55" />
+      <File FileName="Assets\EnemyScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\GameManagerScript.cs" Line="64" Column="17" />
+      <File FileName="Assets\FlakTurretScript.cs" Line="43" Column="31" />
+      <File FileName="Assets\EnemyFlakBulletScript.cs" Line="89" Column="34" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

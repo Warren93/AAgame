@@ -33,10 +33,8 @@ public class EnemyBulletScript : MonoBehaviour {
 			if (currentStep < 1)
 				currentStep += angleStep * Time.deltaTime;
 			transform.LookAt(transform.position + Vector3.Slerp(originalFwdVec, targetPoint - transform.position, currentStep));
-			if (Vector3.Distance(transform.position, targetPoint) <= 5)
+			if (Vector3.Distance(transform.position, targetPoint) <= speed * 2.5f * Time.deltaTime)
 				curveTowardPointEnabled = false;
-			//if (Vector3.Distance(transform.position, targetPoint) <= 5)
-			//	selfDestruct();
 		}
 
 		if (distanceTraveled >= maxRange)
@@ -63,8 +61,14 @@ public class EnemyBulletScript : MonoBehaviour {
 		*/
 	}
 
+	/*
 	void OnCollisionEnter(Collision collision) {
 		collisionFunction(collision.collider);
+	}
+	*/
+
+	void OnTriggerEnter(Collider other) {
+		collisionFunction(other);
 	}
 
 	void collisionFunction(Collider col) {
