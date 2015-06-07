@@ -6,7 +6,6 @@ public class EnemyFlakBulletScript : MonoBehaviour {
 	public float speed;
 	public float maxRange = 100; // default
 	public float distanceTraveled = 0;
-	public GameObject HitEffectPrefab;
 	public GameObject subBulletPrefab;
 	public GameObject player;
 	public TerrainCollider terrainCol;
@@ -102,7 +101,9 @@ public class EnemyFlakBulletScript : MonoBehaviour {
 			if (col.gameObject.tag == "Player") {
 					col.gameObject.GetComponent<PlayerScript>().hitpoints -= 5;
 			}
-			Instantiate(HitEffectPrefab, transform.position, Quaternion.identity);
+			GameObject hitEffect = ObjectPoolerScript.objectPooler.getHitEffect();
+			hitEffect.transform.position = transform.position;
+			hitEffect.SetActive(true);
 			selfDestruct();
 		//}
 	}

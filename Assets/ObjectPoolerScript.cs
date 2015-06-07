@@ -23,6 +23,10 @@ public class ObjectPoolerScript : MonoBehaviour {
 	public List<GameObject> pooledBulletLinks;
 	public GameObject bulletLinkPrefab;
 	public int initialBulletLinkPoolSize = 200;
+	
+	public List<HitEffectScript> pooledHitEffects;
+	public GameObject hitEffectPrefab;
+	public int initialHitEffectPoolSize = 200;
 		
 	void Awake() {
 		objectPooler = this;
@@ -68,6 +72,12 @@ public class ObjectPoolerScript : MonoBehaviour {
 			newBulletLink.GetComponent<BulletLinkScript>().Init();
 			pooledBulletLinks.Add(newBulletLink);
 		}
+		pooledHitEffects = new List<HitEffectScript> ();
+		for (int i = 0; i < initialHitEffectPoolSize; i++) {
+			GameObject newHitEffect = (GameObject)Instantiate(hitEffectPrefab);
+			newHitEffect.SetActive(false);
+			pooledHitEffects.Add(newHitEffect.GetComponent<HitEffectScript>());
+		}
 	}
 
 	public GameObject getEnemyBullet() {
@@ -109,10 +119,26 @@ public class ObjectPoolerScript : MonoBehaviour {
 		pooledPlayerBullets.Add (newBullet);
 		return newBullet;
 	}
+
+	public GameObject getHitEffect() {
+		for (int i = 0; i < pooledHitEffects.Count; i++) {
+			if (!pooledHitEffects[i].gameObject.activeInHierarchy) {
+				pooledHitEffects[i].initiateSelfDestruct();
+				return pooledHitEffects[i].gameObject;
+			}
+		}
+		GameObject newHitEffect = (GameObject)Instantiate (hitEffectPrefab);
+		newHitEffect.SetActive (false);
+		HitEffectScript hitEffectInfo = newHitEffect.GetComponent<HitEffectScript> ();
+		pooledHitEffects.Add (hitEffectInfo);
+		hitEffectInfo.initiateSelfDestruct();
+		return newHitEffect.gameObject;
+	}
 	
 	// Update is called once per frame
 	/*
 	void Update () {
+		//Debug.Log("Approx. memory: " + System.GC.GetTotalMemory (false));
 		Debug.Log ("enemy bullets in pool: " + pooledEnemyBullets.Count);
 		           //+ ", and player bullets: " + pooledPlayerBullets.Count);
 	}

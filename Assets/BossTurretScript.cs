@@ -61,6 +61,11 @@ public class BossTurretScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		/*
+		this.enabled = false;
+		return;
+		*/
+
 		distToPlayer = Mathf.Infinity;
 		rank = 0;
 

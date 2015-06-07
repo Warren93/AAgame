@@ -6,7 +6,6 @@ public class PlayerBulletScript : MonoBehaviour {
 	public float speed;
 	public float maxRange;
 	public float distanceTraveled;
-	public GameObject HitEffectPrefab;
 	public LayerMask relevantLayers;
 
 	// Update is called once per frame
@@ -48,7 +47,9 @@ public class PlayerBulletScript : MonoBehaviour {
 			else if (col.transform.parent != null) {
 				otherParentHP.hitpoints -= 1;
 			}
-			Instantiate(HitEffectPrefab, transform.position, Quaternion.identity);
+			GameObject hitEffect = ObjectPoolerScript.objectPooler.getHitEffect();
+			hitEffect.transform.position = transform.position;
+			hitEffect.SetActive(true);
 			selfDestruct();
 		}
 	}

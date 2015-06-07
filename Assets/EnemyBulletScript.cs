@@ -7,12 +7,20 @@ public class EnemyBulletScript : MonoBehaviour {
 	public float maxRange;
 	public float distanceTraveled;
 	public float damage = 5;
-	public GameObject HitEffectPrefab;
+	Rigidbody myRigidbody = null;
+	Transform myTransform = null;
+	TrailRenderer trail = null;
 	bool curveTowardPointEnabled = false;
 	Vector3 targetPoint;
 	Vector3 originalFwdVec;
 	float angleStep;
 	float currentStep;
+
+	void Awake() {
+		myRigidbody = rigidbody;
+		myTransform = transform;
+		trail = GetComponent<TrailRenderer> ();
+	}
 
 	void OnEnable() {
 		damage = 5; // default
@@ -43,22 +51,12 @@ public class EnemyBulletScript : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		//Debug.Log ("speed is " + speed);
 		Vector3 oldWorldPos = transform.position;
-		Vector3 newPos = transform.forward * speed;
-		rigidbody.MovePosition(transform.position + (newPos * Time.deltaTime));
+		Vector3 newPos = myTransform.forward * speed;
+		myRigidbody.MovePosition(transform.position + (newPos * Time.deltaTime));
+		//distanceTraveled += speed * Time.deltaTime;
 		Vector3 newWorldPos = transform.position + (newPos * Time.deltaTime);
 		distanceTraveled += Mathf.Abs(newWorldPos.magnitude - oldWorldPos.magnitude);
-
-		//look ahead to see if going to hit something, because collision detection is apparently spotty otherwise...
-		/*
-		RaycastHit hitInfo;
-		bool didHit = Physics.Raycast (transform.position, transform.forward,
-		                               out hitInfo,
-		                               speed * Time.deltaTime * 0.5f);
-		if (didHit)
-			collisionFunction(hitInfo.collider);
-		*/
 	}
 
 	/*
@@ -76,7 +74,9 @@ public class EnemyBulletScript : MonoBehaviour {
 			if (col.gameObject.tag == "Player") {
 					col.gameObject.GetComponent<PlayerScript>().hitpoints -= damage;
 			}
-			Instantiate(HitEffectPrefab, transform.position, Quaternion.identity);
+			GameObject hitEffect = ObjectPoolerScript.objectPooler.getHitEffect();
+			hitEffect.transform.position = transform.position;
+			hitEffect.SetActive(true);
 			selfDestruct();
 		}
 	}
@@ -86,12 +86,12 @@ public class EnemyBulletScript : MonoBehaviour {
 	}
 
 	void reactivateTrail() {
-		gameObject.GetComponent<TrailRenderer> ().enabled = true;
+		trail.enabled = true;
 	}
 
 	void selfDestruct() {
 		CancelInvoke("reactivateTrail");
-		gameObject.GetComponent<TrailRenderer> ().enabled = false;
+		trail.enabled = false;
 		gameObject.SetActive (false);
 		// set back to default value
 		curveTowardPointEnabled = false;

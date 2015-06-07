@@ -155,6 +155,12 @@ public class GameManagerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		/*
+		if (Time.frameCount % 30 == 0) {
+			System.GC.Collect();
+		}
+		*/
+
 		//Debug.Log ("alt is " + creationAlt);
 		Screen.lockCursor = true;
 		Screen.showCursor = false;

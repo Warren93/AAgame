@@ -9,7 +9,6 @@ public class BulletLinkScript : MonoBehaviour {
 	public float bulletSpeed;
 	public List<Vector3> prevBulletPositions;
 	GameObject player;
-	public GameObject HitEffectPrefab;
 	public float detectionWidth;
 	LayerMask playerLayer;
 	PlayerScript playerInfo;
@@ -150,7 +149,9 @@ public class BulletLinkScript : MonoBehaviour {
 			if (didHit) {
 				//Debug.Log("LINK HIT OBJ: " + hitInfo.collider.gameObject.name);
 				playerInfo.hitpoints -= damage;
-				Instantiate(HitEffectPrefab, hitInfo.point, Quaternion.identity);
+				GameObject hitEffect = ObjectPoolerScript.objectPooler.getHitEffect();
+				hitEffect.transform.position = hitInfo.point;
+				hitEffect.SetActive(true);
 				selfDestruct();
 			}
 		}

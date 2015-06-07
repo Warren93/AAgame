@@ -27,6 +27,25 @@ public class AirBossScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		/*
+		foreach (Transform child in transform)
+			child.gameObject.SetActive(false);
+		this.enabled = false;
+		return;
+		*/
+
+		/*
+		foreach (Transform child in transform) {
+			if (child.gameObject.GetComponent<MeshRenderer>() != null)
+				child.gameObject.renderer.enabled = false;
+			if (child.tag == "Enemy Flak") {
+				child.transform.GetChild(0).renderer.enabled = false;
+				child.transform.GetChild(0).transform.GetChild(0).renderer.enabled = false;
+			}
+		}
+		renderer.enabled = false;
+		*/
+
 		Vector3 groundExtents = GameObject.FindGameObjectWithTag ("Ground").GetComponent<TerrainCollider> ().bounds.extents;
 		transform.position += transform.right * -0.4f * groundExtents.x;
 		transform.position += transform.forward * -0.6f * groundExtents.z;
