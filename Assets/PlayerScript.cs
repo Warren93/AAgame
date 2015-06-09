@@ -61,8 +61,8 @@ public class PlayerScript : MonoBehaviour {
 		mouseLookX_Rotation = 0;
 		mouseLookSensitivity = 200;
 
-		mouseLookCam = GameObject.Find("MouseLookCam").camera;
-		mainCam = GameObject.Find ("Main Camera").camera;
+		mouseLookCam = GameObject.Find("MouseLookCam").GetComponent<Camera>();
+		mainCam = GameObject.Find ("Main Camera").GetComponent<Camera>();
 		mouseLookCam.backgroundColor = mainCam.backgroundColor;
 
 		vecToMainCam = mainCam.transform.position - transform.position;
@@ -191,15 +191,15 @@ public class PlayerScript : MonoBehaviour {
 		if (newPos.magnitude > forwardSpeed * Time.deltaTime)
 			newPos = Vector3.ClampMagnitude(newPos, forwardSpeed * Time.deltaTime);
 		//Debug.Log ("newPos mag is " + newPos.magnitude);
-		rigidbody.MovePosition (transform.position + newPos);
+		GetComponent<Rigidbody>().MovePosition (transform.position + newPos);
 
 		// rolling
 		Quaternion leftRotation = Quaternion.AngleAxis(rollRate * Time.deltaTime, Vector3.forward);
 		Quaternion rightRotation = Quaternion.AngleAxis(-1 * rollRate * Time.deltaTime, Vector3.forward);
 		if (Input.GetKey (KeyCode.Q))
-			rigidbody.MoveRotation (rigidbody.rotation * leftRotation);
+			GetComponent<Rigidbody>().MoveRotation (GetComponent<Rigidbody>().rotation * leftRotation);
 		if (Input.GetKey (KeyCode.E))
-			rigidbody.MoveRotation (rigidbody.rotation * rightRotation);
+			GetComponent<Rigidbody>().MoveRotation (GetComponent<Rigidbody>().rotation * rightRotation);
 
 		// recharge boost
 		if (!Input.GetKey (KeyCode.LeftShift) && boostCharge < 100.0f)
@@ -229,8 +229,8 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	void dampenRigidbodyForces() {
-		rigidbody.velocity = Vector3.zero;
-		rigidbody.angularVelocity = Vector3.zero;
+		GetComponent<Rigidbody>().velocity = Vector3.zero;
+		GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 		/*
 		float cutoff = 0.000001f;
 		if (rigidbody.velocity.magnitude > 0 || rigidbody.angularVelocity.magnitude > 0) {

@@ -108,7 +108,7 @@ public class FlakTurretScript : MonoBehaviour {
 		trail.startWidth = 0.05f * bulletScaleFactor;
 		trail.endWidth = 0.001f * bulletScaleFactor;
 		trail.material.color = Color.yellow;
-		flakBullet.renderer.material.color = Color.yellow;
+		flakBullet.GetComponent<Renderer>().material.color = Color.yellow;
 
 		flakBullet.SetActive(true);
 		bulletInfo.delayedReactivateTrail();

@@ -63,8 +63,8 @@ public class GameManagerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		mainCam = GameObject.FindGameObjectWithTag("MainCamera").camera;
-		mouseLookCam = GameObject.FindGameObjectWithTag("MouseLookCam").camera;
+		mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+		mouseLookCam = GameObject.FindGameObjectWithTag("MouseLookCam").GetComponent<Camera>();
 		
 		backgroundColor = backgroundCols[Random.Range(0, backgroundCols.Length - 1)];
 		backgroundColor = new Color (184.0f / 255.0f, 145.0f / 255.0f, 61.0f / 255.0f);
@@ -149,7 +149,6 @@ public class GameManagerScript : MonoBehaviour {
 			
 
 		Invoke ("removeLevelLoadMessage", 2);
-
 	}
 	
 	// Update is called once per frame
@@ -163,7 +162,7 @@ public class GameManagerScript : MonoBehaviour {
 
 		//Debug.Log ("alt is " + creationAlt);
 		Screen.lockCursor = true;
-		Screen.showCursor = false;
+		Cursor.visible = false;
 
 		foreach (Camera cam in Camera.allCameras) {
 			cam.backgroundColor = backgroundColor;
@@ -367,7 +366,7 @@ public class GameManagerScript : MonoBehaviour {
 		enemy.transform.position = position;
 		enemies.Add (enemy);
 		enemy.GetComponent<EnemyScript> ().enabled = true;
-		enemy.renderer.material.color = Color.green;
+		enemy.GetComponent<Renderer>().material.color = Color.green;
 		enemy.GetComponent<EnemyScript> ().gameManger = gameObject;
 	}
 
@@ -478,7 +477,7 @@ public class GameManagerScript : MonoBehaviour {
 			sphereMesh.RecalculateNormals();
 			sphereMesh.RecalculateBounds();
 			uniqueVerts.Clear();
-			sphere.renderer.material = asteroidMat;
+			sphere.GetComponent<Renderer>().material = asteroidMat;
 
 			uniqueAsteroids.Add(sphere);
 		}

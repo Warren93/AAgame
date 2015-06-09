@@ -17,7 +17,7 @@ public class EnemyBulletScript : MonoBehaviour {
 	float currentStep;
 
 	void Awake() {
-		myRigidbody = rigidbody;
+		myRigidbody = GetComponent<Rigidbody>();
 		myTransform = transform;
 		trail = GetComponent<TrailRenderer> ();
 	}

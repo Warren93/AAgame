@@ -18,7 +18,7 @@ public class PlayerBulletScript : MonoBehaviour {
 		//Debug.Log ("speed is " + speed);
 		Vector3 oldWorldPos = transform.position;
 		Vector3 newPos = transform.forward * speed;
-		rigidbody.MovePosition(transform.position + (newPos * Time.deltaTime));
+		GetComponent<Rigidbody>().MovePosition(transform.position + (newPos * Time.deltaTime));
 		Vector3 newWorldPos = transform.position + (newPos * Time.deltaTime);
 		distanceTraveled += Mathf.Abs(newWorldPos.magnitude - oldWorldPos.magnitude);
 

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 
 Project("{11E9F9F2-CDE7-E023-B4A4-E8D8FCA60312}") = "AAgame", "Assembly-CSharp.csproj", "{971F2D6D-0610-2B8F-EAA1-3A4C7822E747}"
 EndProject
-Project("{11E9F9F2-CDE7-E023-B4A4-E8D8FCA60312}") = "AAgame", "Assembly-UnityScript-firstpass.unityproj", "{C9823686-BC00-DA9A-9BE9-593AF3D785CF}"
+Project("{11E9F9F2-CDE7-E023-B4A4-E8D8FCA60312}") = "AAgame", "Assembly-UnityScript.unityproj", "{58EE6EE8-CB9D-CE3A-142A-1DB7CFF9B86B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,15 +15,15 @@ Global
 		{971F2D6D-0610-2B8F-EAA1-3A4C7822E747}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{971F2D6D-0610-2B8F-EAA1-3A4C7822E747}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{971F2D6D-0610-2B8F-EAA1-3A4C7822E747}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9823686-BC00-DA9A-9BE9-593AF3D785CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9823686-BC00-DA9A-9BE9-593AF3D785CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9823686-BC00-DA9A-9BE9-593AF3D785CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9823686-BC00-DA9A-9BE9-593AF3D785CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58EE6EE8-CB9D-CE3A-142A-1DB7CFF9B86B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58EE6EE8-CB9D-CE3A-142A-1DB7CFF9B86B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58EE6EE8-CB9D-CE3A-142A-1DB7CFF9B86B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58EE6EE8-CB9D-CE3A-142A-1DB7CFF9B86B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																																																																																																	GlobalSection(MonoDevelopProperties) = preSolution
+																																																																																																																										GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1

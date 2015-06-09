@@ -130,7 +130,7 @@ public class AirBossScript : MonoBehaviour {
 
 
 	void FixedUpdate() {
-		rigidbody.MovePosition (transform.position + (transform.forward * speed * Time.deltaTime));
+		GetComponent<Rigidbody>().MovePosition (transform.position + (transform.forward * speed * Time.deltaTime));
 	}
 
 

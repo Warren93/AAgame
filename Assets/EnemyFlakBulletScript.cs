@@ -25,7 +25,7 @@ public class EnemyFlakBulletScript : MonoBehaviour {
 		//Debug.Log ("speed is " + speed);
 		Vector3 oldWorldPos = transform.position;
 		Vector3 newPos = transform.forward * speed;
-		rigidbody.MovePosition(transform.position + (newPos * Time.deltaTime));
+		GetComponent<Rigidbody>().MovePosition(transform.position + (newPos * Time.deltaTime));
 		Vector3 newWorldPos = transform.position + (newPos * Time.deltaTime);
 		distanceTraveled += Mathf.Abs(newWorldPos.magnitude - oldWorldPos.magnitude);
 
@@ -86,7 +86,7 @@ public class EnemyFlakBulletScript : MonoBehaviour {
 		
 		TrailRenderer trail = subBullet.GetComponent<TrailRenderer> ();
 		trail.material.color = darkGray;
-		subBullet.renderer.material.color = darkGray;
+		subBullet.GetComponent<Renderer>().material.color = darkGray;
 		
 		subBullet.SetActive(true);
 		bulletInfo.delayedReactivateTrail();

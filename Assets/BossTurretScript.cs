@@ -494,7 +494,7 @@ public class BossTurretScript : MonoBehaviour {
 		trail.endWidth = 0.001f * scaleFac;
 		// change bullet color
 		trail.material.color = color;
-		bullet.renderer.material.color = color;
+		bullet.GetComponent<Renderer>().material.color = color;
 	}
 
 	float correctedSin(float input) {

@@ -177,7 +177,7 @@ public class EnemyScript : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		rigidbody.MovePosition (transform.position + (newPos * Time.deltaTime));
+		GetComponent<Rigidbody>().MovePosition (transform.position + (newPos * Time.deltaTime));
 	}
 
 	void longAssBoidFunction() {
@@ -790,8 +790,8 @@ public class EnemyScript : MonoBehaviour {
 	}
 
 	void dampenRigidbodyForces() {
-		rigidbody.velocity = Vector3.zero;
-		rigidbody.angularVelocity = Vector3.zero;
+		GetComponent<Rigidbody>().velocity = Vector3.zero;
+		GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 	}
 
 	void setCohesionRangeShort() {
@@ -850,23 +850,23 @@ public class EnemyScript : MonoBehaviour {
 
 	void changeColorBasedOnState() {
 		if (state == WANDER)
-			renderer.material.color = Color.green;
+			GetComponent<Renderer>().material.color = Color.green;
 		else if (state == PURSUE)
-			renderer.material.color = Color.red;
+			GetComponent<Renderer>().material.color = Color.red;
 		else if (state == SEARCH)
-			renderer.material.color = Color.yellow;
+			GetComponent<Renderer>().material.color = Color.yellow;
 		else
-			renderer.material.color = Color.white; // should probably never get here
+			GetComponent<Renderer>().material.color = Color.white; // should probably never get here
 
 		// make color blue if energy low
 		if (energyLevel <= 10) {
 			//renderer.material.color *= 0.5f;
-			renderer.material.color = Color.blue;
+			GetComponent<Renderer>().material.color = Color.blue;
 			//Debug.Log("EXHAUSTED");
 		}
 
 		if (energyLevel < 1) {
-			renderer.material.color = Color.cyan;
+			GetComponent<Renderer>().material.color = Color.cyan;
 			Debug.LogWarning("problem");
 		}
 
