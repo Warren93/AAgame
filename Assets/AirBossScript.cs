@@ -8,6 +8,7 @@ public class AirBossScript : MonoBehaviour {
 
 	const int GOING_STRAIGHT = 1;
 	const int TURNING = 2;
+	const int DEAD = 3;
 	int state;
 
 	public float speed;
@@ -16,16 +17,24 @@ public class AirBossScript : MonoBehaviour {
 	public float turnFreq;
 	public float turnDuration;
 	public float bankRate;
+	public GameObject deathExplosion;
 
 	Vector3 desiredHeading;
 	float turnRate = 0;
 	float remainingTurnTime = 0;
 
 	List<GameObject> props;
+	List<HPScript> engineHitpointScripts;
 	public List<BossTurretScript> turretScripts;
+
+	public int hitpoints = 0;
+
+	Rigidbody myRigidBody;
 
 	// Use this for initialization
 	void Start () {
+
+		myRigidBody = GetComponent<Rigidbody> ();
 
 		/*
 		foreach (Transform child in transform)
@@ -53,6 +62,7 @@ public class AirBossScript : MonoBehaviour {
 		state = GOING_STRAIGHT;
 		props = new List<GameObject> ();
 		turretScripts = new List<BossTurretScript> ();
+		engineHitpointScripts = new List<HPScript> ();
 		for (int i = 0; i < 4; i++)
 			props.Add(transform.GetChild(i).gameObject);
 		List<Transform> newChildren = new List<Transform> ();
@@ -80,6 +90,8 @@ public class AirBossScript : MonoBehaviour {
 					script.transform.parent.gameObject.SetActive(false);
 				}
 			}
+			else if (child.tag == "AirBossEngine")
+				engineHitpointScripts.Add(child.GetComponent<HPScript>());
 		}
 
 		for (int i = 0; i < newChildren.Count; i++) {
@@ -104,6 +116,17 @@ public class AirBossScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (state == DEAD)
+			return;
+
+		// get current health status (remaining hitpoints) by adding up remaining hitpoints of all engines
+		int newHP_Value = 0;
+		foreach (HPScript script in engineHitpointScripts)
+			newHP_Value += script.hitpoints;
+		if (hitpoints != newHP_Value)
+			hitpoints = newHP_Value;
+
 		// this C# sorting technique taken from post by user "GenericTypeTea" on Stack Overflow:
 		// http://stackoverflow.com/questions/3309188/how-to-sort-a-listt-by-a-property-in-the-object
 		if (turretsEnabled) {
@@ -118,19 +141,38 @@ public class AirBossScript : MonoBehaviour {
 		}
 		
 
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 4; i++) {
+			float rotationSpeed = defaultPropRotationSpeed;
+			if (engineHitpointScripts[i].hitpoints <= 0)
+				rotationSpeed *= 0.2f;
 			props[i].transform.RotateAround(props[i].transform.position,
 			                                props[i].transform.forward,
-			                                defaultPropRotationSpeed * Time.deltaTime);
+			                                rotationSpeed * Time.deltaTime);
+		}
 		executeTurn ();
 
 		//transform.Translate(Vector3.forward * speed * Time.deltaTime);
 		//rigidbody.MovePosition (transform.position + (transform.forward * speed * Time.deltaTime));
+
+		if (hitpoints <= 0 && state != DEAD) {
+			foreach (BossTurretScript script in turretScripts) {
+				if (script.enabled) {
+					script.enabled = false;
+					script.CancelInvoke();
+				}
+			}
+			if (IsInvoking())
+				CancelInvoke();
+			state = DEAD;
+			GameObject explosion = (GameObject) Instantiate (deathExplosion, transform.position, transform.rotation);
+			explosion.transform.localScale = Vector3.one * 30;
+			Invoke ("delayedSelfDestruct", 1.5f);
+		}
 	}
 
 
 	void FixedUpdate() {
-		GetComponent<Rigidbody>().MovePosition (transform.position + (transform.forward * speed * Time.deltaTime));
+		myRigidBody.MovePosition (transform.position + (transform.forward * speed * Time.deltaTime));
 	}
 
 
@@ -164,6 +206,11 @@ public class AirBossScript : MonoBehaviour {
 		transform.LookAt (transform.position + desiredHeading);
 		state = GOING_STRAIGHT;
 		Invoke ("beginTurning", turnFreq);
+	}
+
+	void delayedSelfDestruct() {
+		GameManagerScript.score += 50;
+		Destroy (gameObject);
 	}
 }
 	

@@ -41,16 +41,16 @@ public class PlayerBulletScript : MonoBehaviour {
 		if (col.transform.parent != null)
 			otherParentHP = col.gameObject.transform.parent.GetComponent<HPScript> ();
 		if (col.gameObject.tag != "Player") {
-			if (otherHP != null) {
-				otherHP.hitpoints -= 1;
-			}
-			else if (col.transform.parent != null) {
-				otherParentHP.hitpoints -= 1;
-			}
 			GameObject hitEffect = ObjectPoolerScript.objectPooler.getHitEffect();
 			hitEffect.transform.position = transform.position;
 			hitEffect.SetActive(true);
 			selfDestruct();
+			if (otherHP != null && otherHP.hitpoints > 0) {
+				otherHP.hitpoints -= 1;
+			}
+			else if (col.transform.parent != null && otherParentHP != null && otherParentHP.hitpoints > 0) {
+				otherParentHP.hitpoints -= 1;
+			}
 		}
 	}
 

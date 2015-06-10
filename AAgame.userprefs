@@ -1,19 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\AirBossScript.cs">
     <Files>
-      <File FileName="Assets\AirBossScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\EnemyBulletScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\BossTurretScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\BulletLinkScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\PlayerScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\ObjectPoolerScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\EnemyScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\GameManagerScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\FlakTurretScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\EnemyFlakBulletScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\AirBossScript.cs" Line="212" Column="33" />
+      <File FileName="Assets\EnemyBulletScript.cs" Line="13" Column="37" />
+      <File FileName="Assets\BossTurretScript.cs" Line="443" Column="22" />
+      <File FileName="Assets\BulletLinkScript.cs" Line="54" Column="25" />
+      <File FileName="Assets\GameManagerScript.cs" Line="221" Column="5" />
       <File FileName="Assets\HitEffectScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\PlayerBulletScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\HPScript.cs" Line="15" Column="4" />
+      <File FileName="Assets\EngineScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\PlayerBulletScript.cs" Line="52" Column="34" />
+      <File FileName="Assets\PlayerScript.cs" Line="306" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

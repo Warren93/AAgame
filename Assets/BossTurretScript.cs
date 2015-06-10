@@ -317,6 +317,8 @@ public class BossTurretScript : MonoBehaviour {
 		linkInfo.bulletSpeed = adjustedBulletSpeed;
 		linkInfo.setWidth (1);
 		newLink.SetActive (true);
+		linkInfo.Update ();
+		linkInfo.setVisible (true);
 		baseAngle += baseAngleIncrement;
 		variation += variationIncrement;
 		
@@ -359,6 +361,8 @@ public class BossTurretScript : MonoBehaviour {
 		linkInfo.damage = 10;
 		linkInfo.interpolateColor (orange, Color.red, 3f);
 		newLink.SetActive (true);
+		linkInfo.Update ();
+		linkInfo.setVisible (true);
 		sweepAngle += sweepAngleIncrement;
 	}
 
@@ -436,6 +440,8 @@ public class BossTurretScript : MonoBehaviour {
 		linkInfo.damage = 10;
 		linkInfo.interpolateColor (Color.blue, Color.magenta, 4.5f);
 		newLink.SetActive (true);
+		linkInfo.Update ();
+		linkInfo.setVisible (true);
 		baseAngle += baseAngleIncrement;
 		variation += variationIncrement;
 

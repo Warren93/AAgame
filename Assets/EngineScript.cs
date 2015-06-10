@@ -2,16 +2,20 @@
 using System.Collections;
 
 public class EngineScript : MonoBehaviour {
-
-	HPScript parentHP;
+	
+ 	HPScript myHP_Script;
+	GameObject smoke;
 
 	// Use this for initialization
 	void Start () {
-		parentHP = transform.parent.gameObject.GetComponent<HPScript> ();
+		myHP_Script = GetComponent<HPScript> ();
+		smoke = transform.GetChild (0).gameObject;
 	}
-	
-	void OnCollisionEnter(Collision collision) {
-		if (collision.collider.gameObject.tag == "PlayerBullet")
-			parentHP.hitpoints -= 4;
+
+	void Update () {
+		if (myHP_Script.hitpoints <= 0) {
+			smoke.SetActive(true);
+		}
 	}
+
 }

@@ -51,7 +51,7 @@ public class BulletLinkScript : MonoBehaviour {
 	*/
 
 	// Update is called once per frame
-	void Update () {
+	public void Update () {
 
 		// PREVENT GLITCHES DUE TO OBJECT POOLING
 		if (prevBulletPositions.Count != bullets.Count) {
@@ -157,9 +157,17 @@ public class BulletLinkScript : MonoBehaviour {
 		}
 	}
 
+	public void setVisible(bool visible) {
+		if (visible)
+			line.enabled = true;
+		else
+			line.enabled = false;
+	}
+
 	public void selfDestruct() {
 		bullets.Clear ();
 		prevBulletPositions.Clear ();
+		setVisible (false);
 		gameObject.SetActive (false);
 		// set things back to default
 		damage = 5;
