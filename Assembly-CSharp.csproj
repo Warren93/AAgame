@@ -64,6 +64,7 @@
      <Compile Include="Assets\PlayerBulletScript.cs" />
      <Compile Include="Assets\PlayerGunScript.cs" />
      <Compile Include="Assets\PlayerScript.cs" />
+     <Compile Include="Assets\WallGridScript.cs" />
      <None Include="Assets\Old Standard Assets\Toon Shading\Sources\Shaders\OLDToony-Basic.shader" />
      <None Include="Assets\Materials\shader sources\CGIncludes\UnityShaderVariables.cginc" />
      <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
