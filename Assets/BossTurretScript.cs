@@ -109,7 +109,7 @@ public class BossTurretScript : MonoBehaviour {
 
 		boostMult = 1;
 		float leadMult = 1;
-		if (pattern == STANDARD)
+		if (pattern == STANDARD || pattern == LINK)
 			leadMult = 0.85f;
 
 		if (Input.GetKey(KeyCode.LeftShift) && !playerComingTowardTurret()) {
@@ -120,7 +120,7 @@ public class BossTurretScript : MonoBehaviour {
 		adjustedBulletSpeed = bulletSpeed * boostMult;
 
 		if (pattern == CONE)
-			leadMult = 1;
+			leadMult = 0.9f;
 
 		if (pattern == FLOWER)
 			leadMult = 0.85f;
@@ -268,6 +268,23 @@ public class BossTurretScript : MonoBehaviour {
 
 	void randomShoot() {
 		float spread = 40;
+		GameObject bullet = ObjectPoolerScript.objectPooler.getEnemyBullet();
+		bullet.transform.position = currentBarrelOut.position;
+		//bullet.transform.rotation = gunBarrels.transform.rotation;
+		bullet.transform.LookAt (target + new Vector3 (Random.Range(-spread, spread),
+		                                               Random.Range(-spread, spread),
+		                                               Random.Range(-spread, spread)));
+		
+		EnemyBulletScript bulletInfo = bullet.GetComponent<EnemyBulletScript>();
+		bulletInfo.speed = adjustedBulletSpeed;
+		bulletInfo.distanceTraveled = 0;
+		bulletInfo.maxRange = range * 0.6f;
+		
+		setScaleAndColorForBullet (bullet, bulletInfo, 60, Color.green);
+	}
+
+	void randomShootTight() {
+		float spread = 20;
 		GameObject bullet = ObjectPoolerScript.objectPooler.getEnemyBullet();
 		bullet.transform.position = currentBarrelOut.position;
 		//bullet.transform.rotation = gunBarrels.transform.rotation;
@@ -445,7 +462,7 @@ public class BossTurretScript : MonoBehaviour {
 		baseAngle += baseAngleIncrement;
 		variation += variationIncrement;
 
-		randomShoot ();
+		randomShootTight ();
 	}
 
 	void verticalCurtainShoot() {

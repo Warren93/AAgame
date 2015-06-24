@@ -29,8 +29,7 @@ public class EnemyScript : MonoBehaviour {
 	float energyRegenRate = 2.5f; // was 5, then 20
 	float exhaustionTurnPenaltyCutoff = 100;
 
-	float sightRange = 100.0f;
-	//float sightRange = 150.0f;
+	float sightRange = 150.0f; // was 100
 	float fov = 45.0f; // half of FOV, actually
 	float smellRange;
 
@@ -807,6 +806,8 @@ public class EnemyScript : MonoBehaviour {
 			CancelInvoke("changeDestination");
 			return;
 		}
+
+		/*
 		float f1, f2, f3;
 		f1 = Random.Range(-terrainCol.bounds.extents.x, terrainCol.bounds.extents.x);
 		f2 = Random.Range(terrainCol.transform.position.x + 50, terrainCol.transform.position.x + 220);
@@ -815,8 +816,17 @@ public class EnemyScript : MonoBehaviour {
 		newDestination += 300 * groundCheck (newDestination, 1000);
 		newDestination = Vector3.ClampMagnitude (newDestination, terrainCol.bounds.extents.magnitude * 0.8f);
 		destination = newDestination;
+		*/
 
-		//Debug.Log ("destination changed to " + newDestination);
+		float f1, f2, f3;
+		float spread = 1000.0f;
+		f1 = Random.Range(-spread, spread);
+		f2 = Random.Range(-spread * 0.5f, spread * 0.5f);
+		f3 = Random.Range(-spread, spread);
+		Vector3 newDestination = new Vector3(f1, f2, f3);
+		newDestination += player.transform.position;
+		newDestination = Vector3.ClampMagnitude (newDestination, terrainCol.bounds.extents.x * 0.8f);
+		destination = newDestination;
 	}
 
 	void adjustEnergyLevel (float currentSpeed, float turnAngle) {
@@ -937,10 +947,12 @@ public class EnemyScript : MonoBehaviour {
 		return returnVec;
 	}
 
+	/*
 	void OnCollisionEnter(Collision collision) {
 		if (collision.collider.gameObject.tag == "Ground")
 			Debug.Log("enemy fighter hit ground");
 	}
+	*/
 
 	bool checkVectorIsNaN(Vector3 test) {
 		if (System.Single.IsNaN (test.x) || System.Single.IsNaN (test.y) || System.Single.IsNaN (test.z)) {

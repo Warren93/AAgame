@@ -22,9 +22,11 @@ public class EnemyBulletScript : MonoBehaviour {
 		trail = GetComponent<TrailRenderer> ();
 	}
 
+	/*
 	void OnEnable() {
 		damage = 5; // default
 	}
+	*/
 
 	public void curveTowardPoint(Vector3 point, float step) {
 		targetPoint = point;

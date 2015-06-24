@@ -4,13 +4,18 @@ using System.Collections.Generic;
 
 public class PlayerScript : MonoBehaviour {
 
+	Rigidbody myRigidBody;
+
 	bool nocollide = false;
-	bool invincible = true;
+	public bool invincible = false;
 	public float hitpoints;
 
 	public float currentWeaponRange = 200;
 
 	Vector3 prevDirection;
+	Vector3 prevRigidBodyPosition;
+	LayerMask groundLayer;
+
 	Camera mouseLookCam;
 	Camera mainCam;
 
@@ -28,7 +33,7 @@ public class PlayerScript : MonoBehaviour {
 	//float boostDecrement = 0.0f;
 	float boostIncrement;
 
-	float obstacleDamage = 10;
+	float obstacleDamage = 2;
 	float enemyDamage = 5;
 
 	public float mouseX_AxisSensitivity;
@@ -50,6 +55,10 @@ public class PlayerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		myRigidBody = GetComponent<Rigidbody> ();
+		prevRigidBodyPosition = myRigidBody.position;
+		groundLayer = 1 << LayerMask.NameToLayer ("Ground");
+
 		gameManagerRef = GameObject.FindGameObjectWithTag ("GameManager");
 
 		hitpoints = 100.0f;
@@ -61,7 +70,7 @@ public class PlayerScript : MonoBehaviour {
 		mouseLookX_Rotation = 0;
 		mouseLookSensitivity = 200;
 
-		mouseLookCam = GameObject.Find("MouseLookCam").GetComponent<Camera>();
+		mouseLookCam = GameObject.Find("MouseLookCam").GetComponent<Camera>(); // this is also the target cam
 		mainCam = GameObject.Find ("Main Camera").GetComponent<Camera>();
 		mouseLookCam.backgroundColor = mainCam.backgroundColor;
 
@@ -75,7 +84,6 @@ public class PlayerScript : MonoBehaviour {
 		rollRate = 90.0f; // was 75
 
 		transform.rotation = Quaternion.identity;
-		//Debug.Log ("ORIGINAL rotation is " + transform.rotation.eulerAngles);
 
 		Invoke ("turnOffInitialFreeze", 0.5f);
 	}
@@ -91,29 +99,37 @@ public class PlayerScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		//Debug.Log ("rotation is " + transform.rotation.eulerAngles);
 
-		Debug.DrawRay(transform.position, Vector3.up * 50, Color.cyan);
+		Debug.DrawRay (transform.position, Vector3.up * 50, Color.cyan);
 
 		dampenRigidbodyForces ();
-		//Debug.Log ("mouse look cam is at " + mouseLookCam.transform.position);
 
-		if (Input.GetKeyDown(KeyCode.F)) {
-			GameObject potentialNewTarget = getTarget();
+		// lock onto new target if player presses F
+		if (Input.GetKeyDown (KeyCode.F)) {
+			GameObject potentialNewTarget = getTarget ();
 			if (potentialNewTarget != null)
-				currentSelectedTarget = potentialNewTarget;
-			CancelInvoke("allowTargetCam");
-			Invoke("allowTargetCam", 0.1f);
+					currentSelectedTarget = potentialNewTarget;
+			// delay switching to the target cam to avoid jarring, instant switch
+			CancelInvoke ("allowTargetCam");
+			Invoke ("allowTargetCam", 0.1f);
 		}
 
+		// CORNER(ish) CASE
+		// if player has pressed the target cam button (F) but a target has not been selected,
+		// and if the target/mouselook camera is still enabled despite the player NOT also pressing the mouselook button (abbrev. 'mlb')
+		// switch to the main (follow) cam
 		if (Input.GetKey (KeyCode.F) && currentSelectedTarget == null && !Input.GetMouseButton (mlb) && mouseLookCam.enabled)
 			switchToMainCam();
 
+		// if the player is pressing the mouselook button,
+		// or if they're pressing the target cam button but there's no target
+		// ...and if the delay to switch to the target cam has worn off...
+		// then switch to the target/mouselook cam
 		if (Input.GetMouseButton (mlb) || (Input.GetKey(KeyCode.F) && currentSelectedTarget != null) && allowSwitchToTargetCam) {
 			switchToMouseLookCam();
 		}
-		else if (Input.GetMouseButtonUp (mlb) || Input.GetKeyUp(KeyCode.F)) {
-			switchToMainCam();
+		else if (Input.GetMouseButtonUp (mlb) || Input.GetKeyUp(KeyCode.F)) { // if the player isn't pressing either the target or mouselook cam
+			switchToMainCam();												  // buttons, then switch back to the main cam
 			// reset mouselook camera position
 			resetMouseLookCamPosition();
 			mouseLookY_Rotation = 0;
@@ -127,43 +143,28 @@ public class PlayerScript : MonoBehaviour {
 		deltaMouseY = Input.GetAxis ("Mouse Y");
 		// mouse look stuff
 		if (Input.GetMouseButton(mlb)) {
-			//mouseLookCam.transform.position = mainCam.transform.position;
-			//mouseLookCam.transform.rotation = mainCam.transform.rotation;
 			mouseLookCam.transform.position = transform.position + (transform.rotation * vecToMainCam);
 			mouseLookCam.transform.rotation = transform.rotation;
 			mouseLookY_Rotation += Time.deltaTime * deltaMouseX * mouseLookSensitivity;
 			mouseLookX_Rotation += Time.deltaTime * deltaMouseY * mouseLookSensitivity;
-
-			//mouseLookX_Rotation = Mathf.Clamp(mouseLookX_Rotation, -5, 5);
-			//mouseLookY_Rotation = Mathf.Clamp(mouseLookY_Rotation, -5, 5);
 
 			mouseLookCam.transform.RotateAround(transform.position, transform.right, mouseLookX_Rotation);
 			mouseLookCam.transform.RotateAround(transform.position, transform.up, mouseLookY_Rotation);
 		}
 		else if (Input.GetKey (KeyCode.F)) {
 			Vector3 enemyToLookAt = getSelectedEnemyPos();
-			//mouseLookCam.transform.position = transform.position + transform.forward * 10;
-			//mouseLookCam.transform.LookAt(transform.position, transform.up);
 			Vector3 vecFromEnemy = transform.position - enemyToLookAt;
-			mouseLookCam.transform.position = transform.position + vecFromEnemy.normalized * vecToMainCam.magnitude; //Vector3.Distance(transform.position, mainCam.transform.position);
+			mouseLookCam.transform.position = transform.position + vecFromEnemy.normalized * vecToMainCam.magnitude;
 			mouseLookCam.transform.position += transform.up * 2;
 			mouseLookCam.transform.LookAt(enemyToLookAt);
 		}
 		// movement stuff
 		if((deltaMouseX != 0 || deltaMouseY != 0) && !Input.GetMouseButton(mlb)){
-			//Debug.Log("mouse moved");
 			transform.RotateAround(transform.position, transform.up, Time.deltaTime * deltaMouseX * mouseX_AxisSensitivity);
 			transform.RotateAround(transform.position, transform.right, Time.deltaTime * -1 * deltaMouseY * mouseY_AxisSensitivity);
 		}
 
 		forwardSpeed = defaultForwardSpeed;
-
-		/*
-		if (GameManagerScript.showWelcomeMsg == true)
-			forwardSpeed = 0;
-			*/
-
-		//Debug.Log ("forward speed is " + forwardSpeed);
 
 		// accelerate (use boost)
 		if (Input.GetKey (KeyCode.LeftShift) && boostCharge > 0) {
@@ -174,9 +175,30 @@ public class PlayerScript : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Space))
 			forwardSpeed = defaultForwardSpeed * 0.5f;
 
+		//moveShip ();
+
+		// recharge boost
+		if (!Input.GetKey (KeyCode.LeftShift) && boostCharge < 100.0f)
+			boostCharge += boostIncrement * Time.deltaTime;
+		if (boostCharge > 100.0f)
+			boostCharge = 100.0f;
+
+		checkDead ();
+
+		if (initialSetup)
+			transform.rotation = Quaternion.identity;
+
+	}
+
+	void FixedUpdate() {
+		moveShip ();
+		preventGlitchingThroughGround ();
+	}
+
+	void moveShip() {
 		// forward movement
 		newPos = (transform.TransformDirection (Vector3.forward) * forwardSpeed * Time.deltaTime);
-
+		
 		// sideways strafing
 		sidewaysSpeed = forwardSpeed * 2.0f;
 		if (Input.GetKey(KeyCode.A))
@@ -187,40 +209,20 @@ public class PlayerScript : MonoBehaviour {
 			newPos += (transform.TransformDirection(Vector3.up) * sidewaysSpeed * Time.deltaTime);
 		if (Input.GetKey(KeyCode.S))
 			newPos += (transform.TransformDirection(Vector3.down) * sidewaysSpeed * Time.deltaTime);
-
+		
 		if (newPos.magnitude > forwardSpeed * Time.deltaTime)
 			newPos = Vector3.ClampMagnitude(newPos, forwardSpeed * Time.deltaTime);
-		//Debug.Log ("newPos mag is " + newPos.magnitude);
-		GetComponent<Rigidbody>().MovePosition (transform.position + newPos);
+
+		myRigidBody.MovePosition (transform.position + newPos);
+		//myRigidBody.AddForce(newPos, ForceMode.VelocityChange);
 
 		// rolling
 		Quaternion leftRotation = Quaternion.AngleAxis(rollRate * Time.deltaTime, Vector3.forward);
 		Quaternion rightRotation = Quaternion.AngleAxis(-1 * rollRate * Time.deltaTime, Vector3.forward);
 		if (Input.GetKey (KeyCode.Q))
-			GetComponent<Rigidbody>().MoveRotation (GetComponent<Rigidbody>().rotation * leftRotation);
+			myRigidBody.MoveRotation (myRigidBody.rotation * leftRotation);
 		if (Input.GetKey (KeyCode.E))
-			GetComponent<Rigidbody>().MoveRotation (GetComponent<Rigidbody>().rotation * rightRotation);
-
-		// recharge boost
-		if (!Input.GetKey (KeyCode.LeftShift) && boostCharge < 100.0f)
-			boostCharge += boostIncrement * Time.deltaTime;
-		if (boostCharge > 100.0f)
-			boostCharge = 100.0f;
-
-		//Debug.Log ("boost is at " + boostCharge + ", hitpoints at " + hitpoints);
-
-		checkDead ();
-
-		if (initialSetup)
-			transform.rotation = Quaternion.identity;
-
-		/*
-		string tgName = "NULL";
-		if (currentSelectedTarget != null)
-			tgName = currentSelectedTarget.name;
-		*/
-		//Debug.Log ("current target is " + tgName + ", at " + getSelectedEnemyPos () + ", and player is at " + transform.position);
-		//Debug.Log ("allowSwitchToTargetCam is set to " + allowSwitchToTargetCam + ", and current target is " + tgName);
+			myRigidBody.MoveRotation (myRigidBody.rotation * rightRotation);
 	}
 
 	void resetMouseLookCamPosition() {
@@ -229,20 +231,8 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	void dampenRigidbodyForces() {
-		GetComponent<Rigidbody>().velocity = Vector3.zero;
-		GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-		/*
-		float cutoff = 0.000001f;
-		if (rigidbody.velocity.magnitude > 0 || rigidbody.angularVelocity.magnitude > 0) {
-			//Debug.Log ("collision velocity: " + rigidbody.velocity.magnitude + ", collision angular: " + rigidbody.angularVelocity.magnitude);
-			rigidbody.velocity *= 0.99999995f * Time.deltaTime;
-			rigidbody.angularVelocity *= 0.99999995f * Time.deltaTime;
-			if (rigidbody.velocity.magnitude <= cutoff)
-				rigidbody.velocity = Vector3.zero;
-			if (rigidbody.angularVelocity.magnitude <= cutoff)
-				rigidbody.angularVelocity = Vector3.zero;
-		}
-		*/
+		myRigidBody.velocity = Vector3.zero;
+		myRigidBody.angularVelocity = Vector3.zero;
 	}
 
 	void switchToMouseLookCam() {
@@ -318,7 +308,6 @@ public class PlayerScript : MonoBehaviour {
 	void OnCollisionEnter(Collision collision) {
 		if (nocollide)
 			return;
-		//Debug.Log ("in collsion function");
 		if (collision.collider.tag == "Obstacle" || collision.collider.tag == "Ground")
 			hitpoints -= obstacleDamage;
 		if (collision.collider.tag == "Enemy" || collision.collider.tag == "Enemy Flak")
@@ -330,6 +319,24 @@ public class PlayerScript : MonoBehaviour {
 		if (hitpoints <= 0 && !invincible)
 			resetGame ();
 	}
+
+
+	void preventGlitchingThroughGround() {
+		float bounceBack = 10.0f;
+		RaycastHit hitInfo;
+		Vector3 vecFromLastPos = myRigidBody.position - prevRigidBodyPosition;
+		if (Input.GetKey(KeyCode.LeftShift)
+			&& Physics.Raycast(myRigidBody.position, vecFromLastPos, out hitInfo, vecFromLastPos.magnitude, groundLayer)
+		    //&& Vector3.Angle(-transform.forward, hitInfo.normal) <= 60.0f
+		    ) {
+			//Debug.Log("HIT");
+			//transform.position = hitInfo.point - vecFromLastPos * 5;
+			transform.position += hitInfo.normal * bounceBack;
+			//return;
+		}
+		prevRigidBodyPosition = myRigidBody.position;
+	}
+
 
 	void resetGame() {
 		Application.LoadLevel(0);

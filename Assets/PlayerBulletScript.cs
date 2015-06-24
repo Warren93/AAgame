@@ -3,13 +3,33 @@ using System.Collections;
 
 public class PlayerBulletScript : MonoBehaviour {
 
+	MeshRenderer myMeshRenderer;
+	LineRenderer myLineRenderer;
+	Rigidbody myRigidBody;
+	Transform playerTransform;
 	public float speed;
 	public float maxRange;
 	public float distanceTraveled;
 	public LayerMask relevantLayers;
 
+	void Awake() {
+		myMeshRenderer = GetComponent<MeshRenderer> ();
+		myLineRenderer = GetComponent<LineRenderer> ();
+		myRigidBody = GetComponent<Rigidbody> ();
+	}
+
+	void Start() {
+		playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
+	}
+
 	// Update is called once per frame
 	void Update () {
+		
+		if (!myMeshRenderer.enabled && Vector3.Distance(playerTransform.position, transform.position) > 3)
+			myMeshRenderer.enabled = true;
+		if (!myLineRenderer.enabled && Vector3.Distance(playerTransform.position, transform.position) > 3.1f)
+			myLineRenderer.enabled = true;
+
 		if (distanceTraveled >= maxRange)
 			selfDestruct();
 	}
@@ -18,7 +38,7 @@ public class PlayerBulletScript : MonoBehaviour {
 		//Debug.Log ("speed is " + speed);
 		Vector3 oldWorldPos = transform.position;
 		Vector3 newPos = transform.forward * speed;
-		GetComponent<Rigidbody>().MovePosition(transform.position + (newPos * Time.deltaTime));
+		myRigidBody.MovePosition(transform.position + (newPos * Time.deltaTime));
 		Vector3 newWorldPos = transform.position + (newPos * Time.deltaTime);
 		distanceTraveled += Mathf.Abs(newWorldPos.magnitude - oldWorldPos.magnitude);
 
@@ -67,6 +87,8 @@ public class PlayerBulletScript : MonoBehaviour {
 	void selfDestruct() {
 		//CancelInvoke("reactivateTrail");
 		//gameObject.GetComponent<TrailRenderer> ().enabled = false;
+		myMeshRenderer.enabled = false;
+		myLineRenderer.enabled = false;
 		gameObject.SetActive (false);
 	}
 }

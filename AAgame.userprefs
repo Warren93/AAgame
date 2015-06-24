@@ -1,10 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GameManagerScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\PlayerScript.cs">
     <Files>
-      <File FileName="Assets\WallGridScript.cs" Line="15" Column="40" />
-      <File FileName="Assets\GameManagerScript.cs" Line="107" Column="44" />
-      <File FileName="Assets\EnemyScript.cs" Line="804" Column="2" />
+      <File FileName="Assets\PlayerScript.cs" Line="334" Column="54" />
+      <File FileName="Assets\GameManagerScript.cs" Line="221" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

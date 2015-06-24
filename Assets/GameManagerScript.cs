@@ -25,13 +25,17 @@ public class GameManagerScript : MonoBehaviour {
 	static bool firstLoad = true;
 	bool showLevelLoadMsg = true;
 
-	int numEnemies = 50;
-	//int numEnemies = 1;
+	int numEnemies = 35; // was 50
+	int numFlakTowers = 12; // was 20
 	
 	Camera mainCam;
 	Camera mouseLookCam;
 
 	GUIStyle guiStyle;
+
+	int konamiIdx = 0;
+	bool konamiCodeEnabled = false;
+	string debugIndicatorStr = "";
 
 	// Use this for initialization
 	void Start () {
@@ -119,6 +123,14 @@ public class GameManagerScript : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Escape))
 			Application.Quit();
 
+		konamiCodeEnabled = checkKonamiCodeActivated ();
+		//Debug.Log ("konami idx is " + konamiIdx);
+
+		if (konamiCodeEnabled) {
+			playerInfo.invincible = true;
+			debugIndicatorStr = "    NO DEATH";
+		}
+
 	}
 
 	void OnGUI() {
@@ -169,7 +181,7 @@ public class GameManagerScript : MonoBehaviour {
 
 			GUI.Box(infoBarRect,
 			        "Boost: " + (int)playerInfo.boostCharge + "   Health: " + (int)playerInfo.hitpoints
-			        + "   Score: " + score + "    Target HP: " + targetHP_Str,  guiStyle);
+			        + "   Score: " + score + "    Target HP: " + targetHP_Str + debugIndicatorStr,  guiStyle);
 
 			if (!firstLoad && showLevelLoadMsg) {
 				GUI.Box(warningRect, "\nGame reset", guiStyle);
@@ -192,7 +204,7 @@ public class GameManagerScript : MonoBehaviour {
 		TerrainCollider terrainCol = GameObject.FindGameObjectWithTag("Ground").GetComponent<TerrainCollider> ();
 		float groundRadius = terrainCol.bounds.extents.x;
 		groundRadius -= 5;
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < numFlakTowers; i++) {
 			Vector3 raycastOrigin = new Vector3 (Random.Range (-groundRadius, groundRadius),
 		                               		1000,
 		                               		Random.Range (-groundRadius, groundRadius));
@@ -206,5 +218,28 @@ public class GameManagerScript : MonoBehaviour {
 
 	void removeLevelLoadMessage() {
 		showLevelLoadMsg = false;
+	}
+
+	bool checkKonamiCodeActivated () {
+		if (!Input.anyKeyDown)
+			return false;
+		if (Input.GetKeyDown(KeyCode.UpArrow) && (konamiIdx == 0 || konamiIdx == 1))
+			konamiIdx++;
+		else if (Input.GetKeyDown(KeyCode.DownArrow) && (konamiIdx == 2 || konamiIdx == 3))
+			konamiIdx++;
+		else if (Input.GetKeyDown(KeyCode.LeftArrow) && (konamiIdx == 4 || konamiIdx == 6))
+			konamiIdx++;
+		else if (Input.GetKeyDown(KeyCode.RightArrow) && (konamiIdx == 5 || konamiIdx == 7))
+			konamiIdx++;
+		else if (Input.GetKeyDown(KeyCode.B) && konamiIdx == 8)
+			konamiIdx++;
+		else if (Input.GetKeyDown(KeyCode.A) && konamiIdx == 9)
+			konamiIdx++;
+		else
+			konamiIdx = 0;
+
+		if (konamiIdx == 10)
+			return true;
+		return false;
 	}
 }

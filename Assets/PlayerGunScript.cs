@@ -3,7 +3,8 @@ using System.Collections;
 
 public class PlayerGunScript : MonoBehaviour {
 
-	float gunLength;
+	//float gunLength;
+	Transform gunOutTransform;
 	float rateOfFire = 0.05f;
 	bool canShootThisFrame = true;
 	public GameObject bulletPrefab;
@@ -14,7 +15,8 @@ public class PlayerGunScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		gunLength = GetComponent<MeshFilter> ().mesh.bounds.size.magnitude;
+		//gunLength = GetComponent<MeshFilter> ().mesh.bounds.size.magnitude;
+		gunOutTransform = transform.GetChild (0);
 		player = transform.parent.gameObject;
 		playerInfo = player.GetComponent<PlayerScript> ();
 
@@ -35,7 +37,8 @@ public class PlayerGunScript : MonoBehaviour {
 			*/
 
 			GameObject bullet = ObjectPoolerScript.objectPooler.getPlayerBullet();
-			bullet.transform.position = transform.position + transform.forward * (gunLength + 3.5f);
+			//bullet.transform.position = transform.position + transform.forward * (gunLength + 3.5f);
+			bullet.transform.position = gunOutTransform.position;
 			bullet.transform.rotation = Quaternion.LookRotation(target - transform.position,
 			                                                    player.transform.up);
 

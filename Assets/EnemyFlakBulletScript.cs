@@ -83,6 +83,7 @@ public class EnemyFlakBulletScript : MonoBehaviour {
 		bulletInfo.speed = subBulletSpeed;
 		bulletInfo.distanceTraveled = 0;
 		bulletInfo.maxRange = subBulletRange;
+		bulletInfo.damage = 2;
 		
 		TrailRenderer trail = subBullet.GetComponent<TrailRenderer> ();
 		trail.material.color = darkGray;
