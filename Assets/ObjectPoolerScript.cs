@@ -27,13 +27,18 @@ public class ObjectPoolerScript : MonoBehaviour {
 	public List<HitEffectScript> pooledHitEffects;
 	public GameObject hitEffectPrefab;
 	public int initialHitEffectPoolSize = 200;
-		
+
+	GameManagerScript gm = null;
+
 	void Awake() {
 		objectPooler = this;
 	}
 
 	// Use this for initialization
 	void Start () {
+
+		if (!gm)
+			gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
 
 		if (!poolEnabled)
 			return;
@@ -81,6 +86,7 @@ public class ObjectPoolerScript : MonoBehaviour {
 	}
 
 	public GameObject getEnemyBullet() {
+		gm.numActiveBullets++;
 		for (int i = 0; i < pooledEnemyBullets.Count; i++)
 			if (!pooledEnemyBullets[i].activeInHierarchy)
 				return pooledEnemyBullets[i];

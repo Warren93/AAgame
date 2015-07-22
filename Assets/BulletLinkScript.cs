@@ -12,7 +12,7 @@ public class BulletLinkScript : MonoBehaviour {
 	public float detectionWidth;
 	LayerMask playerLayer;
 	PlayerScript playerInfo;
-	public float damage;
+	public int damage;
 	bool interpolateColorEnabled;
 	Color col1, col2;
 	float colorChangeRate = 0;

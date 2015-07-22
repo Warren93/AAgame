@@ -4,6 +4,18 @@ using System.Collections.Generic;
 
 public class GameManagerScript : MonoBehaviour {
 
+	public int numActiveBullets = 0;
+	bool showDebugInfo = false;
+
+	bool antiLagEnabled = false;
+	bool showAntiLagState = false;
+	public static float antiLagThreshold = 10; // was 0.28, now is reset based on baseline (average) frame time calculated at beginning of game
+	float maxAllowedFrameTime = 10;
+	bool measureFrames = false;
+	uint numFramesMeasured = 0;
+	float measuredFramesSum = 0;
+	float averageFrameTime = 0;
+
 	public bool enemiesEnabled;
 	public bool flakTowersEnabled;
 
@@ -21,6 +33,8 @@ public class GameManagerScript : MonoBehaviour {
 
 	Rect infoBarRect;
 	Rect warningRect;
+	Rect debugBox;
+	Rect antiLagBox;
 
 	static bool firstLoad = true;
 	bool showLevelLoadMsg = true;
@@ -52,11 +66,14 @@ public class GameManagerScript : MonoBehaviour {
 		RenderSettings.fogColor = backgroundColor;
 
 		Application.targetFrameRate = 60;
+		//QualitySettings.vSyncCount = 0;
 
+		/*
 		if(Application.platform == RuntimePlatform.OSXWebPlayer || Application.platform == RuntimePlatform.WindowsWebPlayer)
 			QualitySettings.antiAliasing = 2;
 		else
 			QualitySettings.antiAliasing = 4;
+		*/
 
 		//guiStyle = new GUIStyle();
 
@@ -65,6 +82,8 @@ public class GameManagerScript : MonoBehaviour {
 		infoBarRect = new Rect (10, 10, Screen.width * 0.5f, 35);
 		warningRect = new Rect (0, 0, Screen.width * 0.6f, 50);
 		warningRect.center = new Vector2 (Screen.width * 0.5f, Screen.height * 0.5f);
+		debugBox = new Rect (Screen.width * 0.5f, Screen.height * 0.6f, 400, 60);
+		antiLagBox = new Rect (10, Screen.height - 45, 300, 35);
 
 		if (enemies != null)
 			enemies.Clear();
@@ -96,6 +115,8 @@ public class GameManagerScript : MonoBehaviour {
 			
 
 		Invoke ("removeLevelLoadMessage", 2);
+
+		Invoke ("toggleFrameMeasuring", 5.0f);
 	}
 	
 	// Update is called once per frame
@@ -131,12 +152,51 @@ public class GameManagerScript : MonoBehaviour {
 			debugIndicatorStr = "    NO DEATH";
 		}
 
+		if (Input.GetKeyDown (KeyCode.I)) {
+			if (showDebugInfo == true)
+				showDebugInfo = false;
+			else if (showDebugInfo == false)
+				showDebugInfo = true;
+		}
+
+		if (Input.GetKeyDown (KeyCode.M)) {
+			if (antiLagEnabled == true)
+				antiLagEnabled = false;
+			else
+				antiLagEnabled = true;
+			showAntiLagState = true;
+			CancelInvoke("stopShowingAntiLagState");
+			Invoke("stopShowingAntiLagState", 3.0f);
+		}
+
+		if (antiLagEnabled)
+			antiLagThreshold = maxAllowedFrameTime;
+		else
+			antiLagThreshold = 10;
+
+		if (measureFrames) {
+			measuredFramesSum += Time.deltaTime;
+			numFramesMeasured++;
+		}
 	}
 
 	void OnGUI() {
 		if (guiStyle == null) {
 			guiStyle = new GUIStyle(GUI.skin.box);
 			guiStyle.fontSize = 16;
+		}
+
+		if (showDebugInfo)
+			GUI.Box (debugBox, "Active enemy bullets: " + numActiveBullets + "\nFrame rate: " + (int)(1.0f / Time.deltaTime)
+			         + "\nAnti-lag threshold: " + antiLagThreshold, guiStyle);
+
+		if (showAntiLagState) {
+			string state_str;
+			if (antiLagEnabled)
+				state_str = "ON";
+			else
+				state_str = "OFF";
+			GUI.Box (antiLagBox, "Lag prevention is: " + state_str, guiStyle);
 		}
 
 		Camera currentCam;
@@ -218,6 +278,24 @@ public class GameManagerScript : MonoBehaviour {
 
 	void removeLevelLoadMessage() {
 		showLevelLoadMsg = false;
+	}
+
+	void stopShowingAntiLagState() {
+		showAntiLagState = false;
+	}
+
+	void toggleFrameMeasuring() {
+		if (measureFrames == false) {
+			measureFrames = true;
+			// measure frame rate for 60 seconds
+			Invoke ("toggleFrameMeasuring", 60.0f);
+		}
+		else if (measureFrames == true && numFramesMeasured > 0) { // then, compute average framerate and base anti-lag threshold on that
+			measureFrames = false;
+			averageFrameTime = measuredFramesSum / (float)numFramesMeasured;
+			maxAllowedFrameTime = averageFrameTime + 0.008f;
+			//Debug.Log("THRESHOLD IS NOW: " + maxAllowedFrameTime);
+		}
 	}
 
 	bool checkKonamiCodeActivated () {

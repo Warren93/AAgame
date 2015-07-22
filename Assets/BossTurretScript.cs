@@ -109,22 +109,23 @@ public class BossTurretScript : MonoBehaviour {
 
 		boostMult = 1;
 		float leadMult = 1;
+		/*
 		if (pattern == STANDARD || pattern == LINK)
 			leadMult = 0.85f;
-
+		*/
 		if (Input.GetKey(KeyCode.LeftShift) && !playerComingTowardTurret()) {
 			boostMult = 3f;
 			leadMult = 1;
 		}
 
 		adjustedBulletSpeed = bulletSpeed * boostMult;
-
+		/*
 		if (pattern == CONE)
 			leadMult = 0.9f;
 
 		if (pattern == FLOWER)
 			leadMult = 0.85f;
-
+*/
 		if (pattern == SWEEP)
 			range = shorterRange;
 		else
@@ -138,7 +139,7 @@ public class BossTurretScript : MonoBehaviour {
 			target = LeadCalculator.FirstOrderIntercept (
 					currentBarrelOut.position,
 					Vector3.zero, //boss.transform.forward * bossInfo.speed * Time.deltaTime,
-					adjustedBulletSpeed * Time.deltaTime,
+					adjustedBulletSpeed * Time.fixedDeltaTime,
 					player.transform.position,
 					//playerInfo.newPos);
 					playerVelocity);
@@ -184,30 +185,34 @@ public class BossTurretScript : MonoBehaviour {
 		if (!canShoot)
 			return;
 
+
 		// choose shoot function based on current shooting pattern
-		switch (pattern) {
-			case STANDARD:
-				standardShoot ();
-				break;
-			case CONE:
-				coneShoot ();
-				break;
-			case RANDOM:
-				randomShoot ();
-				break;
-			case LINK:
-				linkShoot ();
-				break;
-			case SWEEP:
-				sweepShoot ();
-				break;
-			case FLOWER:
-				flowerShoot ();
-				break;
-			case TUNNEL:
-				tunnelShoot ();
-				break;
+		if (Time.deltaTime <= GameManagerScript.antiLagThreshold) {
+			switch (pattern) {
+				case STANDARD:
+					standardShoot ();
+					break;
+				case CONE:
+					coneShoot ();
+					break;
+				case RANDOM:
+					randomShoot ();
+					break;
+				case LINK:
+					linkShoot ();
+					break;
+				case SWEEP:
+					sweepShoot ();
+					break;
+				case FLOWER:
+					flowerShoot ();
+					break;
+				case TUNNEL:
+					tunnelShoot ();
+					break;
+			}
 		}
+
 
 		// burst fire
 		if ((pattern == CONE || pattern == LINK || pattern == FLOWER) && burstCounter > 0) {
@@ -482,7 +487,7 @@ public class BossTurretScript : MonoBehaviour {
 			EnemyBulletScript bulletInfo = bullet.GetComponent<EnemyBulletScript>();
 			bulletInfo.speed = localSpeed;
 			bulletInfo.distanceTraveled = 0;
-			bulletInfo.maxRange = range * 0.6f;
+			bulletInfo.maxRange = range * 0.8f; // was range * 0.6f
 			bulletInfo.damage = 10;
 			Vector3 endpoint = transform.InverseTransformPoint(localTarget);
 			endpoint.y = (i + 1) * heightIncrement;

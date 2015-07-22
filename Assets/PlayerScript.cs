@@ -8,7 +8,9 @@ public class PlayerScript : MonoBehaviour {
 
 	bool nocollide = false;
 	public bool invincible = false;
-	public float hitpoints;
+	public int hitpoints;
+	int healthRegenAmount = 2;
+	float healthRegenRate = 2.0f;
 
 	public float currentWeaponRange = 200;
 
@@ -22,7 +24,7 @@ public class PlayerScript : MonoBehaviour {
 	float mouseLookY_Rotation;
 	float mouseLookX_Rotation;
 	float mouseLookSensitivity;
-	int mlb = 1; // mouse look button index
+	public int mlb = 1; // mouse look button index
 
 	public float defaultForwardSpeed;
 	public float forwardSpeed;
@@ -33,8 +35,8 @@ public class PlayerScript : MonoBehaviour {
 	//float boostDecrement = 0.0f;
 	float boostIncrement;
 
-	float obstacleDamage = 2;
-	float enemyDamage = 5;
+	int obstacleDamage = 2;
+	int enemyDamage = 5;
 
 	public float mouseX_AxisSensitivity;
 	public float mouseY_AxisSensitivity;
@@ -61,7 +63,7 @@ public class PlayerScript : MonoBehaviour {
 
 		gameManagerRef = GameObject.FindGameObjectWithTag ("GameManager");
 
-		hitpoints = 100.0f;
+		hitpoints = 100;
 		boostCharge = 100.0f;
 
 		boostIncrement = boostDecrement * 0.9f; // was * 0.7, then 0.85, then 1.2, 1
@@ -79,13 +81,14 @@ public class PlayerScript : MonoBehaviour {
 		defaultForwardSpeed = 80.0f; // was 40 in thesis, then 80
 
 		sidewaysSpeed = defaultForwardSpeed * 2.0f;
-		mouseY_AxisSensitivity = 100.0f;
+		mouseY_AxisSensitivity = 200.0f; // was 100
 		mouseX_AxisSensitivity = mouseY_AxisSensitivity * 0.35f;
 		rollRate = 90.0f; // was 75
 
 		transform.rotation = Quaternion.identity;
 
 		Invoke ("turnOffInitialFreeze", 0.5f);
+		InvokeRepeating ("healthRegen", healthRegenRate, healthRegenRate);
 	}
 
 	void turnOffInitialFreeze() {
@@ -187,7 +190,6 @@ public class PlayerScript : MonoBehaviour {
 
 		if (initialSetup)
 			transform.rotation = Quaternion.identity;
-
 	}
 
 	void FixedUpdate() {
@@ -198,7 +200,7 @@ public class PlayerScript : MonoBehaviour {
 	void moveShip() {
 		// forward movement
 		newPos = (transform.TransformDirection (Vector3.forward) * forwardSpeed * Time.deltaTime);
-		
+
 		// sideways strafing
 		sidewaysSpeed = forwardSpeed * 2.0f;
 		if (Input.GetKey(KeyCode.A))
@@ -314,6 +316,14 @@ public class PlayerScript : MonoBehaviour {
 			hitpoints -= enemyDamage;
 	}
 
+	void healthRegen() {
+		if (hitpoints > 0 && hitpoints < 100) {
+			if (hitpoints + healthRegenAmount > 100)
+				hitpoints += (100 - hitpoints);
+			else
+				hitpoints += healthRegenAmount;
+		}
+	}
 
 	void checkDead() {
 		if (hitpoints <= 0 && !invincible)
@@ -325,8 +335,8 @@ public class PlayerScript : MonoBehaviour {
 		float bounceBack = 10.0f;
 		RaycastHit hitInfo;
 		Vector3 vecFromLastPos = myRigidBody.position - prevRigidBodyPosition;
-		if (Input.GetKey(KeyCode.LeftShift)
-			&& Physics.Raycast(myRigidBody.position, vecFromLastPos, out hitInfo, vecFromLastPos.magnitude, groundLayer)
+		if (/*Input.GetKey(KeyCode.LeftShift)
+			&&*/ Physics.Raycast(myRigidBody.position, vecFromLastPos, out hitInfo, vecFromLastPos.magnitude, groundLayer)
 		    //&& Vector3.Angle(-transform.forward, hitInfo.normal) <= 60.0f
 		    ) {
 			//Debug.Log("HIT");

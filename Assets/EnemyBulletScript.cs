@@ -6,7 +6,7 @@ public class EnemyBulletScript : MonoBehaviour {
 	public float speed;
 	public float maxRange;
 	public float distanceTraveled;
-	public float damage = 5;
+	public int damage = 5;
 	Rigidbody myRigidbody = null;
 	Transform myTransform = null;
 	TrailRenderer trail = null;
@@ -16,10 +16,13 @@ public class EnemyBulletScript : MonoBehaviour {
 	float angleStep;
 	float currentStep;
 
+	GameManagerScript gm = null;
+
 	void Awake() {
 		myRigidbody = GetComponent<Rigidbody>();
 		myTransform = transform;
 		trail = GetComponent<TrailRenderer> ();
+		myRigidbody.solverIterationCount = 4;
 	}
 
 	/*
@@ -39,11 +42,19 @@ public class EnemyBulletScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if (!gm)
+			gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
+
+		if (Time.deltaTime > GameManagerScript.antiLagThreshold) {
+			selfDestruct();
+			return;
+		}
+
 		if (curveTowardPointEnabled) {
 			if (currentStep < 1)
 				currentStep += angleStep * Time.deltaTime;
-			transform.LookAt(transform.position + Vector3.Slerp(originalFwdVec, targetPoint - transform.position, currentStep));
-			if (Vector3.Distance(transform.position, targetPoint) <= speed * 2.5f * Time.deltaTime)
+			myTransform.LookAt(myTransform.position + Vector3.Slerp(originalFwdVec, targetPoint - myTransform.position, currentStep));
+			if (Vector3.Distance(myTransform.position, targetPoint) <= speed * 2.5f * Time.deltaTime)
 				curveTowardPointEnabled = false;
 		}
 
@@ -53,12 +64,16 @@ public class EnemyBulletScript : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		Vector3 oldWorldPos = transform.position;
+		move ();
+	}
+	
+	void move() {
+		//Vector3 oldWorldPos = transform.position;
 		Vector3 newPos = myTransform.forward * speed;
 		myRigidbody.MovePosition(transform.position + (newPos * Time.deltaTime));
-		//distanceTraveled += speed * Time.deltaTime;
-		Vector3 newWorldPos = transform.position + (newPos * Time.deltaTime);
-		distanceTraveled += Mathf.Abs(newWorldPos.magnitude - oldWorldPos.magnitude);
+		distanceTraveled += speed * Time.deltaTime * 0.8f;
+		//Vector3 newWorldPos = transform.position + (newPos * Time.deltaTime);
+		//distanceTraveled += Mathf.Abs(newWorldPos.magnitude - oldWorldPos.magnitude);
 	}
 
 	/*
@@ -94,6 +109,7 @@ public class EnemyBulletScript : MonoBehaviour {
 	void selfDestruct() {
 		CancelInvoke("reactivateTrail");
 		trail.enabled = false;
+		gm.numActiveBullets--;
 		gameObject.SetActive (false);
 		// set back to default value
 		curveTowardPointEnabled = false;

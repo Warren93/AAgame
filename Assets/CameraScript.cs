@@ -24,14 +24,6 @@ public class CameraScript : MonoBehaviour {
 		//camDistBehindPlayer = transform.position.z - player.transform.position.z;
 		vecFromPlayer = transform.position - player.transform.position;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (!player)
-			return;
-		//target = player.transform.position + (player.transform.up * camAltAbovePlayer);
-
-	}
 
 
 	void LateUpdate() {
@@ -45,10 +37,11 @@ public class CameraScript : MonoBehaviour {
 		deltaZ = 0;
 		deltaMouseX = Input.GetAxis ("Mouse X");
 		deltaMouseY = Input.GetAxis ("Mouse Y");
+		float z_increment = 3.0f; // was 1
 		if (Input.GetKey(KeyCode.Q))
-			deltaZ -= 1f;
+			deltaZ -= z_increment;
 		if (Input.GetKey(KeyCode.E))
-			deltaZ += 1f;
+			deltaZ += z_increment;
 		else if (!Input.GetKey(KeyCode.Q) && !Input.GetKey(KeyCode.E))
 			deltaZ = 0;
 
@@ -90,7 +83,7 @@ public class CameraScript : MonoBehaviour {
 
 		lookX_Rotation = Mathf.Clamp(lookX_Rotation, -5, 5);
 		lookY_Rotation = Mathf.Clamp(lookY_Rotation, -5, 5);
-		lookZ_Rotation = Mathf.Clamp(lookZ_Rotation, -5, 5);
+		lookZ_Rotation = Mathf.Clamp(lookZ_Rotation, -8, 8); // range was -5 to 5
 
 		transform.RotateAround(player.transform.position, player.transform.right, lookX_Rotation);
 		transform.RotateAround(player.transform.position, player.transform.up, -lookY_Rotation);

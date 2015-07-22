@@ -149,7 +149,7 @@ public class AirBossScript : MonoBehaviour {
 			                                props[i].transform.forward,
 			                                rotationSpeed * Time.deltaTime);
 		}
-		executeTurn ();
+		//executeTurn ();
 
 		//transform.Translate(Vector3.forward * speed * Time.deltaTime);
 		//rigidbody.MovePosition (transform.position + (transform.forward * speed * Time.deltaTime));
@@ -172,6 +172,8 @@ public class AirBossScript : MonoBehaviour {
 
 
 	void FixedUpdate() {
+		executeTurn ();
+		myRigidBody.MoveRotation (transform.rotation);
 		myRigidBody.MovePosition (transform.position + (transform.forward * speed * Time.deltaTime));
 	}
 
@@ -192,6 +194,24 @@ public class AirBossScript : MonoBehaviour {
 			remainingTurnTime -= Time.deltaTime;
 		}
 		//Debug.Log ("air boss y is " + transform.position.y);
+	}
+
+	void executeTurn2() {
+		if (state == TURNING) {
+			turnRate = Vector3.Angle(transform.forward, desiredHeading) / remainingTurnTime; // degrees to turn divided by time
+			myRigidBody.MoveRotation(myRigidBody.rotation * Quaternion.AngleAxis(turnRate * Time.deltaTime, Vector3.up));
+
+			transform.rotation = myRigidBody.rotation;
+
+			// bank
+			if (remainingTurnTime >= turnDuration * 0.5f)
+				myRigidBody.MoveRotation(myRigidBody.rotation * Quaternion.AngleAxis(-bankRate * Time.deltaTime, transform.forward));
+			else
+				myRigidBody.MoveRotation(myRigidBody.rotation * Quaternion.AngleAxis(bankRate * Time.deltaTime, transform.forward));
+
+			remainingTurnTime -= Time.deltaTime;
+		}
+
 	}
 
 	void beginTurning() {

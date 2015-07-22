@@ -9,9 +9,10 @@ public class EnemyScript : MonoBehaviour {
 	public const int SEARCH = 2;
 
 	public GameObject gameManger; // reference to the game manager object
+	GameManagerScript gmScript;
 	TerrainCollider terrainCol;
 	float groundDetectDist = 200;
-	float groundDetectWeight = 2500;
+	float groundDetectWeight = 1500; // was 2500
 
 	float boidUpdateFreq = 0.5f;
 
@@ -52,7 +53,7 @@ public class EnemyScript : MonoBehaviour {
 	float defaultObstacleAvoidanceWeight = 200f; // was 20, then 35, then 65
 	float defaultAgentAvoidanceRange;
 	float defaultAgentAvoidanceWeight = 10f; // was 1.5 for original boid thesis thing
-	float defaultCohesionWeight = 6.0f;
+	float defaultCohesionWeight = 300.0f; // was 6
 	float defaultAlignmentWeight = 4.0f;
 	float defaultDestinationWeight = 1f;
 
@@ -108,6 +109,8 @@ public class EnemyScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		gmScript = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GameManagerScript> ();
 
 		airBossMask = 1 << LayerMask.NameToLayer ("AirBoss");
 
@@ -170,6 +173,10 @@ public class EnemyScript : MonoBehaviour {
 
 		longAssBoidFunction ();
 
+		// Added these 2 liens because the enemies take too long to get to the player otherwise
+		if (Vector3.Distance (transform.position, player.transform.position) > 200 && Vector3.Distance (transform.position, destination) > 200)
+			newPos *= 2;
+
 		//rigidbody.MovePosition (transform.position + (newPos * Time.deltaTime));
 
 		checkTurnAngleThisFrame = false;
@@ -184,27 +191,6 @@ public class EnemyScript : MonoBehaviour {
 		
 		// RECOVER FROM ANY COLLISION(S)
 		dampenRigidbodyForces ();
-		//Debug.Log ("state is " + state);
-		
-		// TOGGLE NPC OMNISCIENCE (automatically know where player is) for debugging
-		if (Input.GetKeyUp (KeyCode.O)) {
-			if (omniscient == true) {
-				omniscient = false;
-				//Debug.Log("NPCs non-omniscient");
-			}
-			else {
-				omniscient = true;
-				//Debug.Log("NPCs omniscient");
-			}
-		}
-		
-		// TOGGLE PLAYER INVISIBILITY (also for debugging purposes)
-		if (Input.GetKeyUp (KeyCode.I)) {
-			if (playerInvisible == true)
-				playerInvisible = false;
-			else
-				playerInvisible = true;
-		}
 		
 		// CHECK IF PLAYER IN SIGHT
 		visionCheck ();
@@ -213,8 +199,11 @@ public class EnemyScript : MonoBehaviour {
 			basicProximityCheck();
 		
 		// IF PLAYER IN SIGHT, PURSUE PLAYER
-		if (playerInSight)
+		if (playerInSight && gmScript.numActiveBullets <= 500)
 			changeStateTo (PURSUE);
+
+		if (gmScript.numActiveBullets > 500 && state == PURSUE)
+			changeStateTo(WANDER);
 		
 		// UPDATE ESTIMATE OF WHERE PLAYER IS
 		updatePlayerPosEstimate ();
@@ -376,6 +365,7 @@ public class EnemyScript : MonoBehaviour {
 
 	void updateFlightParams() {
 
+		agentAvoidanceWeight = defaultAgentAvoidanceWeight;
 		if (state == WANDER) {
 			//checkNeighborFoundPlayer ();
 			destinationWeight = 1;
@@ -389,12 +379,13 @@ public class EnemyScript : MonoBehaviour {
 			// if flock too small, expand cohesion range to try to find/form a pack
 			else if (neighbors.Count > 0 && neighbors.Count <= 2) {
 				setCohesionRangeLong ();
-				cohesionWeight = defaultCohesionWeight * 1.33f;
+				cohesionWeight = defaultCohesionWeight * 1000; // * 1.33f;
 			}
 			// if flock is in ideal size range, set moderate cohesion distance
 			else if (neighbors.Count < 7) {
 				setCohesionRangeShort();
 				cohesionRange = cohesionRange * 1.3f;
+				cohesionWeight = defaultCohesionWeight * 5000;
 			}
 			// if flock too big, lower cohesion distance
 			else {
@@ -406,9 +397,10 @@ public class EnemyScript : MonoBehaviour {
 		}
 		else if (state == PURSUE) {
 			//Debug.DrawLine(transform.position, playerPosEstimate, Color.yellow);
-			cohesionWeight = defaultCohesionWeight * 0.2f;
+			cohesionWeight = 0; //defaultCohesionWeight * 0.2f;
 			destinationWeight = 10f;
 			alignmentWeight = defaultAlignmentWeight * 0.2f;
+			agentAvoidanceWeight = defaultAgentAvoidanceWeight * 20;
 			destination = playerPosEstimate;
 			// if close to player, change paramters for surrounding player
 			if (flockingEnabled && encirclingBehaviorEnabled && closeToPlayer() && rammingEnabled) {
@@ -593,7 +585,10 @@ public class EnemyScript : MonoBehaviour {
 	bool clearLOS(GameObject obj1, GameObject obj2, float range) {
 		RaycastHit[] hits;
 		Vector3 rayDirection = obj2.transform.position - obj1.transform.position;
-		hits = Physics.RaycastAll(obj1.transform.position, rayDirection, range);
+		hits = Physics.RaycastAll(obj1.transform.position, rayDirection, range,
+		       	  (1 << LayerMask.NameToLayer ("Player"))
+				| (1 << LayerMask.NameToLayer ("AirBoss"))
+				| (1 << LayerMask.NameToLayer ("Ground")));
 		if (hits.Length <= 0)
 			return false;
 		GameObject closest = hits [0].collider.gameObject;
@@ -819,7 +814,7 @@ public class EnemyScript : MonoBehaviour {
 		*/
 
 		float f1, f2, f3;
-		float spread = 1000.0f;
+		float spread = 800.0f;
 		f1 = Random.Range(-spread, spread);
 		f2 = Random.Range(-spread * 0.5f, spread * 0.5f);
 		f3 = Random.Range(-spread, spread);
