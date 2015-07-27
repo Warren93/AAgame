@@ -103,7 +103,7 @@ public class PlayerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		Debug.DrawRay (transform.position, Vector3.up * 50, Color.cyan);
+		//Debug.DrawRay (transform.position, Vector3.up * 50, Color.cyan);
 
 		dampenRigidbodyForces ();
 

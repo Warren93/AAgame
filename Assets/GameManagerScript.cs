@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class GameManagerScript : MonoBehaviour {
 
-	public int numActiveBullets = 0;
+	public static int numActiveBullets = 0;
+	public static int numFightersPursuingPlayer = 0;
 	bool showDebugInfo = false;
 
 	bool antiLagEnabled = false;
@@ -82,7 +83,7 @@ public class GameManagerScript : MonoBehaviour {
 		infoBarRect = new Rect (10, 10, Screen.width * 0.5f, 35);
 		warningRect = new Rect (0, 0, Screen.width * 0.6f, 50);
 		warningRect.center = new Vector2 (Screen.width * 0.5f, Screen.height * 0.5f);
-		debugBox = new Rect (Screen.width * 0.5f, Screen.height * 0.6f, 400, 60);
+		debugBox = new Rect (Screen.width * 0.5f, Screen.height * 0.6f, 400, 80);
 		antiLagBox = new Rect (10, Screen.height - 45, 300, 35);
 
 		if (enemies != null)
@@ -178,6 +179,12 @@ public class GameManagerScript : MonoBehaviour {
 			measuredFramesSum += Time.deltaTime;
 			numFramesMeasured++;
 		}
+
+		// just in case something weird happens
+		if (numFightersPursuingPlayer < 0)
+			numFightersPursuingPlayer = 0;
+		if (numActiveBullets < 0)
+			numActiveBullets = 0;
 	}
 
 	void OnGUI() {
@@ -187,7 +194,9 @@ public class GameManagerScript : MonoBehaviour {
 		}
 
 		if (showDebugInfo)
-			GUI.Box (debugBox, "Active enemy bullets: " + numActiveBullets + "\nFrame rate: " + (int)(1.0f / Time.deltaTime)
+			GUI.Box (debugBox, "Active enemy bullets: " + numActiveBullets
+			         + "\nFighters pursuing player: " + numFightersPursuingPlayer
+			         + "\nFrame rate: " + (int)(1.0f / Time.deltaTime)
 			         + "\nAnti-lag threshold: " + antiLagThreshold, guiStyle);
 
 		if (showAntiLagState) {
@@ -243,9 +252,11 @@ public class GameManagerScript : MonoBehaviour {
 			        "Boost: " + (int)playerInfo.boostCharge + "   Health: " + (int)playerInfo.hitpoints
 			        + "   Score: " + score + "    Target HP: " + targetHP_Str + debugIndicatorStr,  guiStyle);
 
+			/*
 			if (!firstLoad && showLevelLoadMsg) {
 				GUI.Box(warningRect, "\nGame reset", guiStyle);
 			}
+			*/
 		}
 		if (firstLoad == true)
 			firstLoad = false;

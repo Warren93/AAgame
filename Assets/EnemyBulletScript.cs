@@ -16,8 +16,6 @@ public class EnemyBulletScript : MonoBehaviour {
 	float angleStep;
 	float currentStep;
 
-	GameManagerScript gm = null;
-
 	void Awake() {
 		myRigidbody = GetComponent<Rigidbody>();
 		myTransform = transform;
@@ -41,9 +39,6 @@ public class EnemyBulletScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
-		if (!gm)
-			gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManagerScript>();
 
 		if (Time.deltaTime > GameManagerScript.antiLagThreshold) {
 			selfDestruct();
@@ -109,7 +104,7 @@ public class EnemyBulletScript : MonoBehaviour {
 	void selfDestruct() {
 		CancelInvoke("reactivateTrail");
 		trail.enabled = false;
-		gm.numActiveBullets--;
+		GameManagerScript.numActiveBullets--;
 		gameObject.SetActive (false);
 		// set back to default value
 		curveTowardPointEnabled = false;

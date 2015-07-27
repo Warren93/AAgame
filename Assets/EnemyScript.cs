@@ -9,7 +9,6 @@ public class EnemyScript : MonoBehaviour {
 	public const int SEARCH = 2;
 
 	public GameObject gameManger; // reference to the game manager object
-	GameManagerScript gmScript;
 	TerrainCollider terrainCol;
 	float groundDetectDist = 200;
 	float groundDetectWeight = 1500; // was 2500
@@ -88,6 +87,7 @@ public class EnemyScript : MonoBehaviour {
 	public bool searchStateEnabled = true;
 	public bool energyConsumptionEnabled = false;
 	public bool rammingEnabled = false;
+	bool allowEvasion = true;
 	public GameObject player;
 
 	public Vector3 obstacleVec;
@@ -109,8 +109,6 @@ public class EnemyScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
-		gmScript = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GameManagerScript> ();
 
 		airBossMask = 1 << LayerMask.NameToLayer ("AirBoss");
 
@@ -162,7 +160,8 @@ public class EnemyScript : MonoBehaviour {
 			InvokeRepeating ("getNeighbors", Random.Range (0.01f, neighborRefreshRate), neighborRefreshRate);
 			InvokeRepeating ("checkNeighborFoundPlayer", Random.Range (0.01f, neighborCheckTargetRate), neighborCheckTargetRate);
 		}
-		InvokeRepeating ("allowCheckTurnAngle", turnAngleCheckRate, turnAngleCheckRate);
+		//InvokeRepeating ("allowCheckTurnAngle", turnAngleCheckRate, turnAngleCheckRate);
+		InvokeRepeating ("toggleEvasion", Random.Range (0.2f, 1.5f), 1.5f);
 	}
 	
 	// Update is called once per frame
@@ -174,12 +173,31 @@ public class EnemyScript : MonoBehaviour {
 		longAssBoidFunction ();
 
 		// Added these 2 liens because the enemies take too long to get to the player otherwise
-		if (Vector3.Distance (transform.position, player.transform.position) > 200 && Vector3.Distance (transform.position, destination) > 200)
+		float distToPlayer = Vector3.Distance (transform.position, player.transform.position);
+		if (distToPlayer > 200 && Vector3.Distance (transform.position, destination) > 200)
 			newPos *= 2;
+
+		if (distToPlayer <= 175 && Vector3.Angle(player.transform.forward, transform.position - player.transform.position) <= 15 && allowEvasion) {
+			Vector3 myPosInPlayerFrame = player.transform.InverseTransformPoint(transform.position);
+			if (myPosInPlayerFrame.z > 0) {
+				Vector3 playerAimPoint = player.transform.TransformPoint(Vector3.forward * myPosInPlayerFrame.z);
+				//Debug.DrawLine(transform.position, playerAimPoint, Color.magenta);
+				Vector3 vecFromAimPoint = transform.position - playerAimPoint;
+				float magnitude = vecFromAimPoint.magnitude;
+				if (magnitude <= 0)
+					magnitude = 0.001f;
+				float mult = 75;
+				if (state == PURSUE)
+					mult = 35;
+				Vector3 evasionVec = vecFromAimPoint.normalized * (1.0f / magnitude) * mult;
+				//Debug.Log("evasion vec mag: " + evasionVec.magnitude);
+				newPos += evasionVec;
+			}
+		}
 
 		//rigidbody.MovePosition (transform.position + (newPos * Time.deltaTime));
 
-		checkTurnAngleThisFrame = false;
+		//checkTurnAngleThisFrame = false;
 	}
 
 	void FixedUpdate() {
@@ -199,10 +217,10 @@ public class EnemyScript : MonoBehaviour {
 			basicProximityCheck();
 		
 		// IF PLAYER IN SIGHT, PURSUE PLAYER
-		if (playerInSight && gmScript.numActiveBullets <= 500)
+		if (playerInSight && GameManagerScript.numActiveBullets <= 500 && GameManagerScript.numFightersPursuingPlayer <= 10)
 			changeStateTo (PURSUE);
 
-		if (gmScript.numActiveBullets > 500 && state == PURSUE)
+		if ((GameManagerScript.numActiveBullets > 500 || GameManagerScript.numFightersPursuingPlayer > 10) && state == PURSUE)
 			changeStateTo(WANDER);
 		
 		// UPDATE ESTIMATE OF WHERE PLAYER IS
@@ -451,8 +469,14 @@ public class EnemyScript : MonoBehaviour {
 	}
 
 	void changeStateTo(int newState) {
+
 		if (state == newState)
 			return;
+
+		if (newState == PURSUE)
+			GameManagerScript.numFightersPursuingPlayer++;
+		else if (state == PURSUE)
+			GameManagerScript.numFightersPursuingPlayer--;
 
 		if (!searchStateEnabled && newState == SEARCH)
 			newState = WANDER;
@@ -877,8 +901,17 @@ public class EnemyScript : MonoBehaviour {
 
 	}
 
+	/*
 	void allowCheckTurnAngle() {
 		checkTurnAngleThisFrame = true;
+	}
+	*/
+
+	void toggleEvasion () {
+		if (allowEvasion)
+			allowEvasion = false;
+		else
+			allowEvasion = true;
 	}
 
 	bool closeToPlayer() {
@@ -958,6 +991,8 @@ public class EnemyScript : MonoBehaviour {
 	}
 
 	void OnDestroy() {
+		if (state == PURSUE)
+			GameManagerScript.numFightersPursuingPlayer--;
 		GameManagerScript.enemies.Remove (gameObject);
 	}
 	
