@@ -27,12 +27,12 @@ inline half4 LightingToonRamp (SurfaceOutput s, half3 lightDir, half atten)
 	half d = dot (s.Normal, lightDir)*0.5 + 0.5;
 	//half3 ramp = tex2D (_Ramp, float2(d,d)).rgb;
 	
-	half4 s_initial;
+	half4 s_initial = half4(0, 0, 0, 0);
 	s_initial.rgb = (s.Albedo + s.Normal + s.Emission).rgb;
 	float n = (s_initial.r + s_initial.g + s_initial.b) / 3;
-	s_initial = (n, n, n);
+	s_initial.rgb = (n, n, n);
 
-	half4 c;
+	half4 c = half4(0, 0, 0, 0);
 	//c.rgb = s.Albedo * _LightColor0.rgb * ramp * (atten * 2);
 	c.rgb = s_initial * _LightColor0.rgb * d * (atten * 2);
 	c.a = 0;

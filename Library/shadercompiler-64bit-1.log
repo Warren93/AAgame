@@ -1,17 +1,734 @@
 Base path: C:/Program Files/Unity/Editor/Data
-Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-5076
+Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-12264
 Cmd: getPlatforms
+Cmd: preprocess
+  insize=1461 outsize=1042 ok=1
 Cmd: compileSnippet
-  api=0 type=0 insize=9591 outsize=6594 kw= ok=1
+  error: 1 plat 4 at (32): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (39): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (41): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (43): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=4 type=0 insize=7356 outsize=3281 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
 Cmd: compileSnippet
-  api=0 type=0 insize=9591 outsize=6498 kw=UNITY_COLORSPACE_GAMMA ok=1
+  error: 1 plat 4 at (32): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (39): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (41): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (43): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=4 type=1 insize=7356 outsize=2094 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
 Cmd: compileSnippet
-  api=1 type=0 insize=9591 outsize=3891 kw=UNITY_COLORSPACE_GAMMA ok=1
+  error: 1 plat 4 at (32): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (39): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (41): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (43): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  api=4 type=0 insize=4327 outsize=2753 kw=POINT ok=1
 Cmd: compileSnippet
-  api=8 type=0 insize=9591 outsize=16283 kw=UNITY_COLORSPACE_GAMMA ok=1
+  error: 1 plat 4 at (32): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (39): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (41): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (43): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  api=4 type=1 insize=4327 outsize=2712 kw=POINT ok=1
 Cmd: compileSnippet
-  api=0 type=1 insize=9591 outsize=6 kw= ok=1
+  error: 1 plat 4 at (32): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (39): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (41): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (43): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  api=4 type=0 insize=3745 outsize=2103 kw= ok=1
 Cmd: compileSnippet
-  api=0 type=1 insize=9591 outsize=6 kw=UNITY_COLORSPACE_GAMMA ok=1
+  error: 1 plat 4 at (32): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (39): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (41): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (43): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  api=4 type=1 insize=3745 outsize=1266 kw= ok=1
 Cmd: compileSnippet
-  api=1 type=1 insize=9591 outsize=967 kw=UNITY_COLORSPACE_GAMMA ok=1
+  error: 1 plat 4 at (32): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (39): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (41): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (43): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=4 type=0 insize=7356 outsize=3598 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (32): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (39): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (41): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (43): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=4 type=1 insize=7356 outsize=2395 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: preprocess
+  insize=1608 outsize=1039 ok=1
+Cmd: preprocess
+  insize=1607 outsize=1038 ok=1
+Cmd: preprocess
+  insize=1460 outsize=1041 ok=1
+Cmd: preprocess
+  insize=1461 outsize=1042 ok=1
+Cmd: preprocess
+  insize=1460 outsize=1041 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=7356 outsize=9587 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=7356 outsize=11298 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=7356 outsize=6 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4327 outsize=9061 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4327 outsize=9773 kw=DIRECTIONAL FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4327 outsize=10228 kw=POINT_COOKIE FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4327 outsize=6 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4327 outsize=6 kw=DIRECTIONAL_COOKIE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4327 outsize=6 kw=DIRECTIONAL_COOKIE FOG_EXP2 ok=1
+Cmd: preprocess
+  insize=1490 outsize=1040 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (29): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (32): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (39): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (41): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (43): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=4 type=0 insize=7386 outsize=3281 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (29): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (32): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (39): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (41): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (43): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=4 type=1 insize=7386 outsize=2094 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (29): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (32): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (39): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (41): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (43): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  api=4 type=0 insize=4357 outsize=2753 kw=POINT ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (29): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (32): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (39): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (41): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (43): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  api=4 type=1 insize=4357 outsize=2712 kw=POINT ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (29): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (32): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (39): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (41): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (43): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  api=4 type=0 insize=3775 outsize=2103 kw= ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (29): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (32): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (39): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (41): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (43): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  api=4 type=1 insize=3775 outsize=1266 kw= ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (29): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (32): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (39): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (41): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (43): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=4 type=0 insize=7386 outsize=3598 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (29): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (32): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (39): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (41): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (43): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=4 type=1 insize=7386 outsize=2395 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=7386 outsize=9613 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=7386 outsize=11324 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=7386 outsize=6 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4357 outsize=9087 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4357 outsize=8927 kw=DIRECTIONAL_COOKIE ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4357 outsize=10254 kw=POINT_COOKIE FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4357 outsize=6 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4357 outsize=6 kw=POINT FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4357 outsize=6 kw=POINT_COOKIE FOG_EXP2 ok=1
+Cmd: preprocess
+  insize=1439 outsize=1041 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (22): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=4 type=0 insize=7335 outsize=3281 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (22): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=4 type=1 insize=7335 outsize=949 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (22): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  api=4 type=0 insize=4138 outsize=2533 kw=POINT ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (22): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  api=4 type=1 insize=4138 outsize=575 kw=POINT ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (22): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  api=4 type=0 insize=3724 outsize=2103 kw= ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (22): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  api=4 type=1 insize=3724 outsize=1266 kw= ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (22): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=4 type=0 insize=7335 outsize=3598 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (22): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=4 type=1 insize=7335 outsize=1209 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: preprocess
+  error: 2 plat 16 at (12): Surface shader function 'surf' not found
+  insize=1449 outsize=418 ok=0
+Cmd: preprocess
+  insize=1444 outsize=1040 ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=7340 outsize=3281 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=7340 outsize=949 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=4143 outsize=2533 kw=POINT ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=4143 outsize=575 kw=POINT ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=3729 outsize=2103 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=3729 outsize=1266 kw= ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=7340 outsize=3598 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=7340 outsize=1209 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=7340 outsize=1895 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=7340 outsize=3839 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 VERTEXLIGHT_ON ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=7340 outsize=6 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4143 outsize=932 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4143 outsize=1146 kw=SPOT FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4143 outsize=1146 kw=POINT_COOKIE FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4143 outsize=6 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4143 outsize=6 kw=POINT FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4143 outsize=6 kw=DIRECTIONAL_COOKIE FOG_EXP2 ok=1
+Cmd: preprocess
+  insize=1484 outsize=1040 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (23): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=4 type=0 insize=7380 outsize=3281 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (23): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=4 type=1 insize=7380 outsize=989 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (23): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  api=4 type=0 insize=4183 outsize=2533 kw=POINT ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (23): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  api=4 type=1 insize=4183 outsize=575 kw=POINT ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (23): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  api=4 type=0 insize=3769 outsize=2103 kw= ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (23): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  api=4 type=1 insize=3769 outsize=1266 kw= ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (23): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=4 type=0 insize=7380 outsize=3598 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (23): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=4 type=1 insize=7380 outsize=1290 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=7380 outsize=1924 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=7380 outsize=2278 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=7380 outsize=6 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4183 outsize=932 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4183 outsize=1217 kw=POINT FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4183 outsize=1217 kw=DIRECTIONAL_COOKIE FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4183 outsize=6 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4183 outsize=6 kw=POINT FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4183 outsize=6 kw=DIRECTIONAL_COOKIE FOG_EXP2 ok=1
+Cmd: preprocess
+  insize=1464 outsize=1041 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=4 type=0 insize=7360 outsize=3281 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=4 type=1 insize=7360 outsize=2094 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  api=4 type=0 insize=4331 outsize=2753 kw=POINT ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  api=4 type=1 insize=4331 outsize=2712 kw=POINT ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  api=4 type=0 insize=3749 outsize=2103 kw= ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  api=4 type=1 insize=3749 outsize=1266 kw= ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=4 type=0 insize=7360 outsize=3598 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=4 type=1 insize=7360 outsize=2395 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=7360 outsize=9630 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=7360 outsize=10691 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=7360 outsize=6 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4331 outsize=9104 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4331 outsize=10543 kw=SPOT FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4331 outsize=10013 kw=DIRECTIONAL_COOKIE FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4331 outsize=6 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4331 outsize=6 kw=DIRECTIONAL_COOKIE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4331 outsize=6 kw=POINT_COOKIE FOG_EXP2 ok=1
+Cmd: preprocess
+  insize=1468 outsize=1041 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=4 type=0 insize=7364 outsize=3281 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=4 type=1 insize=7364 outsize=2094 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  api=4 type=0 insize=4335 outsize=2753 kw=POINT ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  api=4 type=1 insize=4335 outsize=2712 kw=POINT ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  api=4 type=0 insize=3753 outsize=2103 kw= ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  api=4 type=1 insize=3753 outsize=1266 kw= ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=4 type=0 insize=7364 outsize=3598 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=4 type=1 insize=7364 outsize=2395 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=7364 outsize=2851 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=7364 outsize=3205 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=7364 outsize=6 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4335 outsize=2447 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4335 outsize=2732 kw=POINT FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4335 outsize=2823 kw=POINT_COOKIE FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4335 outsize=6 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4335 outsize=6 kw=DIRECTIONAL_COOKIE ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4335 outsize=6 kw=POINT_COOKIE FOG_EXP2 ok=1
+Cmd: preprocess
+  insize=1651 outsize=1039 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (33): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (46): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (48): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=4 type=0 insize=7570 outsize=3419 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (33): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (46): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (48): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=4 type=1 insize=7570 outsize=2395 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (33): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (46): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  error: 1 plat 4 at (48): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT
+  api=4 type=0 insize=4541 outsize=2753 kw=POINT ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (33): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (46): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  error: 1 plat 4 at (48): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT
+  api=4 type=1 insize=4541 outsize=2964 kw=POINT ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (33): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (46): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  error: 1 plat 4 at (48): comma expression used where a vector constructor may have been intended\nCompiling Vertex program
+  api=4 type=0 insize=3959 outsize=2103 kw= ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (33): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (46): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  error: 1 plat 4 at (48): comma expression used where a vector constructor may have been intended\nCompiling Fragment program
+  api=4 type=1 insize=3959 outsize=1266 kw= ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (33): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (46): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (48): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=4 type=0 insize=7570 outsize=3573 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (33): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (46): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (48): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=4 type=1 insize=7570 outsize=2826 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=7570 outsize=3222 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=7570 outsize=3585 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=7570 outsize=6 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4541 outsize=2745 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4541 outsize=3038 kw=POINT FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4541 outsize=2923 kw=DIRECTIONAL_COOKIE FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4541 outsize=6 kw=POINT ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4541 outsize=6 kw=POINT FOG_EXP2 ok=1
+Cmd: compileSnippet
+  api=0 type=1 insize=4541 outsize=6 kw=DIRECTIONAL_COOKIE FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 1 at (33): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 1 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 1 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 1 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 1 at (46): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 1 at (48): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=1 type=0 insize=7570 outsize=769 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (33): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF VERTEXLIGHT_ON
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF VERTEXLIGHT_ON
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF VERTEXLIGHT_ON
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF VERTEXLIGHT_ON
+  error: 1 plat 4 at (46): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF VERTEXLIGHT_ON
+  error: 1 plat 4 at (48): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF VERTEXLIGHT_ON
+  api=4 type=0 insize=7570 outsize=5531 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF VERTEXLIGHT_ON ok=1
+Cmd: compileSnippet
+  error: 1 plat 1 at (33): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 VERTEXLIGHT_ON
+  error: 1 plat 1 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 VERTEXLIGHT_ON
+  error: 1 plat 1 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 VERTEXLIGHT_ON
+  error: 1 plat 1 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 VERTEXLIGHT_ON
+  error: 1 plat 1 at (46): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 VERTEXLIGHT_ON
+  error: 1 plat 1 at (48): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 VERTEXLIGHT_ON
+  api=1 type=0 insize=7570 outsize=1351 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 VERTEXLIGHT_ON ok=1
+Cmd: compileSnippet
+  error: 1 plat 1 at (33): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 1 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 1 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 1 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 1 at (46): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 1 at (48): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=1 type=1 insize=7570 outsize=831 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (33): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (46): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (48): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=4 type=1 insize=7570 outsize=3143 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 1 at (33): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL
+  error: 1 plat 1 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL
+  error: 1 plat 1 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL
+  error: 1 plat 1 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL
+  error: 1 plat 1 at (46): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL
+  error: 1 plat 1 at (48): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL
+  api=1 type=0 insize=4541 outsize=403 kw=DIRECTIONAL ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (33): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE
+  error: 1 plat 4 at (46): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE
+  error: 1 plat 4 at (48): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE
+  api=4 type=0 insize=4541 outsize=2753 kw=POINT_COOKIE ok=1
+Cmd: compileSnippet
+  error: 1 plat 1 at (33): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL FOG_EXP2
+  error: 1 plat 1 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL FOG_EXP2
+  error: 1 plat 1 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL FOG_EXP2
+  error: 1 plat 1 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL FOG_EXP2
+  error: 1 plat 1 at (46): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL FOG_EXP2
+  error: 1 plat 1 at (48): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL FOG_EXP2
+  api=1 type=0 insize=4541 outsize=452 kw=DIRECTIONAL FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 1 at (33): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE FOG_EXP2
+  error: 1 plat 1 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE FOG_EXP2
+  error: 1 plat 1 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE FOG_EXP2
+  error: 1 plat 1 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE FOG_EXP2
+  error: 1 plat 1 at (46): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE FOG_EXP2
+  error: 1 plat 1 at (48): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE FOG_EXP2
+  api=1 type=0 insize=4541 outsize=452 kw=POINT_COOKIE FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (33): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL_COOKIE FOG_EXP2
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL_COOKIE FOG_EXP2
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL_COOKIE FOG_EXP2
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL_COOKIE FOG_EXP2
+  error: 1 plat 4 at (46): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL_COOKIE FOG_EXP2
+  error: 1 plat 4 at (48): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL_COOKIE FOG_EXP2
+  api=4 type=0 insize=4541 outsize=2907 kw=DIRECTIONAL_COOKIE FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 1 at (33): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL
+  error: 1 plat 1 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL
+  error: 1 plat 1 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL
+  error: 1 plat 1 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL
+  error: 1 plat 1 at (46): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL
+  error: 1 plat 1 at (48): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL
+  api=1 type=1 insize=4541 outsize=690 kw=DIRECTIONAL ok=1
+Cmd: compileSnippet
+  error: 1 plat 1 at (33): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE
+  error: 1 plat 1 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE
+  error: 1 plat 1 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE
+  error: 1 plat 1 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE
+  error: 1 plat 1 at (46): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE
+  error: 1 plat 1 at (48): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE
+  api=1 type=1 insize=4541 outsize=939 kw=POINT_COOKIE ok=1
+Cmd: compileSnippet
+  error: 1 plat 1 at (33): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT FOG_EXP2
+  error: 1 plat 1 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT FOG_EXP2
+  error: 1 plat 1 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT FOG_EXP2
+  error: 1 plat 1 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT FOG_EXP2
+  error: 1 plat 1 at (46): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT FOG_EXP2
+  error: 1 plat 1 at (48): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT FOG_EXP2
+  api=1 type=1 insize=4541 outsize=1005 kw=POINT FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (33): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL FOG_EXP2
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL FOG_EXP2
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL FOG_EXP2
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL FOG_EXP2
+  error: 1 plat 4 at (46): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL FOG_EXP2
+  error: 1 plat 4 at (48): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL FOG_EXP2
+  api=4 type=1 insize=4541 outsize=2517 kw=DIRECTIONAL FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (33): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE FOG_EXP2
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE FOG_EXP2
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE FOG_EXP2
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE FOG_EXP2
+  error: 1 plat 4 at (46): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE FOG_EXP2
+  error: 1 plat 4 at (48): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE FOG_EXP2
+  api=4 type=1 insize=4541 outsize=3427 kw=POINT_COOKIE FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=4 type=0 insize=7364 outsize=3671 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  error: 1 plat 8 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF VERTEXLIGHT_ON
+  error: 1 plat 8 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF VERTEXLIGHT_ON
+  error: 1 plat 8 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF VERTEXLIGHT_ON
+  error: 1 plat 8 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF VERTEXLIGHT_ON
+  api=8 type=0 insize=7364 outsize=7467 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF VERTEXLIGHT_ON ok=1
+Cmd: compileSnippet
+  error: 1 plat 1 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 1 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 1 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 1 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=1 type=0 insize=7364 outsize=598 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=4 type=0 insize=7364 outsize=3947 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 1 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 VERTEXLIGHT_ON
+  error: 1 plat 1 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 VERTEXLIGHT_ON
+  error: 1 plat 1 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 VERTEXLIGHT_ON
+  error: 1 plat 1 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 VERTEXLIGHT_ON
+  api=1 type=0 insize=7364 outsize=1259 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 VERTEXLIGHT_ON ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF
+  api=4 type=1 insize=7364 outsize=2411 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
+Cmd: compileSnippet
+  error: 1 plat 8 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 8 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 8 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  error: 1 plat 8 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2
+  api=8 type=1 insize=7364 outsize=3608 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL
+  api=4 type=0 insize=4335 outsize=2753 kw=DIRECTIONAL ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with SPOT
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with SPOT
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with SPOT
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with SPOT
+  api=4 type=0 insize=4335 outsize=2753 kw=SPOT ok=1
+Cmd: compileSnippet
+  error: 1 plat 8 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE
+  error: 1 plat 8 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE
+  error: 1 plat 8 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE
+  error: 1 plat 8 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE
+  api=8 type=0 insize=4335 outsize=3892 kw=POINT_COOKIE ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT FOG_EXP2
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT FOG_EXP2
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT FOG_EXP2
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT FOG_EXP2
+  api=4 type=0 insize=4335 outsize=3069 kw=POINT FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 8 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL FOG_EXP2
+  error: 1 plat 8 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL FOG_EXP2
+  error: 1 plat 8 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL FOG_EXP2
+  error: 1 plat 8 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with DIRECTIONAL FOG_EXP2
+  api=8 type=0 insize=4335 outsize=4323 kw=DIRECTIONAL FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 8 at (34): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE FOG_EXP2
+  error: 1 plat 8 at (40): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE FOG_EXP2
+  error: 1 plat 8 at (42): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE FOG_EXP2
+  error: 1 plat 8 at (44): comma expression used where a vector constructor may have been intended\nCompiling Vertex program with POINT_COOKIE FOG_EXP2
+  api=8 type=0 insize=4335 outsize=4323 kw=POINT_COOKIE FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL
+  api=4 type=1 insize=4335 outsize=1932 kw=DIRECTIONAL ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with SPOT
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with SPOT
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with SPOT
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with SPOT
+  api=4 type=1 insize=4335 outsize=3151 kw=SPOT ok=1
+Cmd: compileSnippet
+  error: 1 plat 8 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE
+  error: 1 plat 8 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE
+  error: 1 plat 8 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE
+  error: 1 plat 8 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE
+  api=8 type=1 insize=4335 outsize=4347 kw=POINT_COOKIE ok=1
+Cmd: compileSnippet
+  error: 1 plat 1 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT FOG_EXP2
+  error: 1 plat 1 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT FOG_EXP2
+  error: 1 plat 1 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT FOG_EXP2
+  error: 1 plat 1 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT FOG_EXP2
+  api=1 type=1 insize=4335 outsize=851 kw=POINT FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 1 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL FOG_EXP2
+  error: 1 plat 1 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL FOG_EXP2
+  error: 1 plat 1 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL FOG_EXP2
+  error: 1 plat 1 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with DIRECTIONAL FOG_EXP2
+  api=1 type=1 insize=4335 outsize=616 kw=DIRECTIONAL FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 4 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with SPOT FOG_EXP2
+  error: 1 plat 4 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with SPOT FOG_EXP2
+  error: 1 plat 4 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with SPOT FOG_EXP2
+  error: 1 plat 4 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with SPOT FOG_EXP2
+  api=4 type=1 insize=4335 outsize=3321 kw=SPOT FOG_EXP2 ok=1
+Cmd: compileSnippet
+  error: 1 plat 8 at (34): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE FOG_EXP2
+  error: 1 plat 8 at (40): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE FOG_EXP2
+  error: 1 plat 8 at (42): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE FOG_EXP2
+  error: 1 plat 8 at (44): comma expression used where a vector constructor may have been intended\nCompiling Fragment program with POINT_COOKIE FOG_EXP2
+  api=8 type=1 insize=4335 outsize=4574 kw=POINT_COOKIE FOG_EXP2 ok=1
