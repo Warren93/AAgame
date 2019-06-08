@@ -22,18 +22,19 @@ public class QuadropedHalfController : MonoBehaviour {
         Transform leftTarget = null;
         Transform rightTarget = null;
         if (animator == bossMovementController.FrontAnimator) {
-            leftTarget = bossMovementController.frontLeftIKTarget;
-            rightTarget = bossMovementController.frontRightIKTarget;
+            leftTarget = bossMovementController.FrontLeftIKTarget;
+            rightTarget = bossMovementController.FrontRightIKTarget;
         }
-        else if (animator == bossMovementController.BackAnimator) {
-            leftTarget = bossMovementController.backLeftIKTarget;
-            rightTarget = bossMovementController.backRightIKTarget;
+        else if (animator == bossMovementController.BackAnimator) { // back half faces backwards
+            rightTarget = bossMovementController.BackLeftIKTarget;
+            leftTarget = bossMovementController.BackRightIKTarget;
         }
         animator.SetIKPosition(AvatarIKGoal.LeftFoot, leftTarget.position);
-        animator.SetIKRotation(AvatarIKGoal.LeftFoot, rightTarget.rotation);
+        animator.SetIKRotation(AvatarIKGoal.LeftFoot, leftTarget.rotation);
         animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1);
         animator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, 1);
-        animator.SetIKPosition(AvatarIKGoal.RightFoot, leftTarget.position);
+
+        animator.SetIKPosition(AvatarIKGoal.RightFoot, rightTarget.position);
         animator.SetIKRotation(AvatarIKGoal.RightFoot, rightTarget.rotation);
         animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1);
         animator.SetIKRotationWeight(AvatarIKGoal.RightFoot, 1);
