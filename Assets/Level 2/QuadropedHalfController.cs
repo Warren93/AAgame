@@ -6,10 +6,12 @@ public class QuadropedHalfController : MonoBehaviour {
 
     public Level2BossMovementController bossMovementController;
     Animator animator;
+    Vector3 originalLocalPos;
 
 	// Use this for initialization
 	void Start () {
-        animator = GetComponent<Animator>();	
+        animator = GetComponent<Animator>();
+        originalLocalPos = transform.localPosition;
 	}
 	
 	//// Update is called once per frame
@@ -19,6 +21,9 @@ public class QuadropedHalfController : MonoBehaviour {
 
     private void OnAnimatorIK()
     {
+        //if (GameManagerScript.gamePaused)
+        //    return;
+
         Transform leftTarget = null;
         Transform rightTarget = null;
         if (animator == bossMovementController.FrontAnimator) {
@@ -38,5 +43,7 @@ public class QuadropedHalfController : MonoBehaviour {
         animator.SetIKRotation(AvatarIKGoal.RightFoot, rightTarget.rotation);
         animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1);
         animator.SetIKRotationWeight(AvatarIKGoal.RightFoot, 1);
+
+        //transform.localPosition = originalLocalPos;
     }
 }
