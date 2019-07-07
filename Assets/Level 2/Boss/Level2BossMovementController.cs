@@ -84,18 +84,34 @@ public class Level2BossMovementController : MonoBehaviour {
             return;
 
         //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(currentDestination - transform.position, Vector3.up), Time.deltaTime * 0.2f);
-        Vector3 avg1 = Vector3.Lerp(FrontLeftFoot.position, FrontRightFoot.position, 0.5f);
-        Vector3 avg2 = Vector3.Lerp(BackLeftFoot.position, BackRightFoot.position, 0.5f);
-        Vector3 rotFwd1 = avg1 - transform.position;
-        Vector3 rotFwd2 = avg2 - transform.position;
+
+        // the calculation of newRot is probably going to have to be reworked...or at least test some more...
+        Vector3 front = Vector3.Lerp(FrontLeftFoot.position, FrontRightFoot.position, 0.5f);
+        Vector3 back = Vector3.Lerp(BackLeftFoot.position, BackRightFoot.position, 0.5f);
+        Vector3 left = Vector3.Lerp(FrontLeftFoot.position, BackRightFoot.position, 0.5f);
+        Vector3 right = Vector3.Lerp(FrontRightFoot.position, BackLeftFoot.position, 0.5f);
         Vector3 currentRotFwd = Vector3.zero;
-        if (transform.InverseTransformPoint(currentDestination).z >= 0)
-            currentRotFwd = rotFwd1 - rotFwd2;
-        else
-            currentRotFwd = rotFwd1 - rotFwd2;
+        Vector3 destinationLocalPos = transform.InverseTransformPoint(currentDestination);
+        float absX = Mathf.Abs(destinationLocalPos.x);
+        float absZ = Mathf.Abs(destinationLocalPos.z);
+        float maxCoord = Mathf.Max(absX, absZ);
+        if (maxCoord == absX) {
+            if (destinationLocalPos.x >= 0)
+                currentRotFwd = Quaternion.AngleAxis(-90, Vector3.up) * (right - transform.position);
+            else
+                currentRotFwd = Quaternion.AngleAxis(90, Vector3.up) * (left - transform.position);
+        }
+        else if (maxCoord == absZ) {
+            if (destinationLocalPos.z >= 0)
+                currentRotFwd = front - transform.position;
+            else
+                currentRotFwd = transform.position - back;
+        }
         currentRotFwd.y = 0;
         Debug.DrawRay(transform.position, currentRotFwd, Color.red, 1.0f);
         var newRot = Quaternion.LookRotation(currentRotFwd, Vector3.up);
+
+
 
         Vector3[] originalFootPositions = new Vector3[4];
         for (int i = 0; i < 4; i++) originalFootPositions[i] = transform.InverseTransformPoint(feet[i].position);
