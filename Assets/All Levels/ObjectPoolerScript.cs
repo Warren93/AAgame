@@ -12,7 +12,11 @@ public class ObjectPoolerScript : MonoBehaviour {
 	public GameObject enemyBulletPrefab;
 	public int initialEnemyBulletPoolSize = 200;
 
-	public List<GameObject> pooledEnemyFlakBullets;
+    public List<GameObject> pooledEnemyBubbleBullets;
+    public GameObject enemyBubbleBulletPrefab;
+    public int initialEnemyBubbleBulletPoolSize = 200;
+
+    public List<GameObject> pooledEnemyFlakBullets;
 	public GameObject enemyFlakBulletPrefab;
 	public int initialEnemyFlakBulletPoolSize = 200;
 
@@ -54,8 +58,8 @@ public class ObjectPoolerScript : MonoBehaviour {
 			newBullet.SetActive(false);
 			pooledEnemyBullets.Add(newBullet);
 		}
-		// create the initial enemy flak bullets
-		pooledEnemyFlakBullets = new List<GameObject> ();
+        // create the initial enemy flak bullets
+        pooledEnemyFlakBullets = new List<GameObject> ();
 		for (int i = 0; i < initialEnemyFlakBulletPoolSize; i++) {
 			GameObject newBullet = (GameObject)Instantiate(enemyFlakBulletPrefab);
 			newBullet.SetActive(false);
@@ -93,7 +97,14 @@ public class ObjectPoolerScript : MonoBehaviour {
 				newMissile.SetActive (false);
 				pooledMissiles.Add (newMissile);
 			}
-		}
+            pooledEnemyBubbleBullets = new List<GameObject>();
+            for (int i = 0; i < initialEnemyBubbleBulletPoolSize; i++)
+            {
+                GameObject newBubbleBullet = (GameObject)Instantiate(enemyBubbleBulletPrefab);
+                newBubbleBullet.SetActive(false);
+                pooledEnemyBullets.Add(newBubbleBullet);
+            }
+        }
 	}
 
 	public GameObject getEnemyBullet() {
@@ -148,7 +159,19 @@ public class ObjectPoolerScript : MonoBehaviour {
 		return newMissile;
 	}
 
-	public GameObject getHitEffect() {
+    public GameObject getEnemyBubbleBullet()
+    {
+        GameManagerScript.numActiveBullets++;
+        for (int i = 0; i < pooledEnemyBubbleBullets.Count; i++)
+            if (!pooledEnemyBubbleBullets[i].activeInHierarchy)
+                return pooledEnemyBubbleBullets[i];
+        GameObject newBubbleBullet = (GameObject)Instantiate(enemyBubbleBulletPrefab);
+        newBubbleBullet.SetActive(false);
+        pooledEnemyBullets.Add(newBubbleBullet);
+        return newBubbleBullet;
+    }
+
+    public GameObject getHitEffect() {
 		for (int i = 0; i < pooledHitEffects.Count; i++) {
 			if (!pooledHitEffects[i].gameObject.activeInHierarchy) {
 				pooledHitEffects[i].initiateSelfDestruct();

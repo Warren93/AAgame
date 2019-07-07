@@ -25,8 +25,12 @@ public class Level2BossMovementController : MonoBehaviour {
     Vector3[] footDestinations = new Vector3[4];
     Quaternion[] footTargetRotations = new Quaternion[4];
 
+    float originalHeightAboveGround;
+
     private void Start()
     {
+
+        originalHeightAboveGround = transform.position.y;
 
         feet[0] = FrontLeftFoot;
         feet[2] = FrontRightFoot;
@@ -85,7 +89,7 @@ public class Level2BossMovementController : MonoBehaviour {
 
         //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(currentDestination - transform.position, Vector3.up), Time.deltaTime * 0.2f);
 
-        // the calculation of newRot is probably going to have to be reworked...or at least test some more...
+        // the calculation of newRot is probably going to have to be reworked...or at least tested some more...
         Vector3 front = Vector3.Lerp(FrontLeftFoot.position, FrontRightFoot.position, 0.5f);
         Vector3 back = Vector3.Lerp(BackLeftFoot.position, BackRightFoot.position, 0.5f);
         Vector3 left = Vector3.Lerp(FrontLeftFoot.position, BackRightFoot.position, 0.5f);
@@ -122,9 +126,20 @@ public class Level2BossMovementController : MonoBehaviour {
         Vector3 avgFootPos = Vector3.zero;
         for (int i = 0; i < feet.Length; i++) avgFootPos += feet[i].position;
         avgFootPos /= feet.Length;
-        avgFootPos.y = y;
-        transform.position = avgFootPos;
+        avgFootPos.y += originalHeightAboveGround;
+        transform.position = Vector3.MoveTowards(transform.position, avgFootPos, 80 * Time.deltaTime);
         ikTargets[footIndex].position = Vector3.MoveTowards(ikTargets[footIndex].position, footDestinations[footIndex], strideSpeed * Time.deltaTime);
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ikTargets[footIndex].position + Vector3.up * 100000, Vector3.down, out hitInfo, Mathf.Infinity, (1 << LayerMask.NameToLayer("Ground")) | (1 << LayerMask.NameToLayer("Obstacle"))))
+        {
+            ikTargets[footIndex].position = hitInfo.point;
+            ikTargets[footIndex].rotation = Quaternion.LookRotation(ikTargets[footIndex].forward, hitInfo.normal);
+            //if (hitInfo.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle")) {
+            //    Vector3 hitOffsetFlat = transform.position + (transform.position - hitInfo.point);
+            //    hitOffsetFlat.y = 0;
+            //    transform.position += Vector3.MoveTowards(transform.position, hitOffsetFlat, 20 * Time.deltaTime);
+            //}
+        }
         ikTargets[footIndex].rotation = Quaternion.Slerp(ikTargets[footIndex].rotation, footTargetRotations[footIndex], Time.deltaTime);
 
         if ( Vector3.Distance(transform.position, currentDestination) < 20)
@@ -139,6 +154,12 @@ public class Level2BossMovementController : MonoBehaviour {
             );
 
         return newDest;
+    }
+
+    float getFlatDist(Vector3 a, Vector3 b) {
+        Vector2 a2d = new Vector2(a.x, a.z);
+        Vector2 b2d = new Vector2(b.x, b.z);
+        return Vector2.Distance(a2d, b2d);
     }
 
 }
