@@ -14,6 +14,7 @@ public class TurrentController : MonoBehaviour {
     public BasicGunInfo MainGun;
     public int RearGunsRowLength;
     public Transform RearGunsArray;
+    public bool AttacksEnabled;
     List<Transform> rearGuns = new List<Transform>();
 
     float turretTurnRate = 5;
@@ -40,7 +41,8 @@ public class TurrentController : MonoBehaviour {
         attacks = new Func<IEnumerator>[1] {
             attack1
         };
-        pickNewAttack();
+        if (AttacksEnabled)
+            pickNewAttack();
     }
 	
 	// Update is called once per frame
@@ -83,7 +85,7 @@ public class TurrentController : MonoBehaviour {
                 bulletInfo.transform.rotation = Quaternion.LookRotation(MainGun.PivotPoint.forward + new Vector3(Random.Range(-spread, spread), Random.Range(-spread, spread), Random.Range(-spread, spread)));
                 bulletInfo.delayedReactivateTrail();
                 bulletInfo.gameObject.SetActive(true);
-                Debug.Log("SHOOTING BUBBLE BULLET");
+                //Debug.Log("SHOOTING BUBBLE BULLET");
             }
             yield return new WaitForSeconds(0.3f);
         }

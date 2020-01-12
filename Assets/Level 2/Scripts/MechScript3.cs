@@ -230,7 +230,7 @@ public class MechScript3 : MonoBehaviour
         else if (state == LANDING)
         {
             //landingPoint = nearestGroundRef.GetComponent<Collider>().ClosestPointOnBounds(chest.position);
-            landingPoint = closestPointOnTransformedBounds(nearestGroundRef.transform, chest.position);
+            landingPoint = Util.closestPointOnTransformedBounds(nearestGroundRef.transform, chest.position);
             Vector3 toObjCenter = nearestGroundRef.transform.position - landingPoint;
             toObjCenter.y = 0;
             toObjCenter *= 0.2f;
@@ -770,7 +770,7 @@ public class MechScript3 : MonoBehaviour
 
 				// get distance to closest point of this obstacle's collider
 				//Vector3 closestPointOnObs = col.ClosestPointOnBounds(chest.transform.position);
-				Vector3 closestPointOnObs = closestPointOnTransformedBounds (col.transform, chest.position);
+				Vector3 closestPointOnObs = Util.closestPointOnTransformedBounds (col.transform, chest.position);
 				float distToObs = Vector3.Distance (chest.position, closestPointOnObs);
 				// prevent later division by zero (and very small distances)
 				if (Mathf.Abs (distToObs) < 0.2f)
@@ -888,19 +888,6 @@ public class MechScript3 : MonoBehaviour
             return -1;
         else
             return 0;
-    }
-
-    Vector3 closestPointOnTransformedBounds(Transform trans, Vector3 point)
-    {
-        // get point in transform's coord frame
-        Vector3 pointInLocal = trans.InverseTransformPoint(point);
-        // clamp point to be within box defined by transform
-        pointInLocal.x = Mathf.Clamp(pointInLocal.x, -0.5f, 0.5f);
-        pointInLocal.y = Mathf.Clamp(pointInLocal.y, -0.5f, 0.5f);
-        pointInLocal.z = Mathf.Clamp(pointInLocal.z, -0.5f, 0.5f);
-        // return result
-        Vector3 retval = trans.TransformPoint(pointInLocal);
-        return retval;
     }
 
     void goBackToAirWander() {

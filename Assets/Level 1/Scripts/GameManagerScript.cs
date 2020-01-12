@@ -23,6 +23,7 @@ public class GameManagerScript : MonoBehaviour {
 
 	public bool enemiesEnabled;
 	public bool flakTowersEnabled;
+	public bool mechsEnabled;
 
 	public Color backgroundColor;
 	Color[]  backgroundCols = {Color.red, Color.yellow, Color.blue, Color.green, Color.magenta};
@@ -148,7 +149,15 @@ public class GameManagerScript : MonoBehaviour {
 				playerBullet.GetComponent<PlayerBulletScript> ().lookAheadMultiplier = 1.0f; // this should probably be 1 by default, but I'm  keeping it as is (0.5) for now out of superstition
 			}
 			Debug.Log("LEVEL 2");
-			spawnMechs(10);
+			if (mechsEnabled)
+			{
+				spawnMechs(10);
+			}
+			else
+			{
+				foreach (var m in FindObjectsOfType<MechScript3>())
+					m.gameObject.SetActive(false);
+			}
 		}
 
 		if (firstLoad)

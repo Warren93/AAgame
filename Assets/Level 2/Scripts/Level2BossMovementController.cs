@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 
 public class Level2BossMovementController : MonoBehaviour {
 
@@ -14,12 +15,19 @@ public class Level2BossMovementController : MonoBehaviour {
 
     public Transform FrontLeftIKTarget, FrontRightIKTarget, BackLeftIKTarget, BackRightIKTarget;
     Transform[] ikTargets = new Transform[4];
+    Vector3 currentFootStartPosition;
 
     Transform ground;
 
-    Vector3 currentDestination;
+    BossWaypoint currentWpt;
+    BossWaypoint prevWpt = null;
     float strideLength = 200;
-    float strideSpeed = 67;
+    float strideSpeed = 75; // was 67
+    float maxStepPositionHeight = 400;
+    float footPlacementOffset = 135;
+    float maxFootRaiseAmount = 200;
+    float maxFootPlacementError = 20;
+    float waypointRadius = 50;
 
     int footIndex = -1;
     Vector3[] footDestinations = new Vector3[4];
@@ -45,16 +53,20 @@ public class Level2BossMovementController : MonoBehaviour {
         foreach (var tgt in ikTargets) tgt.parent = null;
 
         ground = GameObject.FindGameObjectWithTag("Ground").transform;
-        currentDestination = new Vector3(-2000, 0, -2000);//getNewDestination();
+        //currentDestination = new Vector3(-2000, 0, -2000);//getNewDestination();
+
+        var wpts = GameObject.FindObjectsOfType<BossWaypoint>();
+        var closestWpt = Util.getClosest(transform.position, wpts);
+        currentWpt = closestWpt;
 
         step();
-        InvokeRepeating("step", 3, 3);
+        //InvokeRepeating("step", 3, 3);
     }
 
     void step() {
 
         Quaternion originalRot = transform.rotation;
-        transform.rotation = Quaternion.LookRotation(currentDestination - transform.position, Vector3.up);
+        transform.rotation = Quaternion.LookRotation(currentWpt.transform.position - transform.position, Vector3.up);
 
         footIndex++;
         if (footIndex > 3)
@@ -68,12 +80,27 @@ public class Level2BossMovementController : MonoBehaviour {
             footTargetRotations[i] = Quaternion.LookRotation(footFwd, Vector3.up);
         }
 
+        // set new foot step position for the current foot
         Vector3 offsetToFoot = ikTargets[footIndex].position - transform.position;
-        footDestinations[footIndex] = Vector3.MoveTowards(transform.position + offsetToFoot, currentDestination + offsetToFoot, strideLength);
+        var relativeFootPosCurrent = transform.position + offsetToFoot;
+        var relativeFootPosDestination = currentWpt.transform.position + offsetToFoot;
+        currentFootStartPosition = relativeFootPosCurrent;
+        footDestinations[footIndex] = Vector3.MoveTowards(relativeFootPosCurrent, relativeFootPosDestination, strideLength);
+
+
         RaycastHit hitInfo;
         if (Physics.Raycast(footDestinations[footIndex] + Vector3.up * 100000, Vector3.down, out hitInfo, Mathf.Infinity, (1 << LayerMask.NameToLayer("Ground")) | (1 << LayerMask.NameToLayer("Obstacle")))) {
-            footDestinations[footIndex] = hitInfo.point;
-            footTargetRotations[footIndex] = Quaternion.LookRotation(footFwd, hitInfo.normal);
+            var pt = hitInfo.point;
+            var normal = hitInfo.normal;
+            if (pt.y > maxStepPositionHeight && Physics.Raycast(new Vector3(transform.position.x, maxStepPositionHeight, transform.position.z), transform.position - pt, out hitInfo, Mathf.Infinity, (1 << LayerMask.NameToLayer("Ground")) | (1 << LayerMask.NameToLayer("Obstacle"))))
+            {
+                pt = hitInfo.point;
+                pt.y = 0;
+                normal = hitInfo.normal;
+                //Debug.LogWarning("STEP POSITION TOO HIGH, GOING TO " + pt);
+            }
+            footDestinations[footIndex] = pt;
+            footTargetRotations[footIndex] = Quaternion.LookRotation(footFwd, normal);
         }
         else {
             Debug.Log("Raycast failed");
@@ -95,7 +122,7 @@ public class Level2BossMovementController : MonoBehaviour {
         Vector3 left = Vector3.Lerp(FrontLeftFoot.position, BackRightFoot.position, 0.5f);
         Vector3 right = Vector3.Lerp(FrontRightFoot.position, BackLeftFoot.position, 0.5f);
         Vector3 currentRotFwd = Vector3.zero;
-        Vector3 destinationLocalPos = transform.InverseTransformPoint(currentDestination);
+        Vector3 destinationLocalPos = transform.InverseTransformPoint(currentWpt.transform.position);
         float absX = Mathf.Abs(destinationLocalPos.x);
         float absZ = Mathf.Abs(destinationLocalPos.z);
         float maxCoord = Mathf.Max(absX, absZ);
@@ -113,7 +140,7 @@ public class Level2BossMovementController : MonoBehaviour {
         }
         currentRotFwd.y = 0;
         Debug.DrawRay(transform.position, currentRotFwd, Color.red, 1.0f);
-        var newRot = Quaternion.LookRotation(currentRotFwd, Vector3.up);
+        var newRot = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(currentRotFwd, Vector3.up), Time.deltaTime);
 
 
 
@@ -128,38 +155,46 @@ public class Level2BossMovementController : MonoBehaviour {
         avgFootPos /= feet.Length;
         avgFootPos.y += originalHeightAboveGround;
         transform.position = Vector3.MoveTowards(transform.position, avgFootPos, 80 * Time.deltaTime);
-        ikTargets[footIndex].position = Vector3.MoveTowards(ikTargets[footIndex].position, footDestinations[footIndex], strideSpeed * Time.deltaTime);
+
+        // figure out how much the foot should be raised
+        float normalizedCurrentStrideDistance = Util.getFlatDist(ikTargets[footIndex].position, footDestinations[footIndex]) / Util.getFlatDist(currentFootStartPosition, footDestinations[footIndex]);
+        var footRaiseAmount = Mathf.Sin(normalizedCurrentStrideDistance * Mathf.PI) * maxFootRaiseAmount;
+
+
+        // move foot
+        ikTargets[footIndex].position = Vector3.MoveTowards(ikTargets[footIndex].position, footDestinations[footIndex] + Vector3.up * footRaiseAmount, strideSpeed * Time.deltaTime);
+        
         RaycastHit hitInfo;
-        if (Physics.Raycast(ikTargets[footIndex].position + Vector3.up * 100000, Vector3.down, out hitInfo, Mathf.Infinity, (1 << LayerMask.NameToLayer("Ground")) | (1 << LayerMask.NameToLayer("Obstacle"))))
+        if (Physics.Raycast(ikTargets[footIndex].position, ikTargets[footIndex].up * -1, out hitInfo, 10, (1 << LayerMask.NameToLayer("Ground")) | (1 << LayerMask.NameToLayer("Obstacle"))))
         {
-            ikTargets[footIndex].position = hitInfo.point;
-            ikTargets[footIndex].rotation = Quaternion.LookRotation(ikTargets[footIndex].forward, hitInfo.normal);
-            //if (hitInfo.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle")) {
-            //    Vector3 hitOffsetFlat = transform.position + (transform.position - hitInfo.point);
-            //    hitOffsetFlat.y = 0;
-            //    transform.position += Vector3.MoveTowards(transform.position, hitOffsetFlat, 20 * Time.deltaTime);
-            //}
+            var normal = hitInfo.normal;
+            ikTargets[footIndex].position += normal * footPlacementOffset;
+            ikTargets[footIndex].rotation = Quaternion.Slerp(ikTargets[footIndex].rotation, Quaternion.LookRotation(ikTargets[footIndex].forward, normal), Time.deltaTime);
         }
         ikTargets[footIndex].rotation = Quaternion.Slerp(ikTargets[footIndex].rotation, footTargetRotations[footIndex], Time.deltaTime);
 
-        if ( Vector3.Distance(transform.position, currentDestination) < 20)
-            currentDestination = getNewDestination();
+        // start next step
+        if (Util.getFlatDist(ikTargets[footIndex].position, footDestinations[footIndex]) <= maxFootPlacementError) 
+        {
+            Debug.Log("Boss completed step");
+            step();
+        }
+
+        if (Util.getFlatDist(transform.position, currentWpt.transform.position) < waypointRadius)
+        {
+            var tmpWpt = currentWpt;
+            currentWpt = currentWpt.GetNextWaypoint(prevWpt);
+            prevWpt = tmpWpt;
+            Debug.Log("Boss reached waypoint!");
+        }
     }
 
-    Vector3 getNewDestination() {
-        Vector3 newDest = new Vector3(
-                Random.Range(-ground.localScale.x / 2, ground.localScale.x / 2),
-                transform.position.y,
-                Random.Range(-ground.localScale.z / 2, ground.localScale.z / 2)
-            );
+    
 
-        return newDest;
-    }
-
-    float getFlatDist(Vector3 a, Vector3 b) {
-        Vector2 a2d = new Vector2(a.x, a.z);
-        Vector2 b2d = new Vector2(b.x, b.z);
-        return Vector2.Distance(a2d, b2d);
+    void OnDrawGizmos()
+    {
+        if (EditorApplication.isPlaying && currentWpt != null)
+            Gizmos.DrawSphere(currentWpt.transform.position, 100);
     }
 
 }
